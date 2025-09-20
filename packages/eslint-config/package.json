@@ -1,0 +1,76 @@
+{
+  "name": "@kasoa/eslint-config",
+  "version": "0.0.1",
+  "type": "module",
+  "license": "MIT",
+  "description": "Kasoa's ESLint config",
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "kasoa"
+  ],
+  "author": {
+    "name": "Emmanuel Chucks",
+    "email": "hi@emmanuelchucks.com",
+    "url": "https://emmanuelchucks.com"
+  },
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/eslint-config",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelchucks/kasoa.git",
+    "directory": "packages/eslint-config"
+  },
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "exports": {
+    "./base": "./dist/base/index.js",
+    "./node": "./dist/node/index.js",
+    "./react": "./dist/react/index.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "check:all": "pnpm '/build|typecheck/'",
+    "test": "echo 'No tests'"
+  },
+  "dependencies": {
+    "@eslint-react/eslint-plugin": "^1.53.1",
+    "@eslint/js": "latest",
+    "@vitest/eslint-plugin": "^1.3.12",
+    "eslint": "^9.35.0",
+    "eslint-config-flat-gitignore": "^2.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import-lite": "^0.3.0",
+    "eslint-plugin-jsx-a11y-x": "^0.1.1",
+    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-perfectionist": "^4.15.0",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-unicorn-x": "^3.2.1",
+    "eslint-plugin-unused-imports": "^4.2.0",
+    "globals": "^16.4.0",
+    "typescript-eslint": "^8.44.0"
+  },
+  "devDependencies": {
+    "@kasoa/tsconfig": "workspace:*",
+    "@types/node": "^24.5.2",
+    "jiti": "^2.5.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "eslint": "^9.35.0"
+  },
+  "engines": {
+    "node": ">=22.16.0"
+  }
+}
