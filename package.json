@@ -9,6 +9,7 @@
     "typecheck": "turbo run typecheck",
     "check:all": "turbo run check:all",
     "test": "turbo run test",
+    "clean": "turbo clean && git clean -xdf .turbo node_modules pnpm-lock.yaml",
     "ci": "pnpm build && pnpm check:all && pnpm test"
   },
   "devDependencies": {
