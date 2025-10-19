@@ -5,6 +5,7 @@ import { jsxA11yXConfig } from "./jsx-a11y-x.js";
 import { reactCompilerConfig } from "./react-compiler.js";
 import { reactHooksConfig } from "./react-hooks.js";
 import { reactRefreshConfig } from "./react-refresh.js";
+import { reactYouMightNotNeedAnEffectConfig } from "./react-you-might-not-need-an-effect.js";
 
 export const react = defineConfig(
   base,
@@ -13,4 +14,5 @@ export const react = defineConfig(
   reactHooksConfig,
   reactRefreshConfig,
   reactCompilerConfig,
+  reactYouMightNotNeedAnEffectConfig,
 );
