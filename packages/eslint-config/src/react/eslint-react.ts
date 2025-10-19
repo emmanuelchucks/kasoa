@@ -3,4 +3,9 @@ import { defineConfig } from "eslint/config";
 
 export const eslintReactConfig = defineConfig(
   eslintReact.configs["recommended-type-checked"],
+  {
+    rules: {
+      "@eslint-react/prefer-namespace-import": "error",
+    },
+  },
 );
