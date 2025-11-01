@@ -1,0 +1,63 @@
+{
+  "name": "@kasoa/prettier-config",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Kasoa's Prettier configurations",
+  "keywords": [
+    "prettier",
+    "kasoa"
+  ],
+  "author": {
+    "name": "Emmanuel Chucks",
+    "email": "hi@emmanuelchucks.com",
+    "url": "https://emmanuelchucks.com"
+  },
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/prettier-config",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelchucks/kasoa.git",
+    "directory": "packages/prettier-config"
+  },
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "exports": {
+    "./base": "./dist/base.js",
+    "./react": "./dist/react.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsgo --watch",
+    "build": "tsgo",
+    "lint": "eslint --fix --cache .",
+    "format": "prettier --write --cache .",
+    "typecheck": "tsgo --noEmit",
+    "test": "echo 'No tests'",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@prettier/plugin-oxc": "^0.0.4",
+    "eslint": "^9.38.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1"
+  },
+  "devDependencies": {
+    "@kasoa/eslint-config": "workspace:*",
+    "@kasoa/tsconfig": "workspace:*",
+    "@types/node": "^24.9.2",
+    "@typescript/native-preview": "^7.0.0-dev.20251030.1"
+  },
+  "peerDependencies": {
+    "prettier": "^3.6.2"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
