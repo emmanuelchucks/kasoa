@@ -7,20 +7,22 @@
     "lint": "turbo run lint",
     "format": "turbo run format",
     "typecheck": "turbo run typecheck",
-    "check:all": "turbo run check:all",
     "test": "turbo run test",
+    "clean": "git clean -xdf",
+    "check:all": "turbo lint format typecheck",
     "ci": "pnpm build && pnpm check:all && pnpm test",
-    "release": "changeset version && changeset publish",
-    "clean": "git clean -xdf"
+    "release": "changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
-    "prettier": "^3.6.2",
-    "turbo": "^2.5.8",
-    "typescript": "^5.9.3"
+    "@typescript/native-preview": "^7.0.0-dev.20251030.1",
+    "turbo": "^2.5.8"
   },
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.20.0",
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
+  },
+  "resolutions": {
+    "@eslint/core": "0.17.0"
   }
 }
