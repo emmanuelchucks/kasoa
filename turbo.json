@@ -7,20 +7,15 @@
       "outputs": ["dist"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "outputs": [".eslintcache"]
     },
     "format": {
-      "dependsOn": ["^format"]
+      "outputs": ["node_modules/.cache/prettier/**"]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
-    "check:all": {
-      "dependsOn": ["^check:all"]
-    },
-    "test": {
-      "dependsOn": ["^test"]
-    },
+    "test": {},
     "dev": {
       "cache": false,
       "persistent": true
