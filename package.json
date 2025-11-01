@@ -11,7 +11,7 @@
     "clean": "git clean -xdf",
     "check:all": "turbo lint format typecheck",
     "ci": "pnpm build && pnpm check:all && pnpm test",
-    "release": "changeset version && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
