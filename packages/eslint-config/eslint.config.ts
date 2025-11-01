@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { defineConfig } from "eslint/config";
 import { node } from "./src/node/index.js";
 

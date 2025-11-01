@@ -10,7 +10,7 @@ Install ESLint and the config:
 pnpm add -D @kasoa/eslint-config eslint
 ```
 
-**Note**: Requires Node.js >=22 and a TypeScript setup.
+**Note**: Requires Node.js >=24 and a TypeScript setup.
 
 ## Usage
 
