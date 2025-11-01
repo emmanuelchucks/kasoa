@@ -1,7 +1,7 @@
 import { defineConfig } from "eslint/config";
 import { base } from "../base/index.js";
 import { eslintReactConfig } from "./eslint-react.js";
-import { jsxA11yXConfig } from "./jsx-a11y-x.js";
+import { jsxA11yConfig } from "./jsx-a11y.js";
 import { reactCompilerConfig } from "./react-compiler.js";
 import { reactHooksConfig } from "./react-hooks.js";
 import { reactRefreshConfig } from "./react-refresh.js";
@@ -10,7 +10,7 @@ import { reactYouMightNotNeedAnEffectConfig } from "./react-you-might-not-need-a
 export const react = defineConfig(
   base,
   eslintReactConfig,
-  jsxA11yXConfig,
+  jsxA11yConfig,
   reactHooksConfig,
   reactRefreshConfig,
   reactCompilerConfig,

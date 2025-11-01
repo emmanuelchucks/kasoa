@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@prettier/plugin-oxc": "^0.0.4",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.0",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1"
   },
@@ -52,7 +52,7 @@
     "@kasoa/eslint-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
     "@types/node": "^24.9.2",
-    "@typescript/native-preview": "^7.0.0-dev.20251030.1"
+    "@typescript/native-preview": "^7.0.0-dev.20251101.1"
   },
   "peerDependencies": {
     "prettier": "^3.6.2"
