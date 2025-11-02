@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.5
+
+### Patch Changes
+
+- 6e1b490: Consolidates unused variable linting to single source of truth
+
 ## 0.0.4
 
 ### Patch Changes
