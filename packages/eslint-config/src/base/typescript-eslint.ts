@@ -6,8 +6,8 @@ export const typescriptEslintConfig = defineConfig(
   typescriptEslint.configs.stylisticTypeChecked,
   {
     rules: {
+      "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/consistent-type-imports": "error",
-      "@typescript-eslint/explicit-module-boundary-types": "error",
     },
   },
 );

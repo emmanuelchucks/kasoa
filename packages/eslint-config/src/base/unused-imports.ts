@@ -8,6 +8,5 @@ export const unusedImportsConfig = defineConfig({
   rules: {
     "unused-imports/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
-    "@typescript-eslint/no-unused-vars": "off",
   },
 });
