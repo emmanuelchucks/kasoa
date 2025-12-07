@@ -14,13 +14,13 @@
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.7",
-    "@typescript/native-preview": "^7.0.0-dev.20251101.1",
-    "eslint": "^9.39.0",
-    "prettier": "^3.6.2",
-    "turbo": "^2.6.0"
+    "@changesets/cli": "^2.29.8",
+    "@typescript/native-preview": "^7.0.0-dev.20251207.1",
+    "eslint": "^9.39.1",
+    "prettier": "^3.7.4",
+    "turbo": "^2.6.3"
   },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.24.0",
   "engines": {
     "node": ">=24"
   }
