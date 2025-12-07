@@ -1,0 +1,63 @@
+{
+  "name": "@kasoa/env",
+  "version": "0.0.1",
+  "type": "module",
+  "license": "MIT",
+  "description": "Type-safe environment variable validation using Standard Schema",
+  "keywords": [
+    "env",
+    "environment",
+    "validation",
+    "standard-schema",
+    "kasoa"
+  ],
+  "author": {
+    "name": "Emmanuel Chucks",
+    "email": "hi@emmanuelchucks.com",
+    "url": "https://emmanuelchucks.com"
+  },
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/env",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelchucks/kasoa.git",
+    "directory": "packages/env"
+  },
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsgo --watch",
+    "build": "tsgo",
+    "lint": "eslint --fix --cache .",
+    "format": "prettier --write --cache .",
+    "typecheck": "tsgo --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@standard-schema/spec": "^1.0.0"
+  },
+  "devDependencies": {
+    "@kasoa/eslint-config": "workspace:*",
+    "@kasoa/tsconfig": "workspace:*",
+    "@types/node": "^24.10.1",
+    "@typescript/native-preview": "^7.0.0-dev.20251207.1",
+    "eslint": "^9.39.1",
+    "prettier": "^3.7.4",
+    "valibot": "^1.0.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
