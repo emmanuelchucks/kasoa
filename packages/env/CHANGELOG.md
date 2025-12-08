@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.5
+
+### Patch Changes
+
+- a646be6: Initial release of environment validation package using Standard Schema
+
 ## 0.0.2
 
 ### Patch Changes
