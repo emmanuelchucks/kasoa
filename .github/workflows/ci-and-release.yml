@@ -62,6 +62,7 @@ jobs:
           publish: pnpm run release
           commit: "ci(packages): update versions"
           title: "ci(packages): update versions"
+          commitMode: github-api
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
