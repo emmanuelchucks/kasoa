@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.6
+
+### Patch Changes
+
+- 739f4a6: Enhance vitest and React ESLint rules
+
 ## 0.0.5
 
 ### Patch Changes
