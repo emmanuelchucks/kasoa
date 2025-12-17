@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.8
+
+### Patch Changes
+
+- 32fa67c: Disable `@eslint-react/no-unstable-context-value` rule - unnecessary with react-compiler
+
 ## 0.0.7
 
 ### Patch Changes
