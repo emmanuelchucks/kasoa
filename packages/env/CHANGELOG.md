@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.6
+
+### Patch Changes
+
+- 69b1639: Update dependencies to latest versions
+
 ## 0.0.5
 
 ### Patch Changes
