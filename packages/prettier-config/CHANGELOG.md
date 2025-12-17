@@ -1,5 +1,11 @@
 # @kasoa/prettier-config
 
+## 0.0.4
+
+### Patch Changes
+
+- ba12105: Use named export for react config to match base pattern
+
 ## 0.0.3
 
 ### Patch Changes
