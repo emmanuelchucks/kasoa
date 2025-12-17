@@ -6,6 +6,7 @@ export const eslintReactConfig = defineConfig(
   {
     rules: {
       "@eslint-react/prefer-namespace-import": "error",
+      "@eslint-react/no-unstable-context-value": "off",
     },
   },
 );
