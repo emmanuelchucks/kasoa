@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.9
+
+### Patch Changes
+
+- 6cf6423: Add JSON schema validation and scope typescript-eslint to JS/TS files only
+
 ## 0.0.8
 
 ### Patch Changes
