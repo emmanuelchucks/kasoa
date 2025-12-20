@@ -3,6 +3,7 @@ import eslintConfigPrettier from "eslint-config-prettier/flat";
 import { defineConfig, globalIgnores } from "eslint/config";
 import { eslintConfig } from "./eslint.js";
 import { importLiteConfig } from "./import-lite.js";
+import { jsonConfig } from "./json.js";
 import { perfectionistConfig } from "./perfectionist.js";
 import { typescriptEslintConfig } from "./typescript-eslint.js";
 import { unicornXConfig } from "./unicorn-x.js";
@@ -12,6 +13,7 @@ import { vitestConfig } from "./vitest.js";
 export const base = defineConfig(
   gitignore(),
   globalIgnores(["**/*.d.ts"]),
+  jsonConfig,
   eslintConfig,
   typescriptEslintConfig,
   unicornXConfig,

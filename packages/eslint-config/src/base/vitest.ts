@@ -3,5 +3,5 @@ import { defineConfig } from "eslint/config";
 
 export const vitestConfig = defineConfig({
   files: ["**/tests/**", "**/*.test.ts", "**/*.test.tsx"],
-  ...vitest.configs.all,
+  extends: [vitest.configs.all],
 });
