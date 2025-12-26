@@ -16,6 +16,11 @@ export const typescriptEslintConfig = defineConfig({
     typescriptEslint.configs.strictTypeChecked,
     typescriptEslint.configs.stylisticTypeChecked,
   ],
+  languageOptions: {
+    parserOptions: {
+      projectService: true,
+    },
+  },
   rules: {
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/consistent-type-imports": "error",

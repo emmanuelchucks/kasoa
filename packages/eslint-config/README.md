@@ -18,48 +18,34 @@ Import the desired config in your `eslint.config.ts` (using ESLint's flat config
 
 ### React Projects
 
-For React applications with TypeScript:
-
 ```js
-import { react } from "@kasoa/eslint-config/react";
-import { defineConfig } from "eslint/config";
-
-export default defineConfig(react, {
-  languageOptions: {
-    parserOptions: {
-      tsconfigRootDir: import.meta.dirname,
-      projectService: true,
-    },
-  },
-});
+export { react as default } from "@kasoa/eslint-config/react";
 ```
 
 ### Node.js Projects
 
-For Node.js backends or scripts:
+```js
+export { node as default } from "@kasoa/eslint-config/node";
+```
+
+### Base Config
+
+```js
+export { base as default } from "@kasoa/eslint-config/base";
+```
+
+### Custom Overrides
+
+Use `defineConfig` to add project-specific rules:
 
 ```js
 import { node } from "@kasoa/eslint-config/node";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig(node, {
-  // Add custom rules or overrides here
   rules: {
     "no-console": "warn",
   },
-});
-```
-
-### Base Config
-
-For minimal setups (e.g., libraries or custom extensions):
-
-```js
-import { base } from "@kasoa/eslint-config/base";
-import { defineConfig } from "eslint/config";
-
-export default defineConfig(base, {
-  // Customize as needed
 });
 ```
 
