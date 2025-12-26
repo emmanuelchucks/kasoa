@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.10
+
+### Patch Changes
+
+- 88f5287: Add projectService to typescript-eslint config and simplify README examples
+
 ## 0.0.9
 
 ### Patch Changes
