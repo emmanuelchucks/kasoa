@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.11
+
+### Patch Changes
+
+- 281d3a6: Add explicit file globs to React ESLint configs and condense typescript-eslint file patterns
+
 ## 0.0.10
 
 ### Patch Changes

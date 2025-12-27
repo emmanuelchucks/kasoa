@@ -1,5 +1,11 @@
 # @kasoa/prettier-config
 
+## 0.0.5
+
+### Patch Changes
+
+- c40390c: Use require.resolve for Tailwind plugin to ensure correct resolution in consumer projects
+
 ## 0.0.4
 
 ### Patch Changes
