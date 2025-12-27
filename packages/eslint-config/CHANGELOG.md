@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.12
+
+### Patch Changes
+
+- 2ca3c5b: Add proper CommonJS support for .cjs/.cts files with correct sourceType, globals, and disabled no-require-imports rule
+
 ## 0.0.11
 
 ### Patch Changes
