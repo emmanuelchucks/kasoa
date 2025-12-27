@@ -1,5 +1,11 @@
 # @kasoa/prettier-config
 
+## 0.0.6
+
+### Patch Changes
+
+- f7a2ab7: Fix ESM compatibility by using import.meta.resolve with fileURLToPath
+
 ## 0.0.5
 
 ### Patch Changes
