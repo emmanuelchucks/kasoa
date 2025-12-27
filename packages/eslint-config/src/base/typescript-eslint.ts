@@ -2,16 +2,7 @@ import { defineConfig } from "eslint/config";
 import typescriptEslint from "typescript-eslint";
 
 export const typescriptEslintConfig = defineConfig({
-  files: [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.mjs",
-    "**/*.cjs",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.mts",
-    "**/*.cts",
-  ],
+  files: ["**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}"],
   extends: [
     typescriptEslint.configs.strictTypeChecked,
     typescriptEslint.configs.stylisticTypeChecked,
