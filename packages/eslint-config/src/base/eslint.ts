@@ -6,5 +6,8 @@ export const eslintConfig = defineConfig(eslint.configs.recommended, {
     eqeqeq: "error",
     curly: ["error", "multi-line", "consistent"],
     "object-shorthand": "error",
+    "max-params": "warn",
+    "max-lines-per-function": "warn",
+    complexity: "warn",
   },
 });
