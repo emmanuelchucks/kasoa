@@ -6,7 +6,7 @@ export const unusedImportsConfig = defineConfig({
     "unused-imports": unusedImports,
   },
   rules: {
-    "unused-imports/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": "off",
   },
 });

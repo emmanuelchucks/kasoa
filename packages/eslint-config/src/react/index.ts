@@ -1,5 +1,6 @@
 import { defineConfig } from "eslint/config";
 import { base } from "../base/index.js";
+import { perfectionistJsxConfig } from "../base/perfectionist.js";
 import { eslintReactConfig } from "./eslint-react.js";
 import { jsxA11yConfig } from "./jsx-a11y.js";
 import { reactCompilerConfig } from "./react-compiler.js";
@@ -15,4 +16,5 @@ export const react = defineConfig(
   reactRefreshConfig,
   reactCompilerConfig,
   reactYouMightNotNeedAnEffectConfig,
+  perfectionistJsxConfig,
 );
