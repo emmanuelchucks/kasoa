@@ -50,8 +50,8 @@
   "devDependencies": {
     "@kasoa/eslint-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
-    "@types/node": "^25.0.3",
-    "@typescript/native-preview": "^7.0.0-dev.20251216.1",
+    "@types/node": "^25.0.6",
+    "@typescript/native-preview": "^7.0.0-dev.20260111.1",
     "eslint": "^9.39.2",
     "prettier": "^3.7.4",
     "valibot": "^1.2.0",

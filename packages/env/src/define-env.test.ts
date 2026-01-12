@@ -76,8 +76,8 @@ describe("defineEnv()", () => {
 
     const asyncSchema = {
       "~standard": {
-        version: 1 as const,
         vendor: "test",
+        version: 1 as const,
         validate: () => Promise.resolve({ value: {} }),
       },
     };

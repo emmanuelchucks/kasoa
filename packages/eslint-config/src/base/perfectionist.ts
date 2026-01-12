@@ -31,7 +31,7 @@ const unifiedCustomGroups = [
 const unifiedGroups = [
   "id",
   "unknown",
-  "multiline",
+  "multiline-member",
   "timestamp",
   "ref",
   "method",
@@ -51,26 +51,40 @@ export const perfectionistConfig = defineConfig({
   },
   rules: {
     "perfectionist/sort-enums": ["error", baseConfig],
-    "perfectionist/sort-exports": ["error", baseConfig],
+    "perfectionist/sort-export-attributes": ["error", baseConfig],
+    "perfectionist/sort-import-attributes": ["error", baseConfig],
     "perfectionist/sort-intersection-types": ["error", baseConfig],
     "perfectionist/sort-named-exports": ["error", baseConfig],
     "perfectionist/sort-named-imports": ["error", baseConfig],
     "perfectionist/sort-switch-case": ["error", baseConfig],
     "perfectionist/sort-union-types": ["error", baseConfig],
+    "perfectionist/sort-classes": [
+      "error",
+      {
+        ...baseConfig,
+        newlinesBetween: 1,
+      },
+    ],
+    "perfectionist/sort-exports": [
+      "error",
+      {
+        ...baseConfig,
+        groups: ["type-export", "wildcard-export", "value-export"],
+      },
+    ],
     "perfectionist/sort-imports": [
       "error",
       {
         ...baseConfig,
         newlinesBetween: 0,
         groups: [
-          "type",
-          ["parent-type", "sibling-type", "index-type", "internal-type"],
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling", "index"],
-          "side-effect",
-          "object",
+          "type-import",
+          ["type-parent", "type-sibling", "type-index", "type-internal"],
+          "value-builtin",
+          "value-external",
+          "value-internal",
+          ["value-parent", "value-sibling", "value-index"],
+          "value-side-effect",
           "unknown",
         ],
       },

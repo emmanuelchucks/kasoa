@@ -8,7 +8,6 @@ export const eslintConfig = defineConfig(eslint.configs.recommended, {
     eqeqeq: "error",
     "grouped-accessor-pairs": ["error", "getBeforeSet"],
     "logical-assignment-operators": ["error", "always"],
-    "max-lines-per-function": "warn",
     "max-params": "warn",
     "no-alert": "error",
     "no-console": ["warn", { allow: ["warn", "error"] }],
