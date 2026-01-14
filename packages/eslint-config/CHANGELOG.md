@@ -4,7 +4,8 @@
 
 ### Patch Changes
 
-- be6a666: Fix invalid group names for sort-jsx-props rule (multiline-member → multiline-prop, method → shorthand-prop)
+- be6a666: Fix invalid group names for sort-jsx-props rule (multiline-member -> multiline-prop, method -> shorthand-prop)
+- cf5ec1f: Update perfectionist sorting order: id first, then \*Id patterns, then key. Shorthand props come after ref in JSX.
 
 ## 0.0.13
 
