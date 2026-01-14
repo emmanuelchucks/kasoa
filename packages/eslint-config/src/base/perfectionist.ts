@@ -3,8 +3,16 @@ import { defineConfig } from "eslint/config";
 
 const unifiedCustomGroups = [
   {
-    elementNamePattern: "(?:^id$|^_id$|^key$|^uuid$|Id$)",
+    elementNamePattern: "^id$",
     groupName: "id",
+  },
+  {
+    elementNamePattern: "(?:^_id$|^uuid$|Id$)",
+    groupName: "suffixId",
+  },
+  {
+    elementNamePattern: "^key$",
+    groupName: "key",
   },
   {
     elementNamePattern: "(?:At$|_at$)",
@@ -30,10 +38,12 @@ const unifiedCustomGroups = [
 
 const unifiedGroups = [
   "id",
+  "suffixId",
+  "key",
+  "ref",
   "unknown",
   "multiline-member",
   "timestamp",
-  "ref",
   "method",
   "callback",
   "style",
@@ -42,11 +52,13 @@ const unifiedGroups = [
 
 const jsxGroups = [
   "id",
+  "suffixId",
+  "key",
+  "ref",
+  "shorthand-prop",
   "unknown",
   "multiline-prop",
   "timestamp",
-  "ref",
-  "shorthand-prop",
   "callback",
   "style",
   "className",
