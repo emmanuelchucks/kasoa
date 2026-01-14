@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.13
+
+### Patch Changes
+
+- 016c867: Add complexity rules, sorting rules, and refactor plugin configs to use spread
+
 ## 0.0.12
 
 ### Patch Changes
