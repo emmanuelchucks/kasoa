@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.14
+
+### Patch Changes
+
+- be6a666: Fix invalid group names for sort-jsx-props rule (multiline-member → multiline-prop, method → shorthand-prop)
+
 ## 0.0.13
 
 ### Patch Changes
