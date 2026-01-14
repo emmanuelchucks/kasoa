@@ -2,6 +2,6 @@ import reactCompiler from "eslint-plugin-react-compiler";
 import { defineConfig } from "eslint/config";
 
 export const reactCompilerConfig = defineConfig({
-  extends: [reactCompiler.configs.recommended],
+  ...reactCompiler.configs.recommended,
   files: ["**/*.{js,jsx,ts,tsx}"],
 });
