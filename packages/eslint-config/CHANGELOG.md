@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.15
+
+### Patch Changes
+
+- Update perfectionist sorting order: id first, then \*Id patterns, then key. Shorthand props come after ref in JSX.
+
 ## 0.0.14
 
 ### Patch Changes
