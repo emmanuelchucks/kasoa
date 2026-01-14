@@ -40,6 +40,18 @@ const unifiedGroups = [
   "className",
 ];
 
+const jsxGroups = [
+  "id",
+  "unknown",
+  "multiline-prop",
+  "timestamp",
+  "ref",
+  "shorthand-prop",
+  "callback",
+  "style",
+  "className",
+];
+
 const baseConfig = {
   order: "asc" as const,
   type: "natural" as const,
@@ -126,7 +138,7 @@ export const perfectionistJsxConfig = defineConfig({
       {
         ...baseConfig,
         customGroups: unifiedCustomGroups,
-        groups: unifiedGroups,
+        groups: jsxGroups,
       },
     ],
   },
