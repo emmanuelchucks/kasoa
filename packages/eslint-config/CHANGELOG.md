@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.16
+
+### Patch Changes
+
+- d6d76ee: Remove no-magic-numbers rule
+
 ## 0.0.15
 
 ### Patch Changes
