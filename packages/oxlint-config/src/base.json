@@ -1,5 +1,12 @@
 {
   "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
+  "extends": [
+    "./plugins/restriction.json",
+    "./plugins/pedantic.json",
+    "./plugins/perfectionist.json",
+    "./plugins/sonarjs.json",
+    "./plugins/vitest.json"
+  ],
   "plugins": ["import", "promise"],
   "categories": {
     "correctness": "error",
