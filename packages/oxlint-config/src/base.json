@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "import", "promise"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "error",
+    "perf": "warn"
+  },
+  "rules": {
+    "typescript/ban-ts-comment": "warn",
+    "eslint/no-magic-numbers": "off",
+    "unicorn/no-null": "off",
+    "import/named": "error",
+    "import/export": "warn",
+    "eslint/no-unreachable": "warn",
+    "promise/no-return-wrap": "warn",
+    "typescript/prefer-optional-chain": "warn",
+    "oxc/no-barrel-file": "error",
+    "curly": "error",
+    "default-case-last": "error",
+    "eqeqeq": "error",
+    "grouped-accessor-pairs": "error",
+    "max-params": "warn",
+    "no-alert": "error",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-constructor-return": "error",
+    "no-else-return": "error",
+    "no-param-reassign": "error",
+    "no-unneeded-ternary": "error",
+    "no-useless-return": "error",
+    "object-shorthand": "error",
+    "prefer-template": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/consistent-type-exports": "error",
+    "typescript/prefer-readonly": "error",
+    "typescript/switch-exhaustiveness-check": "error"
+  }
+}

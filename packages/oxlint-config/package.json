@@ -1,0 +1,39 @@
+{
+  "name": "@kasoa/oxlint-config",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    "./base": "./dist/base.json",
+    "./node": "./dist/node.json",
+    "./react": "./dist/react.json",
+    "./plugins/sonarjs": "./dist/plugins/sonarjs.js",
+    "./plugins/perfectionist": "./dist/plugins/perfectionist.js",
+    "./plugins/react-compiler": "./dist/plugins/react-compiler.js",
+    "./plugins/react-you-might-not-need-an-effect": "./dist/plugins/react-you-might-not-need-an-effect.js",
+    "./plugins/eslint-react": "./dist/plugins/eslint-react.js",
+    "./plugins/vitest": "./dist/plugins/vitest.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "dev": "tsgo --watch",
+    "build": "tsgo && cp src/*.json dist/",
+    "lint": "oxlint --fix .",
+    "format": "oxfmt .",
+    "typecheck": "tsgo --noEmit",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "eslint-plugin-sonarjs": "^3.0.2",
+    "eslint-plugin-perfectionist": "^4.13.0",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-react-you-might-not-need-an-effect": "^0.0.9",
+    "@eslint-react/eslint-plugin": "^1.49.0",
+    "@vitest/eslint-plugin": "^1.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@typescript/native-preview": "7.0.0-dev.20260120.1",
+    "oxlint": "^0.16.10",
+    "oxfmt": "^0.2.0"
+  }
+}
