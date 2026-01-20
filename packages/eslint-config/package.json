@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/eslint-config",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "type": "module",
   "license": "MIT",
   "description": "Kasoa's ESLint config",
@@ -45,17 +45,18 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@eslint-react/eslint-plugin": "^2.5.5",
+    "@eslint-react/eslint-plugin": "^2.7.2",
     "@eslint/js": "latest",
     "@vitest/eslint-plugin": "^1.6.6",
     "eslint": "^9.39.2",
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import-lite": "^0.5.0",
-    "eslint-plugin-json-schema-validator": "^5.5.1",
+    "eslint-plugin-json-schema-validator": "^6.0.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-jsx-a11y-x": "^0.1.1",
-    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-n": "^17.23.2",
+    "eslint-plugin-no-barrel-files": "^1.2.2",
     "eslint-plugin-perfectionist": "^5.3.1",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "eslint-plugin-react-hooks": "^7.0.1",
@@ -66,14 +67,14 @@
     "eslint-plugin-unicorn-x": "^3.2.1",
     "eslint-plugin-unused-imports": "^4.3.0",
     "globals": "^17.0.0",
-    "typescript-eslint": "^8.52.0"
+    "typescript-eslint": "^8.53.1"
   },
   "devDependencies": {
     "@kasoa/tsconfig": "workspace:*",
     "@types/eslint-plugin-jsx-a11y": "^6.10.1",
-    "@types/node": "^25.0.6",
-    "@typescript/native-preview": "^7.0.0-dev.20260111.1",
-    "prettier": "^3.7.4"
+    "@types/node": "^25.0.9",
+    "@typescript/native-preview": "^7.0.0-dev.20260120.1",
+    "prettier": "^3.8.0"
   },
   "peerDependencies": {
     "eslint": "^9.35.0"

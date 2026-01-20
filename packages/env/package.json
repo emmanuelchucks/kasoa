@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/env",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "license": "MIT",
   "description": "Type-safe environment variable validation using Standard Schema",
@@ -50,12 +50,12 @@
   "devDependencies": {
     "@kasoa/eslint-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
-    "@types/node": "^25.0.6",
-    "@typescript/native-preview": "^7.0.0-dev.20260111.1",
+    "@types/node": "^25.0.9",
+    "@typescript/native-preview": "^7.0.0-dev.20260120.1",
     "eslint": "^9.39.2",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.0",
     "valibot": "^1.2.0",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.17"
   },
   "engines": {
     "node": ">=24"

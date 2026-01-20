@@ -1,5 +1,11 @@
 # @kasoa/prettier-config
 
+## 0.0.7
+
+### Patch Changes
+
+- 2ee3a9e: Bump patch versions for updated dependencies and config changes.
+
 ## 0.0.6
 
 ### Patch Changes

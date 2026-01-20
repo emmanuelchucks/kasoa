@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.17
+
+### Patch Changes
+
+- 2ee3a9e: Bump patch versions for updated dependencies and config changes.
+
 ## 0.0.16
 
 ### Patch Changes
