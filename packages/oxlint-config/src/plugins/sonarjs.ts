@@ -1,2 +1,1 @@
-import sonarjs from "eslint-plugin-sonarjs";
-export default sonarjs;
+export { default } from "eslint-plugin-sonarjs";

@@ -1,2 +1,1 @@
-import perfectionist from "eslint-plugin-perfectionist";
-export default perfectionist;
+export { default } from "eslint-plugin-perfectionist";

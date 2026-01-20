@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "unicorn", "import", "promise"],
+  "plugins": ["import", "promise"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",

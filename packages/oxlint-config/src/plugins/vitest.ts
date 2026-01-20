@@ -1,2 +1,1 @@
-import vitest from "@vitest/eslint-plugin";
-export default vitest;
+export { default } from "@vitest/eslint-plugin";

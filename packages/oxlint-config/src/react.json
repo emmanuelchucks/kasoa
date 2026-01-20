@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
   "extends": ["./base.json"],
-  "plugins": ["react", "react-hooks", "jsx-a11y"],
+  "plugins": ["react", "react-perf", "jsx-a11y"],
   "rules": {
     "react/require-render-return": "error"
   }

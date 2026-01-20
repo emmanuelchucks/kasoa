@@ -1,6 +1,9 @@
 {
   "name": "@kasoa/oxlint-config",
   "version": "0.0.1",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "exports": {
     "./base": "./dist/base.json",
@@ -13,9 +16,6 @@
     "./plugins/eslint-react": "./dist/plugins/eslint-react.js",
     "./plugins/vitest": "./dist/plugins/vitest.js"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo && cp src/*.json dist/",
@@ -25,17 +25,18 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "eslint-plugin-sonarjs": "^3.0.2",
-    "eslint-plugin-perfectionist": "^4.13.0",
+    "@eslint-react/eslint-plugin": "^2.7.2",
+    "@vitest/eslint-plugin": "^1.6.6",
+    "eslint-plugin-perfectionist": "^5.3.1",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "eslint-plugin-react-you-might-not-need-an-effect": "^0.0.9",
-    "@eslint-react/eslint-plugin": "^1.49.0",
-    "@vitest/eslint-plugin": "^1.2.1"
+    "eslint-plugin-react-you-might-not-need-an-effect": "^0.8.5",
+    "eslint-plugin-sonarjs": "^3.0.5"
   },
   "devDependencies": {
-    "@types/node": "^22.15.21",
+    "@types/node": "^25.0.9",
     "@typescript/native-preview": "7.0.0-dev.20260120.1",
-    "oxlint": "^0.16.10",
-    "oxfmt": "^0.2.0"
+    "oxfmt": "^0.26.0",
+    "oxlint": "^1.41.0",
+    "oxlint-tsgolint": "^0.11.1"
   }
 }

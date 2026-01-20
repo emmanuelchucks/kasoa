@@ -1,2 +1,1 @@
-import reactCompiler from "eslint-plugin-react-compiler";
-export default reactCompiler;
+export { default } from "eslint-plugin-react-compiler";
