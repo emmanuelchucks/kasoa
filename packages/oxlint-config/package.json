@@ -5,20 +5,17 @@
     "dist"
   ],
   "type": "module",
+  "bin": {
+    "oxlint-config": "./dist/cli.js"
+  },
   "exports": {
     "./base": "./dist/base.json",
     "./node": "./dist/node.json",
-    "./react": "./dist/react.json",
-    "./plugins/sonarjs": "./dist/plugins/sonarjs.js",
-    "./plugins/perfectionist": "./dist/plugins/perfectionist.js",
-    "./plugins/react-compiler": "./dist/plugins/react-compiler.js",
-    "./plugins/react-you-might-not-need-an-effect": "./dist/plugins/react-you-might-not-need-an-effect.js",
-    "./plugins/eslint-react": "./dist/plugins/eslint-react.js",
-    "./plugins/vitest": "./dist/plugins/vitest.js"
+    "./react": "./dist/react.json"
   },
   "scripts": {
     "dev": "tsgo --watch",
-    "build": "tsgo && cp src/*.json dist/",
+    "build": "tsgo && cp src/*.json dist/ && mkdir -p dist/plugins && cp src/plugins/*.json dist/plugins/",
     "lint": "oxlint --type-aware --fix .",
     "format": "oxfmt .",
     "typecheck": "tsgo --noEmit",
