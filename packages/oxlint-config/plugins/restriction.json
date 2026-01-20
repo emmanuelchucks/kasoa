@@ -1,0 +1,22 @@
+{
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-empty-object-type": "error",
+    "typescript/use-unknown-in-catch-callback-variable": "error",
+    "typescript/no-dynamic-delete": "error",
+    "typescript/no-namespace": "error",
+    "typescript/promise-function-async": "error",
+    "eslint/complexity": "warn",
+    "eslint/no-empty": "error",
+    "eslint/no-empty-function": "error",
+    "import/no-cycle": "error",
+    "unicorn/no-abusive-eslint-disable": "error",
+    "unicorn/prefer-node-protocol": "error",
+    "unicorn/no-array-for-each": "error",
+    "react/only-export-components": "error",
+    "react/button-has-type": "error",
+    "react/no-danger": "error",
+    "react/no-unknown-property": "error"
+  }
+}

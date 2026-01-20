@@ -1,1 +1,5 @@
-{ "extends": ["./dist/base.json"] }
+{
+  "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
+  "extends": ["./base.json"],
+  "plugins": ["node"]
+}
