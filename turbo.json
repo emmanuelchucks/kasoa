@@ -7,10 +7,10 @@
       "outputs": ["dist"]
     },
     "lint": {
-      "outputs": [".eslintcache"]
+      "outputs": []
     },
     "format": {
-      "outputs": ["node_modules/.cache/prettier/**"]
+      "outputs": []
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
