@@ -10,7 +10,7 @@ export const eslintConfig = defineConfig(eslint.configs.recommended, {
     "logical-assignment-operators": ["error", "always"],
     "max-params": "warn",
     "no-alert": "error",
-    "no-console": ["warn", { allow: ["warn", "error"] }],
+    "no-console": ["warn", { allow: ["info", "warn", "error"] }],
     "no-constructor-return": "error",
     "no-else-return": ["error", { allowElseIf: false }],
     "no-param-reassign": ["error", { props: false }],
