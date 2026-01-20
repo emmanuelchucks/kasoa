@@ -23,7 +23,7 @@
     "grouped-accessor-pairs": "error",
     "max-params": "warn",
     "no-alert": "error",
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-console": ["warn", { "allow": ["info", "warn", "error"] }],
     "no-constructor-return": "error",
     "no-else-return": "error",
     "no-param-reassign": "error",
