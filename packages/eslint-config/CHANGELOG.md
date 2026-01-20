@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.18
+
+### Patch Changes
+
+- e599b57: Fix no-barrel-files config typing for flat config support.
+
 ## 0.0.17
 
 ### Patch Changes
