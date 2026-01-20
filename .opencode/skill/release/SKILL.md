@@ -1,117 +1,72 @@
 ---
 name: release
-description: Release workflow for kasoa monorepo. Commit changes, create changeset, push, merge Version PR, verify npm publish.
+description: Release workflow for kasoa monorepo. Supports both CI and local publishing.
 ---
 
 # Release Workflow
 
-This monorepo uses changesets + OIDC trusted publishing for npm releases.
+Changesets + npm publishing. CI uses OIDC; local requires npm login + OTP.
 
 ## Workflow
 
-### 1. Check changes
+### 1. Commit code changes
 
-```bash
-git status && git diff && git diff --cached
-```
+Use conventional commits: `fix(pkg)`, `feat(pkg)`, `chore:`
 
-### 2. Commit code change
+### 2. Create changeset
 
-Stage relevant files only. Use conventional commits:
-
-- `fix(package-name): description` - bug fixes, config tweaks
-- `feat(package-name): description` - new features
-- `chore: description` - maintenance, deps
-
-### 3. Create changeset
-
-Write `.changeset/<descriptive-name>.md`:
+Write `.changeset/<name>.md`:
 
 ```markdown
 ---
-"<package-name-from-package.json>": patch
+"@kasoa/package-name": patch
 ---
 
-Brief description of the change
+Brief description
 ```
 
-Find package names by checking `packages/*/package.json` for the `name` field.
+Semver (pre-1.0): `patch` for fixes/tweaks, `minor` for features/breaking.
 
-**Semver (pre-1.0):**
-
-- `patch` - bug fixes, config tweaks, docs
-- `minor` - new features, breaking changes
-- `major` - reserved for post-1.0
-
-### 4. Commit and push
+### 3. Commit changeset
 
 ```bash
 git add .changeset/<name>.md && git commit -m "chore: add changeset"
+```
+
+### 4. Publish
+
+**Via CI (recommended):**
+
+```bash
 git pull --rebase && git push origin main
 ```
 
-Always rebase before push—remote may have Version PR merges.
-
-### 5. Monitor CI and merge Version PR
-
-Poll until CI passes:
-
-```bash
-gh run list --limit 3
-```
-
-Check for Version PR:
-
-```bash
-gh pr list
-```
-
-Merge when PR CI passes:
+Wait for CI, then merge the Version PR:
 
 ```bash
 gh pr merge <number> --rebase
 ```
 
-**Important:** This repo only allows rebase merges. `--squash` and `--merge` will fail.
+**Via local:**
 
-### 6. Verify release
+Requires: `npm whoami` (must be logged in)
+
+```bash
+pnpm changeset version   # versions + auto-commits
+pnpm release             # builds + publishes (enter OTP when prompted)
+git push origin main --follow-tags
+```
+
+### 5. Verify
 
 ```bash
 npm view <package-name> version
-gh release list --limit 2
 ```
 
 ## Edge Cases
 
-### Multiple packages changed
+**Multiple packages:** List all in one changeset file.
 
-One changeset can list multiple packages:
+**Push rejected:** `git pull --rebase && git push origin main`
 
-```markdown
----
-"<package-a>": patch
-"<package-b>": patch
----
-
-Description of changes affecting both packages
-```
-
-### Push rejected (remote ahead)
-
-```bash
-git pull --rebase && git push origin main
-```
-
-### CI fails
-
-Check logs:
-
-```bash
-gh run view <run-id> --log-failed
-```
-
-## Configuration Reference
-
-- **Changeset config:** `.changeset/config.json` - `baseBranch: main`, `access: public`, `commit: true`
-- **CI workflow:** `.github/workflows/ci-and-release.yml`
-- **npm auth:** OIDC trusted publishing (no NPM_TOKEN needed)
+**CI fails:** `gh run view <run-id> --log-failed`
