@@ -24,55 +24,6 @@ const sharedConfig = {
       "error",
       { fixMixedExportsWithInlineTypeSpecifier: true },
     ],
-    "@typescript-eslint/naming-convention": [
-      "warn",
-      {
-        format: ["camelCase"],
-        leadingUnderscore: "allow",
-        selector: "default",
-        trailingUnderscore: "allow",
-      },
-      {
-        format: ["camelCase", "UPPER_CASE", "PascalCase"],
-        selector: "variable",
-      },
-      {
-        format: ["camelCase", "PascalCase"],
-        selector: "function",
-      },
-      {
-        format: ["camelCase"],
-        leadingUnderscore: "allow",
-        selector: "parameter",
-      },
-      {
-        format: ["PascalCase"],
-        selector: "typeLike",
-      },
-      {
-        format: ["PascalCase", "UPPER_CASE"],
-        selector: "enumMember",
-      },
-      {
-        format: ["camelCase", "UPPER_CASE"],
-        leadingUnderscore: "allow",
-        selector: "property",
-      },
-      {
-        format: ["camelCase", "UPPER_CASE"],
-        selector: "classProperty",
-      },
-      {
-        format: ["camelCase"],
-        selector: "classMethod",
-      },
-      {
-        // eslint-disable-next-line unicorn-x/no-null -- format: null is required by @typescript-eslint/naming-convention to disable format checking
-        format: null,
-        modifiers: ["requiresQuotes"],
-        selector: "objectLiteralProperty",
-      },
-    ],
   } satisfies Linter.RulesRecord,
 };
 

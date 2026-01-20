@@ -9,11 +9,13 @@
     "./base": "./dist/base.json",
     "./react": "./dist/react.json"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo && cp src/*.json dist/",
-    "lint": "oxlint --fix .",
+    "lint": "oxlint --type-aware --fix .",
     "format": "oxfmt .",
     "typecheck": "tsgo --noEmit",
     "prepublishOnly": "pnpm build"

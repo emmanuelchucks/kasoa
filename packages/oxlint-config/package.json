@@ -13,11 +13,13 @@
     "./plugins/eslint-react": "./dist/plugins/eslint-react.js",
     "./plugins/vitest": "./dist/plugins/vitest.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo && cp src/*.json dist/",
-    "lint": "oxlint --fix .",
+    "lint": "oxlint --type-aware --fix .",
     "format": "oxfmt .",
     "typecheck": "tsgo --noEmit",
     "prepublishOnly": "pnpm build"
