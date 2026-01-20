@@ -6,5 +6,6 @@ export const unicornXConfig = defineConfig(unicornX.configs.recommended, {
     "unicorn-x/better-regex": "error",
     "unicorn-x/prefer-import-meta-properties": "error",
     "unicorn-x/prevent-abbreviations": "off",
+    "unicorn/no-array-for-each": "error",
   },
 });
