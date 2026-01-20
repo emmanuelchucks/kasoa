@@ -1,0 +1,21 @@
+{
+  "$schema": "https://unpkg.com/oxfmt/configuration_schema.json",
+  "experimentalSortImports": {
+    "internalPattern": ["#", "#/**"],
+    "newlinesBetween": false,
+    "groups": [
+      "type",
+      ["type-parent", "type-sibling", "type-index", "type-internal"],
+      "builtin",
+      "external",
+      "internal",
+      ["parent", "sibling", "index"],
+      "side-effect",
+      "unknown"
+    ]
+  },
+  "experimentalTailwindcss": {
+    "attributes": ["class", "className", "/.*ClassName/"],
+    "functions": ["tv"]
+  }
+}
