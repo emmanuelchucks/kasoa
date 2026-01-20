@@ -1,0 +1,27 @@
+{
+  "name": "@kasoa/oxfmt-config",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "oxfmt-config": "./dist/cli.js"
+  },
+  "exports": {
+    "./base": "./dist/base.json",
+    "./react": "./dist/react.json"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "dev": "tsgo --watch",
+    "build": "tsgo && cp src/*.json dist/",
+    "lint": "oxlint --fix .",
+    "format": "oxfmt .",
+    "typecheck": "tsgo --noEmit",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "oxlint": "^0.16.10",
+    "oxfmt": "^0.2.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260120.1",
+    "@types/node": "^22.10.7"
+  }
+}
