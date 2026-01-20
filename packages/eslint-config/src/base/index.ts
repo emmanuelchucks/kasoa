@@ -4,6 +4,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import { eslintConfig } from "./eslint.js";
 import { importLiteConfig } from "./import-lite.js";
 import { jsonConfig } from "./json.js";
+import { noBarrelFilesConfig } from "./no-barrel-files.js";
 import { perfectionistConfig } from "./perfectionist.js";
 import { regexpConfig } from "./regexp.js";
 import { sonarjsConfig } from "./sonarjs.js";
@@ -18,6 +19,7 @@ export const base = defineConfig(
   jsonConfig,
   eslintConfig,
   typescriptEslintConfig,
+  noBarrelFilesConfig,
   unicornXConfig,
   vitestConfig,
   importLiteConfig,
