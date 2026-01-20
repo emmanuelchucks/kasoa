@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "perfectionist/sort-jsx-props": [
+      "error",
+      {
+        "order": "asc",
+        "type": "natural",
+        "customGroups": [
+          {
+            "elementNamePattern": "^key$",
+            "groupName": "key"
+          },
+          {
+            "elementNamePattern": "^ref$",
+            "groupName": "ref"
+          },
+          {
+            "elementNamePattern": "^on[A-Z]",
+            "groupName": "callback"
+          },
+          {
+            "elementNamePattern": "(?:^className$|ClassName$)",
+            "groupName": "className"
+          }
+        ],
+        "groups": ["key", "ref", "unknown", "callback", "className"]
+      }
+    ]
+  }
+}

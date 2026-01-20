@@ -1,0 +1,43 @@
+{
+  "rules": {
+    "perfectionist/sort-imports": [
+      "error",
+      {
+        "order": "asc",
+        "type": "natural",
+        "newlinesBetween": 0,
+        "groups": [
+          "type-import",
+          ["type-parent", "type-sibling", "type-index", "type-internal"],
+          "value-builtin",
+          "value-external",
+          "value-internal",
+          ["value-parent", "value-sibling", "value-index"],
+          "value-side-effect",
+          "unknown"
+        ]
+      }
+    ],
+    "perfectionist/sort-named-imports": [
+      "error",
+      {
+        "order": "asc",
+        "type": "natural"
+      }
+    ],
+    "perfectionist/sort-interfaces": [
+      "error",
+      {
+        "order": "asc",
+        "type": "natural"
+      }
+    ],
+    "perfectionist/sort-object-types": [
+      "error",
+      {
+        "order": "asc",
+        "type": "natural"
+      }
+    ]
+  }
+}
