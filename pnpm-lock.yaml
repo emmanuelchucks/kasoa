@@ -175,9 +175,6 @@ importers:
       eslint-plugin-react-you-might-not-need-an-effect:
         specifier: ^0.8.5
         version: 0.8.5(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-sonarjs:
-        specifier: ^3.0.5
-        version: 3.0.5(eslint@9.39.2(jiti@2.6.1))
     devDependencies:
       '@types/node':
         specifier: ^25.0.9

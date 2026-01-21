@@ -5,9 +5,6 @@
     "dist"
   ],
   "type": "module",
-  "bin": {
-    "oxlint-config": "./dist/cli.js"
-  },
   "exports": {
     "./base": "./dist/base.json",
     "./node": "./dist/node.json",
@@ -15,7 +12,7 @@
   },
   "scripts": {
     "dev": "tsgo --watch",
-    "build": "tsgo && cp src/*.json dist/ && mkdir -p dist/plugins && cp src/plugins/*.json dist/plugins/",
+    "build": "mkdir -p dist/plugins && cp src/*.json dist/ && cp src/plugins/*.json dist/plugins/",
     "lint": "oxlint --type-aware --fix .",
     "format": "oxfmt .",
     "typecheck": "tsgo --noEmit",
@@ -26,8 +23,7 @@
     "@vitest/eslint-plugin": "^1.6.6",
     "eslint-plugin-perfectionist": "^5.3.1",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "eslint-plugin-react-you-might-not-need-an-effect": "^0.8.5",
-    "eslint-plugin-sonarjs": "^3.0.5"
+    "eslint-plugin-react-you-might-not-need-an-effect": "^0.8.5"
   },
   "devDependencies": {
     "@types/node": "^25.0.9",

@@ -1,5 +1,5 @@
 {
   "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
-  "extends": ["./base.json"],
+  "extends": ["./src/base.json"],
   "plugins": ["node"]
 }

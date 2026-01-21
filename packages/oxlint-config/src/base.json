@@ -1,13 +1,11 @@
 {
   "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
-  "extends": [
-    "./plugins/restriction.json",
-    "./plugins/pedantic.json",
-    "./plugins/perfectionist.json",
-    "./plugins/sonarjs.json",
-    "./plugins/vitest.json"
-  ],
+  "extends": ["./plugins/restriction.json", "./plugins/pedantic.json"],
   "plugins": ["import", "promise"],
+  "jsPlugins": [
+    "eslint-plugin-perfectionist",
+    { "name": "vitest-js", "specifier": "@vitest/eslint-plugin" }
+  ],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
