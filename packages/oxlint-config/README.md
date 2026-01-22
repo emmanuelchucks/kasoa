@@ -49,7 +49,7 @@ Create an `.oxlintrc.json` file in your project root:
 Extends base config and adds:
 
 - Native plugins: react, react-perf, jsx-a11y
-- JS plugins: react-compiler, react-you-might-not-need-an-effect, @eslint-react
+- JS plugins: react-you-might-not-need-an-effect, @eslint-react
 
 ### Node.js Config
 

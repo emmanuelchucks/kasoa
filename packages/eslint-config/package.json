@@ -38,7 +38,7 @@
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo",
-    "lint": "eslint --fix --cache --concurrency=auto .",
+    "lint": "eslint --fix --cache .",
     "format": "prettier --write --cache --experimental-cli .",
     "typecheck": "tsgo --noEmit",
     "test": "echo 'No tests'",
@@ -56,12 +56,11 @@
     "eslint-plugin-jsx-a11y-x": "^0.1.1",
     "eslint-plugin-n": "^17.23.2",
     "eslint-plugin-no-barrel-files": "^1.2.2",
-    "eslint-plugin-perfectionist": "^5.3.1",
-    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-perfectionist": "^5.4.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.26",
     "eslint-plugin-react-you-might-not-need-an-effect": "^0.8.5",
-    "eslint-plugin-regexp": "^2.10.0",
+    "eslint-plugin-regexp": "^3.0.0",
     "eslint-plugin-sonarjs": "^3.0.5",
     "eslint-plugin-unicorn-x": "^3.2.1",
     "eslint-plugin-unused-imports": "^4.3.0",
@@ -71,9 +70,9 @@
   "devDependencies": {
     "@kasoa/tsconfig": "workspace:*",
     "@types/eslint-plugin-jsx-a11y": "^6.10.1",
-    "@types/node": "^25.0.9",
-    "@typescript/native-preview": "^7.0.0-dev.20260120.1",
-    "prettier": "^3.8.0"
+    "@types/node": "^25.0.10",
+    "@typescript/native-preview": "^7.0.0-dev.20260122.4",
+    "prettier": "^3.8.1"
   },
   "peerDependencies": {
     "eslint": "^9.35.0"
