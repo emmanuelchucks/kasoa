@@ -36,7 +36,7 @@
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo",
-    "lint": "eslint --fix --cache --concurrency=auto .",
+    "lint": "eslint --fix --cache .",
     "format": "prettier --write --cache --experimental-cli .",
     "typecheck": "tsgo --noEmit",
     "test": "echo 'No tests'",
@@ -45,14 +45,14 @@
   "dependencies": {
     "@prettier/plugin-oxc": "^0.1.3",
     "eslint": "^9.39.2",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2"
   },
   "devDependencies": {
     "@kasoa/eslint-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
-    "@types/node": "^25.0.9",
-    "@typescript/native-preview": "^7.0.0-dev.20260120.1"
+    "@types/node": "^25.0.10",
+    "@typescript/native-preview": "^7.0.0-dev.20260122.4"
   },
   "peerDependencies": {
     "prettier": "^3.6.2"

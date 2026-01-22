@@ -38,7 +38,7 @@
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo",
-    "lint": "eslint --fix --cache --concurrency=auto .",
+    "lint": "eslint --fix --cache .",
     "format": "prettier --write --cache --experimental-cli .",
     "typecheck": "tsgo --noEmit",
     "test": "vitest run",
@@ -50,12 +50,12 @@
   "devDependencies": {
     "@kasoa/eslint-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
-    "@types/node": "^25.0.9",
-    "@typescript/native-preview": "^7.0.0-dev.20260120.1",
+    "@types/node": "^25.0.10",
+    "@typescript/native-preview": "^7.0.0-dev.20260122.4",
     "eslint": "^9.39.2",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "valibot": "^1.2.0",
-    "vitest": "^4.0.17"
+    "vitest": "^4.0.18"
   },
   "engines": {
     "node": ">=24"
