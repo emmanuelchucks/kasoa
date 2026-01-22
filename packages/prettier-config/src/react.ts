@@ -1,8 +1,9 @@
 import type { Config } from "prettier";
-import { fileURLToPath } from "node:url";
+import { base } from "./base.js";
 
 export const react = {
-  plugins: [fileURLToPath(import.meta.resolve("prettier-plugin-tailwindcss"))],
+  ...base,
+  plugins: [...(base.plugins ?? []), "prettier-plugin-tailwindcss"],
   tailwindAttributes: ["/.*ClassName/"],
   tailwindFunctions: ["tv"],
 } satisfies Config;

@@ -9,4 +9,3 @@ export const unicornXConfig = defineConfig(unicornX.configs.recommended, {
     "unicorn-x/no-array-for-each": "error",
   },
 });
-

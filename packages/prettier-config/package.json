@@ -36,8 +36,8 @@
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo",
-    "lint": "eslint --fix --cache .",
-    "format": "prettier --write --cache .",
+    "lint": "eslint --fix --cache --concurrency=auto .",
+    "format": "prettier --write --cache --experimental-cli .",
     "typecheck": "tsgo --noEmit",
     "test": "echo 'No tests'",
     "prepublishOnly": "pnpm build"
