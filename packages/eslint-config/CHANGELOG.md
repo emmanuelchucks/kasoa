@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.20
+
+### Patch Changes
+
+- 8a31740: Remove eslint-plugin-react-compiler (merged into eslint-plugin-react-hooks v7)
+
 ## 0.0.19
 
 ### Patch Changes
