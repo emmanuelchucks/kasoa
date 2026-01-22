@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.19
+
+### Patch Changes
+
+- 95d5c35: Update dependencies and sync configurations
+
 ## 0.0.18
 
 ### Patch Changes

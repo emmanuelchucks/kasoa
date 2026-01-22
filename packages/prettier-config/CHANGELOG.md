@@ -1,5 +1,11 @@
 # @kasoa/prettier-config
 
+## 0.0.8
+
+### Patch Changes
+
+- 95d5c35: Update dependencies and sync configurations
+
 ## 0.0.7
 
 ### Patch Changes
