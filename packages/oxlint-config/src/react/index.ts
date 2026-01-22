@@ -1,5 +1,5 @@
 import type { OxlintConfig } from "../types.ts";
-import { eslintReactPlugin } from "./eslint-react.ts";
+import { eslintReactPlugin, eslintReactRules } from "./eslint-react.ts";
 import { jsxA11yPlugin, jsxA11yRules } from "./jsx-a11y.ts";
 import { perfectionistJsxRules } from "./perfectionist.ts";
 import { reactCompilerPlugin } from "./react-compiler.ts";
@@ -18,6 +18,7 @@ export const reactConfig: OxlintConfig = {
   ],
   rules: {
     ...reactRules,
+    ...eslintReactRules,
     ...jsxA11yRules,
     ...perfectionistJsxRules,
   },
