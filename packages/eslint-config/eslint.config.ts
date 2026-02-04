@@ -1,13 +1,1 @@
-import { defineConfig } from "eslint/config";
-import { node } from "./src/node/index.js";
-
-export default defineConfig(node, {
-  languageOptions: {
-    parserOptions: {
-      tsconfigRootDir: import.meta.dirname,
-      projectService: {
-        allowDefaultProject: ["*.config.ts"],
-      },
-    },
-  },
-});
+export { node as default } from "./src/node/index.js";

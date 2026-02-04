@@ -9,7 +9,9 @@ const sharedConfig = {
     typescriptEslint.configs.stylisticTypeChecked,
   ],
   parserOptions: {
-    projectService: true,
+    projectService: {
+      allowDefaultProject: ["*.config.ts"],
+    },
   },
   rules: {
     "@typescript-eslint/consistent-type-imports": "error",

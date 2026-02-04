@@ -1,13 +1,1 @@
-import { node } from "@kasoa/eslint-config/node";
-import { defineConfig } from "eslint/config";
-
-export default defineConfig(node, {
-  languageOptions: {
-    parserOptions: {
-      tsconfigRootDir: import.meta.dirname,
-      projectService: {
-        allowDefaultProject: ["*.config.ts"],
-      },
-    },
-  },
-});
+export { node as default } from "@kasoa/eslint-config/node";
