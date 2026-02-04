@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.24
+
+### Patch Changes
+
+- 54c28c7: Fix exports to match dist output structure
+
 ## 0.0.23
 
 ### Patch Changes

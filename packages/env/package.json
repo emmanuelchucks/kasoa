@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/env",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "license": "MIT",
   "description": "Type-safe environment variable validation using Standard Schema",
