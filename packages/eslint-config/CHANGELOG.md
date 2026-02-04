@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.23
+
+### Patch Changes
+
+- ba53521: Revert allowDefaultProject from shared config
+
 ## 0.0.22
 
 ### Patch Changes
