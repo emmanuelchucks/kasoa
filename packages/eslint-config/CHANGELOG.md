@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.22
+
+### Patch Changes
+
+- 664f9c0: Move allowDefaultProject into shared typescript-eslint config and remove unnecessary nullish coalescing
+
 ## 0.0.21
 
 ### Patch Changes
