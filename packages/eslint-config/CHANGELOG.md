@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.21
+
+### Patch Changes
+
+- 24c0ed4: Remove no-barrel-files rule from both ESLint and OXLint configs
+
 ## 0.0.20
 
 ### Patch Changes
