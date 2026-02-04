@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@kasoa/eslint-config": "workspace:*",
+    "@kasoa/prettier-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
     "@types/node": "^25.0.10",
     "@typescript/native-preview": "^7.0.0-dev.20260122.4",
