@@ -3,7 +3,7 @@ import eslintConfigPrettier from "eslint-config-prettier/flat";
 import { defineConfig, globalIgnores } from "eslint/config";
 import { eslintConfig } from "./eslint.js";
 import { importLiteConfig } from "./import-lite.js";
-import { noBarrelFilesConfig } from "./no-barrel-files.js";
+
 import { perfectionistConfig } from "./perfectionist.js";
 import { regexpConfig } from "./regexp.js";
 import { sonarjsConfig } from "./sonarjs.js";
@@ -17,7 +17,7 @@ export const base = defineConfig(
   globalIgnores(["**/*.d.ts"]),
   eslintConfig,
   typescriptEslintConfig,
-  noBarrelFilesConfig,
+
   unicornXConfig,
   vitestConfig,
   importLiteConfig,

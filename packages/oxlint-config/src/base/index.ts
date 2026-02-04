@@ -2,7 +2,7 @@ import type { OxlintConfig } from "../types.ts";
 import { categories } from "./categories.ts";
 import { eslintRules } from "./eslint.ts";
 import { importPlugin, importRules } from "./import.ts";
-import { noBarrelFilesRules } from "./no-barrel-files.ts";
+
 import { pedanticRules } from "./pedantic.ts";
 import { perfectionistPlugin, perfectionistRules } from "./perfectionist.ts";
 import { promisePlugin, promiseRules } from "./promise.ts";
@@ -11,10 +11,7 @@ import { typescriptRules } from "./typescript.ts";
 import { unicornRules } from "./unicorn.ts";
 import { importLitePlugin, importLiteRules } from "./import-lite.ts";
 import { unicornXPlugin, unicornXRules } from "./unicorn-x.ts";
-import {
-  unusedImportsPlugin,
-  unusedImportsRules,
-} from "./unused-imports.ts";
+import { unusedImportsPlugin, unusedImportsRules } from "./unused-imports.ts";
 import { vitestPlugin, vitestRules } from "./vitest.ts";
 
 export const baseConfig: OxlintConfig = {
@@ -34,7 +31,7 @@ export const baseConfig: OxlintConfig = {
     ...importRules,
     ...promiseRules,
     ...unicornRules,
-    ...noBarrelFilesRules,
+
     ...restrictionRules,
     ...pedanticRules,
     ...perfectionistRules,
