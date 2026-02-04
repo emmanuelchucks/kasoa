@@ -14,24 +14,16 @@ pnpm add -D @kasoa/prettier-config prettier
 
 For general JavaScript/TypeScript projects:
 
-**prettier.config.js:**
-
 ```js
-import { base } from "@kasoa/prettier-config/base";
-
-export default base;
+export { base as default } from "@kasoa/prettier-config/base";
 ```
 
 ### React Config
 
 For React applications with Tailwind CSS support:
 
-**prettier.config.js:**
-
 ```js
-import { react } from "@kasoa/prettier-config/react";
-
-export default react;
+export { react as default } from "@kasoa/prettier-config/react";
 ```
 
 ### Custom Overrides
