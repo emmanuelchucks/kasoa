@@ -27,8 +27,8 @@
     "dist"
   ],
   "exports": {
-    "./base": "./dist/base.js",
-    "./react": "./dist/react.js"
+    "./base": "./dist/src/base.js",
+    "./react": "./dist/src/react.js"
   },
   "publishConfig": {
     "access": "public"

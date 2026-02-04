@@ -28,9 +28,9 @@
     "dist"
   ],
   "exports": {
-    "./base": "./dist/base/index.js",
-    "./node": "./dist/node/index.js",
-    "./react": "./dist/react/index.js"
+    "./base": "./dist/src/base/index.js",
+    "./node": "./dist/src/node/index.js",
+    "./react": "./dist/src/react/index.js"
   },
   "publishConfig": {
     "access": "public"
