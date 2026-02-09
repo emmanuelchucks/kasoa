@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.25
+
+### Patch Changes
+
+- aa4e2a9: Cherry-pick sonarjs rules to remove redundancy and resolve unicorn-x/regexp conflict
+
 ## 0.0.24
 
 ### Patch Changes
