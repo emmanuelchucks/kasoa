@@ -1,5 +1,11 @@
 # @kasoa/oxfmt-config
 
+## 0.1.0
+
+### Minor Changes
+
+- bbb208b: Add experimental Tailwind CSS class sorting to react config
+
 ## 0.0.1
 
 ### Patch Changes
