@@ -14,12 +14,15 @@ importers:
       '@typescript/native-preview':
         specifier: ^7.0.0-dev.20260211.1
         version: 7.0.0-dev.20260211.1
-      eslint:
-        specifier: ^9.39.2
-        version: 9.39.2(jiti@2.6.1)
-      prettier:
-        specifier: ^3.8.1
-        version: 3.8.1
+      oxfmt:
+        specifier: ^0.31.0
+        version: 0.31.0
+      oxlint:
+        specifier: ^1.46.0
+        version: 1.46.0(oxlint-tsgolint@0.12.0)
+      oxlint-tsgolint:
+        specifier: ^0.12.0
+        version: 0.12.0
       turbo:
         specifier: ^2.8.7
         version: 2.8.7
@@ -30,12 +33,12 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
     devDependencies:
-      '@kasoa/eslint-config':
+      '@kasoa/oxfmt-config':
         specifier: workspace:*
-        version: link:../eslint-config
-      '@kasoa/prettier-config':
+        version: link:../oxfmt-config
+      '@kasoa/oxlint-config':
         specifier: workspace:*
-        version: link:../prettier-config
+        version: link:../oxlint-config
       '@kasoa/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
@@ -45,12 +48,15 @@ importers:
       '@typescript/native-preview':
         specifier: ^7.0.0-dev.20260211.1
         version: 7.0.0-dev.20260211.1
-      eslint:
-        specifier: ^9.39.2
-        version: 9.39.2(jiti@2.6.1)
-      prettier:
-        specifier: ^3.8.1
-        version: 3.8.1
+      oxfmt:
+        specifier: ^0.31.0
+        version: 0.31.0
+      oxlint:
+        specifier: ^1.46.0
+        version: 1.46.0(oxlint-tsgolint@0.12.0)
+      oxlint-tsgolint:
+        specifier: ^0.12.0
+        version: 0.12.0
       valibot:
         specifier: ^1.2.0
         version: 1.2.0(typescript@5.9.3)
