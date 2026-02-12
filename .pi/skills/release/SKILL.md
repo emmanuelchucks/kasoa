@@ -25,7 +25,7 @@ Write `.changeset/<name>.md`:
 Brief description
 ```
 
-Semver (pre-1.0): `patch` for fixes/tweaks, `minor` for features/breaking.
+Semver (pre-1.0): Always use `patch` unless explicitly told otherwise.
 
 ### 3. Commit changeset
 
