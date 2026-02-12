@@ -50,7 +50,7 @@
     "eslint": "^9.39.2",
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import-lite": "^0.5.1",
+    "eslint-plugin-import-lite": "0.5.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-jsx-a11y-x": "^0.1.1",
     "eslint-plugin-n": "^17.23.2",

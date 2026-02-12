@@ -79,8 +79,8 @@ importers:
         specifier: ^10.1.8
         version: 10.1.8(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-import-lite:
-        specifier: ^0.5.1
-        version: 0.5.1(eslint@9.39.2(jiti@2.6.1))
+        specifier: 0.5.0
+        version: 0.5.0(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-jsx-a11y:
         specifier: ^6.10.2
         version: 6.10.2(eslint@9.39.2(jiti@2.6.1))
@@ -1668,8 +1668,8 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
-  eslint-plugin-import-lite@0.5.1:
-    resolution: {integrity: sha512-J+EqremfzXlB1WA/SKQxdZ2yeXgtpCorbcN0wS1KOTLnlSYiGR62MvAtM0zNWy1oDMjL/Lqkqf92Ahs1V5lyUg==}
+  eslint-plugin-import-lite@0.5.0:
+    resolution: {integrity: sha512-7uBvxuQj+VlYmZSYSHcm33QgmZnvMLP2nQiWaLtjhJ5x1zKcskOqjolL+dJC13XY+ktQqBgidAnnQMELfRaXQg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=9.0.0'
@@ -4381,7 +4381,7 @@ snapshots:
       eslint: 9.39.2(jiti@2.6.1)
       eslint-compat-utils: 0.5.1(eslint@9.39.2(jiti@2.6.1))
 
-  eslint-plugin-import-lite@0.5.1(eslint@9.39.2(jiti@2.6.1)):
+  eslint-plugin-import-lite@0.5.0(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       eslint: 9.39.2(jiti@2.6.1)
 
