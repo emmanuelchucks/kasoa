@@ -1,0 +1,53 @@
+{
+  "name": "@kasoa/oxfmt-config",
+  "version": "0.0.0",
+  "description": "Kasoa's Oxfmt configurations",
+  "keywords": [
+    "formatter",
+    "kasoa",
+    "oxfmt"
+  ],
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/oxfmt-config",
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Emmanuel Chucks",
+    "email": "hi@emmanuelchucks.com",
+    "url": "https://emmanuelchucks.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelchucks/kasoa.git",
+    "directory": "packages/oxfmt-config"
+  },
+  "files": [
+    "configs"
+  ],
+  "type": "module",
+  "exports": {
+    "./base": "./configs/base.json",
+    "./react": "./configs/react.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "echo 'No build step'",
+    "lint": "oxlint --fix .",
+    "format": "oxfmt .",
+    "typecheck": "echo 'No typecheck'",
+    "test": "echo 'No tests'"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.31.0",
+    "oxlint": "^1.46.0"
+  },
+  "peerDependencies": {
+    "oxfmt": "^0.31.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
