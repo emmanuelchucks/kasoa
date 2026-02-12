@@ -1,0 +1,61 @@
+{
+  "name": "@kasoa/oxlint-config",
+  "version": "0.0.0",
+  "description": "Kasoa's Oxlint configurations",
+  "keywords": [
+    "kasoa",
+    "linter",
+    "oxlint"
+  ],
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/oxlint-config",
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Emmanuel Chucks",
+    "email": "hi@emmanuelchucks.com",
+    "url": "https://emmanuelchucks.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelchucks/kasoa.git",
+    "directory": "packages/oxlint-config"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    "./base": "./dist/src/base/index.js",
+    "./node": "./dist/src/node/index.js",
+    "./react": "./dist/src/react/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsgo --watch",
+    "build": "tsgo",
+    "lint": "oxlint --type-aware --fix .",
+    "format": "oxfmt .",
+    "typecheck": "tsgo --noEmit",
+    "test": "echo 'No tests'",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "@kasoa/tsconfig": "workspace:*",
+    "@types/node": "^25.2.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260211.1",
+    "oxfmt": "^0.31.0",
+    "oxlint": "^1.46.0",
+    "oxlint-tsgolint": "^0.12.0"
+  },
+  "peerDependencies": {
+    "oxlint": "^1.46.0",
+    "oxlint-tsgolint": "^0.12.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
