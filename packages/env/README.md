@@ -18,10 +18,7 @@ const env = defineEnv(
   v.object({
     DATABASE_URL: v.pipe(v.string(), v.url()),
     PORT: v.pipe(v.string(), v.transform(Number)),
-    NODE_ENV: v.optional(
-      v.picklist(["development", "production"]),
-      "development",
-    ),
+    NODE_ENV: v.optional(v.picklist(["development", "production"]), "development"),
   }),
 );
 

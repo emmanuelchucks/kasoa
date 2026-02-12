@@ -1,33 +1,33 @@
 {
   "name": "@kasoa/env",
   "version": "0.0.9",
-  "type": "module",
-  "license": "MIT",
   "description": "Type-safe environment variable validation using Standard Schema",
   "keywords": [
     "env",
     "environment",
-    "validation",
+    "kasoa",
     "standard-schema",
-    "kasoa"
+    "validation"
   ],
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/env",
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Emmanuel Chucks",
     "email": "hi@emmanuelchucks.com",
     "url": "https://emmanuelchucks.com"
   },
-  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/env",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/emmanuelchucks/kasoa.git",
     "directory": "packages/env"
   },
-  "bugs": {
-    "url": "https://github.com/emmanuelchucks/kasoa/issues"
-  },
   "files": [
     "dist"
   ],
+  "type": "module",
   "exports": {
     ".": "./dist/src/index.js"
   },
@@ -37,8 +37,8 @@
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo",
-    "lint": "eslint --fix --cache .",
-    "format": "prettier --write --cache --experimental-cli .",
+    "lint": "oxlint --type-aware --fix .",
+    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/configs/base.json .",
     "typecheck": "tsgo --noEmit",
     "test": "vitest run",
     "prepublishOnly": "pnpm build"
@@ -47,13 +47,14 @@
     "@standard-schema/spec": "^1.1.0"
   },
   "devDependencies": {
-    "@kasoa/eslint-config": "workspace:*",
-    "@kasoa/prettier-config": "workspace:*",
+    "@kasoa/oxfmt-config": "workspace:*",
+    "@kasoa/oxlint-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
     "@types/node": "^25.2.3",
     "@typescript/native-preview": "^7.0.0-dev.20260211.1",
-    "eslint": "^9.39.2",
-    "prettier": "^3.8.1",
+    "oxfmt": "^0.31.0",
+    "oxlint": "^1.46.0",
+    "oxlint-tsgolint": "^0.12.0",
     "valibot": "^1.2.0",
     "vitest": "^4.0.18"
   },

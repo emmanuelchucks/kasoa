@@ -1,7 +1,6 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
-export type InferEnv<T extends StandardSchemaV1> =
-  StandardSchemaV1.InferOutput<T>;
+export type InferEnv<T extends StandardSchemaV1> = StandardSchemaV1.InferOutput<T>;
 
 export function defineEnv<T extends StandardSchemaV1>(
   schema: T,
@@ -21,9 +20,7 @@ export function defineEnv<T extends StandardSchemaV1>(
   return result.value as InferEnv<T>;
 }
 
-function normalizeEnv(
-  env: Record<string, string | undefined>,
-): Record<string, string | undefined> {
+function normalizeEnv(env: Record<string, string | undefined>): Record<string, string | undefined> {
   const normalizedEnv: Record<string, string | undefined> = {};
   for (const key of Object.keys(env)) {
     const value = env[key];
@@ -41,10 +38,6 @@ function formatIssues(issues: readonly StandardSchemaV1.Issue[]): string {
   return `Environment validation failed:\n\n${lines.join("\n")}`;
 }
 
-function getPathString(
-  path: readonly (PropertyKey | StandardSchemaV1.PathSegment)[],
-): string {
-  return path
-    .map((segment) => (typeof segment === "object" ? segment.key : segment))
-    .join(".");
+function getPathString(path: readonly (PropertyKey | StandardSchemaV1.PathSegment)[]): string {
+  return path.map((segment) => (typeof segment === "object" ? segment.key : segment)).join(".");
 }

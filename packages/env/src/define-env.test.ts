@@ -1,5 +1,6 @@
 import * as v from "valibot";
 import { describe, expect, it } from "vitest";
+
 import { defineEnv } from "./index.js";
 
 describe("defineEnv()", () => {
@@ -29,9 +30,7 @@ describe("defineEnv()", () => {
       DATABASE_URL: v.string(),
     });
 
-    expect(() => defineEnv(schema, {})).toThrowError(
-      "Environment validation failed",
-    );
+    expect(() => defineEnv(schema, {})).toThrowError("Environment validation failed");
     expect(() => defineEnv(schema, {})).toThrowError("DATABASE_URL");
   });
 
@@ -42,9 +41,7 @@ describe("defineEnv()", () => {
       API_KEY: v.string(),
     });
 
-    expect(() => defineEnv(schema, { API_KEY: "" })).toThrowError(
-      "Environment validation failed",
-    );
+    expect(() => defineEnv(schema, { API_KEY: "" })).toThrowError("Environment validation failed");
   });
 
   it("supports optional variables with defaults", () => {
@@ -66,9 +63,7 @@ describe("defineEnv()", () => {
       DATABASE_URL: v.pipe(v.string(), v.url()),
     });
 
-    expect(() => defineEnv(schema, { DATABASE_URL: "not-a-url" })).toThrowError(
-      "DATABASE_URL",
-    );
+    expect(() => defineEnv(schema, { DATABASE_URL: "not-a-url" })).toThrowError("DATABASE_URL");
   });
 
   it("throws TypeError for async schemas", () => {
