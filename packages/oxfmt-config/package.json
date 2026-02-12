@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/oxfmt-config",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Kasoa's Oxfmt configurations",
   "keywords": [
     "formatter",
