@@ -26,7 +26,6 @@
     "url": "https://github.com/emmanuelchucks/kasoa/issues"
   },
   "files": [
-    "src",
     "dist"
   ],
   "exports": {
@@ -51,8 +50,8 @@
     "@kasoa/eslint-config": "workspace:*",
     "@kasoa/prettier-config": "workspace:*",
     "@kasoa/tsconfig": "workspace:*",
-    "@types/node": "^25.0.10",
-    "@typescript/native-preview": "^7.0.0-dev.20260122.4",
+    "@types/node": "^25.2.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260211.1",
     "eslint": "^9.39.2",
     "prettier": "^3.8.1",
     "valibot": "^1.2.0",

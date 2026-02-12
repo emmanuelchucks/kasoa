@@ -24,7 +24,6 @@
     "url": "https://github.com/emmanuelchucks/kasoa/issues"
   },
   "files": [
-    "src",
     "dist"
   ],
   "exports": {
@@ -45,32 +44,32 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@eslint-react/eslint-plugin": "^2.7.2",
+    "@eslint-react/eslint-plugin": "^2.12.4",
     "@eslint/js": "latest",
-    "@vitest/eslint-plugin": "^1.6.6",
+    "@vitest/eslint-plugin": "^1.6.7",
     "eslint": "^9.39.2",
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import-lite": "^0.5.0",
+    "eslint-plugin-import-lite": "^0.5.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-jsx-a11y-x": "^0.1.1",
     "eslint-plugin-n": "^17.23.2",
-    "eslint-plugin-perfectionist": "^5.4.0",
+    "eslint-plugin-perfectionist": "^5.5.0",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.26",
+    "eslint-plugin-react-refresh": "^0.5.0",
     "eslint-plugin-react-you-might-not-need-an-effect": "^0.8.5",
     "eslint-plugin-regexp": "^3.0.0",
-    "eslint-plugin-sonarjs": "^3.0.5",
+    "eslint-plugin-sonarjs": "^3.0.7",
     "eslint-plugin-unicorn-x": "^3.2.1",
-    "eslint-plugin-unused-imports": "^4.3.0",
-    "globals": "^17.0.0",
-    "typescript-eslint": "^8.53.1"
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "globals": "^17.3.0",
+    "typescript-eslint": "^8.55.0"
   },
   "devDependencies": {
     "@kasoa/tsconfig": "workspace:*",
     "@types/eslint-plugin-jsx-a11y": "^6.10.1",
-    "@types/node": "^25.0.10",
-    "@typescript/native-preview": "^7.0.0-dev.20260122.4",
+    "@types/node": "^25.2.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260211.1",
     "prettier": "^3.8.1"
   },
   "peerDependencies": {
