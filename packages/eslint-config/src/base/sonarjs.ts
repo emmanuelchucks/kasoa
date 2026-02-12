@@ -19,6 +19,7 @@ export const sonarjsConfig = defineConfig({
     "sonarjs/assertions-in-tests": "error",
     "sonarjs/no-incomplete-assertions": "error",
     "sonarjs/no-skipped-tests": "error",
+    // eslint-disable-next-line sonarjs/no-hardcoded-passwords -- rule identifier contains the word "password"
     "sonarjs/no-hardcoded-passwords": "error",
     "sonarjs/no-hardcoded-ip": "error",
     "sonarjs/code-eval": "error",
