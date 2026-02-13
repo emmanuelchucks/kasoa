@@ -1,15 +1,14 @@
 import gitignore from "eslint-config-flat-gitignore";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import { defineConfig, globalIgnores } from "eslint/config";
-import { eslintConfig } from "./eslint.js";
-import { importLiteConfig } from "./import-lite.js";
-import { perfectionistConfig } from "./perfectionist.js";
-import { regexpConfig } from "./regexp.js";
-import { sonarjsConfig } from "./sonarjs.js";
-import { typescriptEslintConfig } from "./typescript-eslint.js";
-import { unicornXConfig } from "./unicorn-x.js";
-import { unusedImportsConfig } from "./unused-imports.js";
-import { vitestConfig } from "./vitest.js";
+import { eslintConfig } from "./eslint.ts";
+import { importLiteConfig } from "./import-lite.ts";
+import { perfectionistConfig } from "./perfectionist.ts";
+import { regexpConfig } from "./regexp.ts";
+import { sonarjsConfig } from "./sonarjs.ts";
+import { typescriptEslintConfig } from "./typescript-eslint.ts";
+import { unicornXConfig } from "./unicorn-x.ts";
+import { unusedImportsConfig } from "./unused-imports.ts";
 
 export const base = defineConfig(
   gitignore(),
@@ -18,7 +17,6 @@ export const base = defineConfig(
   typescriptEslintConfig,
 
   unicornXConfig,
-  vitestConfig,
   importLiteConfig,
   unusedImportsConfig,
   perfectionistConfig,

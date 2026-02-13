@@ -1,7 +1,7 @@
 import * as v from "valibot";
 import { describe, expect, it } from "vitest";
 
-import { defineEnv } from "./index.js";
+import { defineEnv } from "./index.ts";
 
 describe("defineEnv()", () => {
   it("returns validated env object", () => {

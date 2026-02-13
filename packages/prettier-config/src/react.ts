@@ -1,5 +1,5 @@
 import type { Config } from "prettier";
-import { base } from "./base.js";
+import { base } from "./base.ts";
 
 export const react = {
   ...base,

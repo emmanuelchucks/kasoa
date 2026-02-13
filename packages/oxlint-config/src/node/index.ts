@@ -1,5 +1,5 @@
 import { defineConfig } from "oxlint";
-import { base } from "../base/index.js";
+import { base } from "../base/index.ts";
 
 export const node = defineConfig({
   ...base,
