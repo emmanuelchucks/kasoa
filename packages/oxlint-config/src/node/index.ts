@@ -3,7 +3,7 @@ import { base } from "../base/index.ts";
 
 export const node = defineConfig({
   ...base,
-  plugins: [...base.plugins, "node"],
+  plugins: [...base.plugins, "node", "vitest"],
   env: {
     node: true,
     vitest: true,

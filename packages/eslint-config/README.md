@@ -51,8 +51,8 @@ export default defineConfig(node, {
 
 ## Configurations
 
-- **`base`**: Core rules for TypeScript, imports, code quality, and testing.
-- **`node`**: Extends `base` with Node.js-specific rules.
+- **`base`**: Core rules for TypeScript, imports, and code quality.
+- **`node`**: Extends `base` with Node.js-specific and Vitest rules.
 - **`react`**: Extends `base` with React-specific rules.
 
 All configs use Prettier-compatible rules and enforce strict standards.

@@ -3,7 +3,7 @@ import { base } from "../base/index.ts";
 
 export const react = defineConfig({
   ...base,
-  plugins: [...base.plugins, "react", "jsx-a11y"],
+  plugins: [...base.plugins, "react", "jsx-a11y", "vitest"],
   env: {
     vitest: true,
   },

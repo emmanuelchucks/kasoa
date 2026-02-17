@@ -1,7 +1,7 @@
 import { defineConfig } from "oxlint";
 
 export const base = defineConfig({
-  plugins: ["typescript", "unicorn", "oxc", "import", "vitest"],
+  plugins: ["typescript", "unicorn", "oxc", "import"],
   rules: {
     "default-case-last": "error",
     eqeqeq: "error",
