@@ -39,9 +39,6 @@ importers:
       '@kasoa/oxlint-config':
         specifier: workspace:*
         version: link:../oxlint-config
-      '@kasoa/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/node':
         specifier: ^25.2.3
         version: 25.2.3
@@ -127,9 +124,6 @@ importers:
         specifier: ^8.55.0
         version: 8.55.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
     devDependencies:
-      '@kasoa/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/eslint-plugin-jsx-a11y':
         specifier: ^6.10.1
         version: 6.10.1(jiti@2.6.1)
@@ -154,9 +148,6 @@ importers:
 
   packages/oxlint-config:
     devDependencies:
-      '@kasoa/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/node':
         specifier: ^25.2.3
         version: 25.2.3
@@ -191,17 +182,12 @@ importers:
       '@kasoa/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@kasoa/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/node':
         specifier: ^25.2.3
         version: 25.2.3
       '@typescript/native-preview':
         specifier: ^7.0.0-dev.20260211.1
         version: 7.0.0-dev.20260211.1
-
-  packages/tsconfig: {}
 
 packages:
 

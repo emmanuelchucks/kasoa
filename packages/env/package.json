@@ -49,7 +49,6 @@
   "devDependencies": {
     "@kasoa/oxfmt-config": "workspace:*",
     "@kasoa/oxlint-config": "workspace:*",
-    "@kasoa/tsconfig": "workspace:*",
     "@types/node": "^25.2.3",
     "@typescript/native-preview": "^7.0.0-dev.20260211.1",
     "oxfmt": "^0.31.0",
