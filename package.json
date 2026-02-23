@@ -10,18 +10,19 @@
     "test": "turbo run test",
     "clean": "git clean -xdf",
     "check:all": "turbo lint format typecheck",
+    "update:deps": "pnpm dlx taze latest -wrli",
     "ci": "pnpm build && pnpm check:all && pnpm test",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
-    "@typescript/native-preview": "^7.0.0-dev.20260211.1",
-    "oxfmt": "^0.31.0",
-    "oxlint": "^1.46.0",
-    "oxlint-tsgolint": "^0.12.0",
-    "turbo": "^2.8.7"
+    "@typescript/native-preview": "^7.0.0-dev.20260223.1",
+    "oxfmt": "^0.35.0",
+    "oxlint": "^1.50.0",
+    "oxlint-tsgolint": "^0.14.2",
+    "turbo": "^2.8.10"
   },
-  "packageManager": "pnpm@10.29.3",
+  "packageManager": "pnpm@10.30.1",
   "engines": {
     "node": ">=24"
   }
