@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.10
+
+### Patch Changes
+
+- 5121be8: Align configs with updated tooling and formatter behavior.
+
 ## 0.0.7
 
 ### Patch Changes

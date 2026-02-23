@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.27
+
+### Patch Changes
+
+- 5121be8: Align configs with updated tooling and formatter behavior.
+
 ## 0.0.26
 
 ### Patch Changes

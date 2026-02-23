@@ -1,5 +1,11 @@
 # @kasoa/oxlint-config
 
+## 0.0.3
+
+### Patch Changes
+
+- 5121be8: Align configs with updated tooling and formatter behavior.
+
 ## 0.0.2
 
 ### Patch Changes

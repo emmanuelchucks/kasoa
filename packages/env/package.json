@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/env",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Type-safe environment variable validation using Standard Schema",
   "keywords": [
     "env",
