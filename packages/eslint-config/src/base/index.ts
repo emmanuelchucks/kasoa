@@ -15,7 +15,6 @@ export const base = defineConfig(
   globalIgnores(["**/*.d.ts"]),
   eslintConfig,
   typescriptEslintConfig,
-
   unicornXConfig,
   importLiteConfig,
   unusedImportsConfig,

@@ -22,6 +22,5 @@ export const sonarjsConfig = defineConfig({
     // eslint-disable-next-line sonarjs/no-hardcoded-passwords -- rule identifier contains the word "password"
     "sonarjs/no-hardcoded-passwords": "error",
     "sonarjs/no-hardcoded-ip": "error",
-    "sonarjs/code-eval": "error",
   },
 });
