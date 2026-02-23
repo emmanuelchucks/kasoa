@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "experimentalSortImports": {
+  "sortImports": {
+    "internalPattern": ["#", "@/"],
+    "newlinesBetween": false,
     "groups": [
       "type-import",
       ["value-builtin", "value-external"],

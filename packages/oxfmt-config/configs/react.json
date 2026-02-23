@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "experimentalSortImports": {
+  "sortImports": {
     "groups": [
       "type-import",
       ["value-builtin", "value-external"],
@@ -11,7 +11,7 @@
       "unknown"
     ]
   },
-  "experimentalTailwindcss": {
+  "sortTailwindcss": {
     "attributes": ["/.*ClassName/"],
     "functions": ["tv"]
   }
