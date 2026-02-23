@@ -1,1 +1,1 @@
-export { base as default } from "./src/base.js";
+export { base as default } from "./src/base.ts";
