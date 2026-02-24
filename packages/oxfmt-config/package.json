@@ -23,24 +23,26 @@
     "directory": "packages/oxfmt-config"
   },
   "files": [
-    "configs"
+    "dist"
   ],
   "type": "module",
   "exports": {
-    "./base": "./configs/base.json",
-    "./react": "./configs/react.json"
+    "./base": "./dist/src/base/index.json",
+    "./react": "./dist/src/react/index.json"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "echo 'No build step'",
+    "build": "node ./scripts/build.ts",
     "lint": "oxlint --fix .",
     "format": "oxfmt .",
-    "typecheck": "echo 'No typecheck'",
-    "test": "echo 'No tests'"
+    "typecheck": "tsgo --noEmit",
+    "test": "echo 'No tests'",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260223.1",
     "oxfmt": "^0.35.0",
     "oxlint": "^1.50.0"
   },

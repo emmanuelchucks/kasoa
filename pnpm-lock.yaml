@@ -139,6 +139,9 @@ importers:
 
   packages/oxfmt-config:
     devDependencies:
+      '@typescript/native-preview':
+        specifier: ^7.0.0-dev.20260223.1
+        version: 7.0.0-dev.20260223.1
       oxfmt:
         specifier: ^0.35.0
         version: 0.35.0

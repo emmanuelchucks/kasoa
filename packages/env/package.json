@@ -38,7 +38,7 @@
     "dev": "tsgo --watch",
     "build": "tsgo",
     "lint": "oxlint --type-aware --fix .",
-    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/configs/base.json .",
+    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/dist/src/base/index.json .",
     "typecheck": "tsgo --noEmit",
     "test": "vitest run",
     "prepublishOnly": "pnpm build"

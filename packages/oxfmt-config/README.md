@@ -19,7 +19,7 @@ For general JavaScript/TypeScript projects:
 ```json
 {
   "scripts": {
-    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/configs/base.json ."
+    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/dist/src/base/index.json ."
   }
 }
 ```
@@ -31,7 +31,7 @@ For React applications:
 ```json
 {
   "scripts": {
-    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/configs/react.json ."
+    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/dist/src/react/index.json ."
   }
 }
 ```
@@ -39,7 +39,7 @@ For React applications:
 ## Configurations
 
 - **`base`**: Core Oxfmt settings with import sorting groups.
-- **`react`**: React-oriented Oxfmt settings (currently aligned with base).
+- **`react`**: React-oriented Oxfmt settings that extend base.
 
 ## Author
 
