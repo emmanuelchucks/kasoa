@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.11
+
+### Patch Changes
+
+- c3c47ea: Widen peer dependency ranges to avoid false incompatibility warnings in consumer apps and align dependency versions across the workspace.
+
 ## 0.0.10
 
 ### Patch Changes
