@@ -1,5 +1,11 @@
 # @kasoa/oxfmt-config
 
+## 0.0.4
+
+### Patch Changes
+
+- 692e6fb: Publish oxfmt shared configs from TypeScript sources and emit JSON to dist/src so derived presets can stay in sync.
+
 ## 0.0.3
 
 ### Patch Changes
