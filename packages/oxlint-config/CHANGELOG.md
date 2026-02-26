@@ -1,5 +1,11 @@
 # @kasoa/oxlint-config
 
+## 0.0.5
+
+### Patch Changes
+
+- 18579b1: Ignore legacy JavaScript config files (`*.config.js`, `*.config.cjs`, `*.config.mjs`) in shared Oxlint presets to reduce noise from Expo and tooling config files.
+
 ## 0.0.4
 
 ### Patch Changes
