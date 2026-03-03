@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.29
+
+### Patch Changes
+
+- 61ac57a: Align import sorting groups with the shared Oxfmt configuration.
+
 ## 0.0.28
 
 ### Patch Changes
