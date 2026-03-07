@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.12
+
+### Patch Changes
+
+- 8a3a84f: Require explicit env input in `@kasoa/env` and tighten the shared Oxlint presets with stricter native rules, type-aware defaults, and better test-file handling.
+
 ## 0.0.11
 
 ### Patch Changes
