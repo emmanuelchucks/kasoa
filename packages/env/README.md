@@ -20,6 +20,7 @@ const env = defineEnv(
     PORT: v.pipe(v.string(), v.transform(Number)),
     NODE_ENV: v.optional(v.picklist(["development", "production"]), "development"),
   }),
+  process.env,
 );
 
 // env is fully typed:
@@ -35,12 +36,12 @@ const env = defineEnv(
 
 ## API
 
-### `defineEnv(schema, env?)`
+### `defineEnv(schema, env)`
 
 Validates environment variables against the provided schema.
 
 - `schema` - A Standard Schema compatible schema
-- `env` - Optional env object (defaults to `process.env`)
+- `env` - Env object to validate
 
 Returns the validated and typed environment object.
 

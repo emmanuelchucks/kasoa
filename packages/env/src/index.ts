@@ -4,7 +4,7 @@ export type InferEnv<T extends StandardSchemaV1> = StandardSchemaV1.InferOutput<
 
 export function defineEnv<T extends StandardSchemaV1>(
   schema: T,
-  env: Record<string, string | undefined> = process.env,
+  env: Readonly<Record<string, string | undefined>>,
 ): InferEnv<T> {
   const normalizedEnv = normalizeEnv(env);
   const result = schema["~standard"].validate(normalizedEnv);
@@ -20,7 +20,9 @@ export function defineEnv<T extends StandardSchemaV1>(
   return result.value as InferEnv<T>;
 }
 
-function normalizeEnv(env: Record<string, string | undefined>): Record<string, string | undefined> {
+function normalizeEnv(
+  env: Readonly<Record<string, string | undefined>>,
+): Record<string, string | undefined> {
   const normalizedEnv: Record<string, string | undefined> = {};
   for (const key of Object.keys(env)) {
     const value = env[key];

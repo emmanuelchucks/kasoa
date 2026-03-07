@@ -72,7 +72,10 @@ describe("defineEnv()", () => {
       "~standard": {
         vendor: "test",
         version: 1 as const,
-        validate: () => Promise.resolve({ value: {} }),
+        validate: async () => {
+          const result = await Promise.resolve({ value: {} });
+          return result;
+        },
       },
     };
 
@@ -80,28 +83,5 @@ describe("defineEnv()", () => {
     expect(() => defineEnv(asyncSchema, {})).toThrowError(
       "Async schema validation is not supported",
     );
-  });
-
-  it("uses process.env by default", () => {
-    expect.assertions(1);
-
-    const originalEnv = process.env.TEST_VAR;
-    process.env.TEST_VAR = "test-value";
-
-    try {
-      const schema = v.object({
-        TEST_VAR: v.string(),
-      });
-
-      const env = defineEnv(schema);
-
-      expect(env.TEST_VAR).toBe("test-value");
-    } finally {
-      if (originalEnv === undefined) {
-        delete process.env.TEST_VAR;
-      } else {
-        process.env.TEST_VAR = originalEnv;
-      }
-    }
   });
 });
