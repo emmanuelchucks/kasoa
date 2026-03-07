@@ -1,29 +1,34 @@
+import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 import { base } from "../base/index.ts";
 
-export const react = defineConfig({
+export const react: OxlintConfig = defineConfig({
   ...base,
-  plugins: [...base.plugins, "react", "jsx-a11y", "vitest"],
-  env: {
-    vitest: true,
-  },
+  plugins: [...(base.plugins ?? []), "react", "react-perf", "jsx-a11y"],
   rules: {
     ...base.rules,
-    "import/no-cycle": "error",
-    "react/jsx-key": "error",
-    "react/no-direct-mutation-state": "error",
-    "react/no-unknown-property": "error",
     "jsx-a11y/alt-text": "error",
-    "vitest/no-focused-tests": "error",
-    "vitest/no-disabled-tests": "error",
-    "vitest/no-standalone-expect": "error",
+
+    "react/jsx-props-no-spreading": "off",
+    "react/exhaustive-deps": "error",
+    "react/jsx-key": "error",
+    "react/jsx-max-depth": ["error", { max: 4 }],
+    "react/jsx-no-constructed-context-values": "error",
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-no-undef": "error",
+    "react/no-array-index-key": "error",
+    "react/no-children-prop": "error",
+    "react/no-danger-with-children": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-string-refs": "error",
+    "react/no-unsafe": "error",
+    "react/no-unknown-property": "error",
+    "react/void-dom-elements-no-children": "error",
+
+    "react-perf/jsx-no-jsx-as-prop": "error",
+    "react-perf/jsx-no-new-array-as-prop": "error",
+    "react-perf/jsx-no-new-function-as-prop": "error",
+    "react-perf/jsx-no-new-object-as-prop": "error",
   },
-  overrides: [
-    {
-      files: ["**/tests/**", "**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}"],
-      rules: {
-        "vitest/max-nested-describe": ["warn", { max: 3 }],
-      },
-    },
-  ],
 });

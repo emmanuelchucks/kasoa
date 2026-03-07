@@ -4,7 +4,7 @@ Kasoa's Oxlint config
 
 ## Installation
 
-Install Oxlint, typed linting support, and the config:
+Install Oxlint, type-aware linting support, and the config:
 
 ```bash
 pnpm add -D @kasoa/oxlint-config oxlint oxlint-tsgolint
@@ -15,6 +15,7 @@ pnpm add -D @kasoa/oxlint-config oxlint oxlint-tsgolint
 ## Usage
 
 Import the desired config in your `oxlint.config.ts`. Extend it with project-specific overrides as needed.
+The shared presets enable type-aware linting by default.
 
 ### React Projects
 
@@ -27,6 +28,8 @@ export { react as default } from "@kasoa/oxlint-config/react";
 ```ts
 export { node as default } from "@kasoa/oxlint-config/node";
 ```
+
+This preset is intended for server-side runtimes such as Node.js, Bun, and Workers-style server code.
 
 ### Base Config
 
@@ -58,7 +61,7 @@ Type-aware linting is expected by default:
 ```json
 {
   "scripts": {
-    "lint": "oxlint --type-aware --fix .",
+    "lint": "oxlint --fix .",
     "format": "oxfmt ."
   }
 }
@@ -66,9 +69,9 @@ Type-aware linting is expected by default:
 
 ## Configurations
 
-- **`base`**: Core rules for TypeScript-first code quality.
-- **`node`**: Extends `base` with Node.js, import cycle, and test rules.
-- **`react`**: Extends `base` with React, JSX a11y, import cycle, and test rules.
+- **`base`**: Core rules for TypeScript-first code quality, promise usage, import graph safety, and Vitest.
+- **`node`**: Extends `base` with server-runtime `node` plugin rules without assuming Node globals by default.
+- **`react`**: Extends `base` with React, React performance, and JSX a11y rules.
 
 ## Author
 
