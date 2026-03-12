@@ -1,5 +1,12 @@
 # @kasoa/env
 
+## 0.0.13
+
+### Patch Changes
+
+- afffb09: Refactor `defineEnv` to return a reusable parser function and document explicit
+  runtime-specific usage for Node, Expo, and Cloudflare Workers.
+
 ## 0.0.12
 
 ### Patch Changes
