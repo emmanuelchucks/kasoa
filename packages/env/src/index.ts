@@ -1,10 +1,21 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
-export type InferEnv<T extends StandardSchemaV1> = StandardSchemaV1.InferOutput<T>;
+type EnvInput = Record<string, unknown>;
 
-export function defineEnv<T extends StandardSchemaV1>(
+export type InferEnv<T extends StandardSchemaV1> = StandardSchemaV1.InferOutput<T>;
+export type EnvSource<T extends StandardSchemaV1<EnvInput, unknown>> = Readonly<
+  EnvInput & Partial<StandardSchemaV1.InferInput<T>>
+>;
+
+export function defineEnv<T extends StandardSchemaV1<EnvInput, unknown>>(
   schema: T,
-  env: Readonly<Record<string, string | undefined>>,
+): (env: EnvSource<T>) => InferEnv<T> {
+  return (env) => parseEnv(schema, env);
+}
+
+function parseEnv<T extends StandardSchemaV1<EnvInput, unknown>>(
+  schema: T,
+  env: EnvSource<T>,
 ): InferEnv<T> {
   const normalizedEnv = normalizeEnv(env);
   const result = schema["~standard"].validate(normalizedEnv);
@@ -20,10 +31,8 @@ export function defineEnv<T extends StandardSchemaV1>(
   return result.value as InferEnv<T>;
 }
 
-function normalizeEnv(
-  env: Readonly<Record<string, string | undefined>>,
-): Record<string, string | undefined> {
-  const normalizedEnv: Record<string, string | undefined> = {};
+function normalizeEnv(env: Readonly<Record<string, unknown>>): Record<string, unknown> {
+  const normalizedEnv: Record<string, unknown> = {};
   for (const key of Object.keys(env)) {
     const value = env[key];
     normalizedEnv[key] = value === "" ? undefined : value;
