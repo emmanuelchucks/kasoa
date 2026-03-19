@@ -15,7 +15,7 @@ pnpm add -D @kasoa/oxlint-config oxlint oxlint-tsgolint
 ## Usage
 
 Import the desired config in your `oxlint.config.ts`. Extend it with project-specific overrides as needed.
-The shared presets enable type-aware linting by default.
+The shared presets are strict by default and designed for TypeScript-first projects.
 
 ### React Projects
 

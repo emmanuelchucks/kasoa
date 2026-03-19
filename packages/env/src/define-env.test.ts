@@ -27,8 +27,8 @@ describe("defineEnv()", () => {
     });
     const parseEnv = defineEnv(schema);
 
-    expect(() => parseEnv({})).toThrowError("Environment validation failed");
-    expect(() => parseEnv({})).toThrowError("DATABASE_URL");
+    expect(() => parseEnv({})).toThrow("Environment validation failed");
+    expect(() => parseEnv({})).toThrow("DATABASE_URL");
   });
 
   it("treats empty string as undefined", () => {
@@ -39,7 +39,7 @@ describe("defineEnv()", () => {
     });
     const parseEnv = defineEnv(schema);
 
-    expect(() => parseEnv({ API_KEY: "" })).toThrowError("Environment validation failed");
+    expect(() => parseEnv({ API_KEY: "" })).toThrow("Environment validation failed");
   });
 
   it("supports optional variables with defaults", () => {
@@ -63,7 +63,7 @@ describe("defineEnv()", () => {
     });
     const parseEnv = defineEnv(schema);
 
-    expect(() => parseEnv({ DATABASE_URL: "not-a-url" })).toThrowError("DATABASE_URL");
+    expect(() => parseEnv({ DATABASE_URL: "not-a-url" })).toThrow("DATABASE_URL");
   });
 
   it("accepts env sources with non-string bindings", () => {
@@ -87,8 +87,8 @@ describe("defineEnv()", () => {
 
     const parseEnv = defineEnv(createAsyncSchema());
 
-    expect(() => parseEnv({})).toThrowError(TypeError);
-    expect(() => parseEnv({})).toThrowError("Async schema validation is not supported");
+    expect(() => parseEnv({})).toThrow(TypeError);
+    expect(() => parseEnv({})).toThrow("Async schema validation is not supported");
   });
 
   it("rejects non-object schemas at the type level", () => {
