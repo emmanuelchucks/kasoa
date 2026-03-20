@@ -4,6 +4,7 @@ import { defineConfig } from "oxlint";
 export const base: OxlintConfig = defineConfig({
   plugins: ["typescript", "unicorn", "oxc", "import", "promise", "vitest"],
   options: {
+    reportUnusedDisableDirectives: "error",
     typeAware: true,
   },
   categories: {
@@ -34,9 +35,12 @@ export const base: OxlintConfig = defineConfig({
     "max-nested-callbacks": ["error", { max: 3 }],
     "max-params": ["error", { max: 3 }],
     "max-statements": ["error", { max: 10 }],
+    "no-alert": "error",
+    "no-bitwise": "error",
     "no-console": ["error", { allow: ["info", "warn", "error"] }],
     "no-duplicate-imports": ["error", { allowSeparateTypeImports: true }],
     "no-param-reassign": ["error", { props: true }],
+    "no-plusplus": "error",
     "no-undef": "error",
     "no-unneeded-ternary": "error",
     "no-unreachable": "error",
@@ -61,10 +65,13 @@ export const base: OxlintConfig = defineConfig({
     ],
     "typescript/dot-notation": "error",
     "typescript/no-confusing-void-expression": "error",
+    "typescript/no-dynamic-delete": "error",
+    "typescript/no-empty-object-type": "error",
     "typescript/no-explicit-any": "error",
     "typescript/no-floating-promises": "error",
     "typescript/no-misused-promises": "error",
     "typescript/no-misused-spread": "error",
+    "typescript/no-non-null-assertion": "error",
     "typescript/no-require-imports": "error",
     "typescript/no-unnecessary-condition": "error",
     "typescript/no-unnecessary-qualifier": "error",
@@ -96,6 +103,7 @@ export const base: OxlintConfig = defineConfig({
     "typescript/unbound-method": "error",
     "typescript/use-unknown-in-catch-callback-variable": "error",
 
+    "unicorn/no-abusive-eslint-disable": "error",
     "unicorn/no-null": "off",
     "unicorn/filename-case": ["error", { case: "kebabCase" }],
   },

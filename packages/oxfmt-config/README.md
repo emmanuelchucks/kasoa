@@ -10,28 +10,30 @@ pnpm add -D @kasoa/oxfmt-config oxfmt
 
 ## Usage
 
-Oxfmt uses JSON config files. Point Oxfmt to the shared config via `-c`.
+Create a local `oxfmt.config.ts` and re-export the shared preset. Then run `oxfmt .` normally.
 
 ### Base Config
 
 For general JavaScript/TypeScript projects:
 
-```json
-{
-  "scripts": {
-    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/dist/src/base/index.json ."
-  }
-}
+```ts
+export { base as default } from "@kasoa/oxfmt-config/base";
 ```
 
 ### React Config
 
 For React applications:
 
+```ts
+export { react as default } from "@kasoa/oxfmt-config/react";
+```
+
+### Suggested Script
+
 ```json
 {
   "scripts": {
-    "format": "oxfmt -c ./node_modules/@kasoa/oxfmt-config/dist/src/react/index.json ."
+    "format": "oxfmt ."
   }
 }
 ```

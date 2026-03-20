@@ -27,14 +27,14 @@
   ],
   "type": "module",
   "exports": {
-    "./base": "./dist/src/base/index.json",
-    "./react": "./dist/src/react/index.json"
+    "./base": "./dist/src/base/index.js",
+    "./react": "./dist/src/react/index.js"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "node ./scripts/build.ts",
+    "build": "tsgo",
     "lint": "oxlint --fix .",
     "format": "oxfmt .",
     "typecheck": "tsgo --noEmit",
@@ -42,9 +42,9 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@typescript/native-preview": "^7.0.0-dev.20260224.1",
-    "oxfmt": "^0.36.0",
-    "oxlint": "^1.51.0"
+    "@typescript/native-preview": "^7.0.0-dev.20260319.1",
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0"
   },
   "peerDependencies": {
     "oxfmt": ">=0.31.0 <1"
