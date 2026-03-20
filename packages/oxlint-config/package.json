@@ -28,7 +28,7 @@
   "type": "module",
   "exports": {
     "./base": "./dist/src/base/index.js",
-    "./node": "./dist/src/node/index.js",
+    "./server": "./dist/src/server/index.js",
     "./react": "./dist/src/react/index.js"
   },
   "publishConfig": {

@@ -1,1 +1,1 @@
-export { node as default } from "@kasoa/oxlint-config/node";
+export { base as default } from "@kasoa/oxlint-config/base";

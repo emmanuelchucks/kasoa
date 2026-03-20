@@ -23,10 +23,10 @@ The shared presets are strict by default and designed for TypeScript-first proje
 export { react as default } from "@kasoa/oxlint-config/react";
 ```
 
-### Node.js Projects
+### Server Projects
 
 ```ts
-export { node as default } from "@kasoa/oxlint-config/node";
+export { server as default } from "@kasoa/oxlint-config/server";
 ```
 
 This preset is intended for server-side runtimes such as Node.js, Bun, and Workers-style server code.
@@ -42,13 +42,13 @@ export { base as default } from "@kasoa/oxlint-config/base";
 Use `defineConfig` to add project-specific rules:
 
 ```ts
-import { node } from "@kasoa/oxlint-config/node";
+import { server } from "@kasoa/oxlint-config/server";
 import { defineConfig } from "oxlint";
 
 export default defineConfig({
-  ...node,
+  ...server,
   rules: {
-    ...node.rules,
+    ...server.rules,
     "no-console": "warn",
   },
 });
@@ -70,7 +70,7 @@ Type-aware linting is expected by default:
 ## Configurations
 
 - **`base`**: Core rules for TypeScript-first code quality, promise usage, import graph safety, and Vitest.
-- **`node`**: Extends `base` with server-runtime `node` plugin rules without assuming Node globals by default.
+- **`server`**: Extends `base` with server-oriented lint rules.
 - **`react`**: Extends `base` with React, React performance, and JSX a11y rules.
 
 ## Author

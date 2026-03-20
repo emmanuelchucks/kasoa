@@ -1,8 +1,14 @@
 import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
+export const BASE_PLUGINS = ["typescript", "unicorn", "oxc", "import", "promise"] as const;
+
 export const base: OxlintConfig = defineConfig({
-  plugins: ["typescript", "unicorn", "oxc", "import", "promise", "vitest"],
+  plugins: [...BASE_PLUGINS],
+  env: {
+    serviceworker: true,
+    worker: true,
+  },
   options: {
     reportUnusedDisableDirectives: "error",
     typeAware: true,
@@ -18,6 +24,7 @@ export const base: OxlintConfig = defineConfig({
     "func-style": "off",
     "id-length": "off",
     "capitalized-comments": "off",
+    curly: ["error", "multi-line", "consistent"],
     "init-declarations": "off",
     "no-magic-numbers": "off",
     "no-ternary": "off",
@@ -32,6 +39,7 @@ export const base: OxlintConfig = defineConfig({
     "max-classes-per-file": ["error", { max: 1 }],
     "max-depth": ["error", { max: 3 }],
     "max-lines-per-function": ["error", { max: 50, skipBlankLines: true, skipComments: true }],
+    "import/no-unassigned-import": "off",
     "max-nested-callbacks": ["error", { max: 3 }],
     "max-params": ["error", { max: 3 }],
     "max-statements": ["error", { max: 10 }],
@@ -49,6 +57,7 @@ export const base: OxlintConfig = defineConfig({
 
     "import/exports-last": "off",
     "import/group-exports": "off",
+    "import/no-anonymous-default-export": "off",
     "import/no-named-export": "off",
     "import/no-namespace": "off",
     "import/no-nodejs-modules": "off",
@@ -118,7 +127,19 @@ export const base: OxlintConfig = defineConfig({
       },
     },
     {
-      files: ["**/tests/**", "**/__tests__/**", "**/*.{test,spec}.{js,jsx,ts,tsx,mjs,cjs,mts,cts}"],
+      files: ["**/*.config.{js,jsx,ts,tsx,mjs,cjs,mts,cts}"],
+      rules: {
+        "func-names": "off",
+      },
+    },
+    {
+      files: [
+        "**/test/**",
+        "**/tests/**",
+        "**/__tests__/**",
+        "**/*.{test,spec}.{js,jsx,ts,tsx,mjs,cjs,mts,cts}",
+      ],
+      plugins: [...BASE_PLUGINS, "vitest"],
       env: {
         vitest: true,
       },
@@ -126,6 +147,17 @@ export const base: OxlintConfig = defineConfig({
         "max-lines-per-function": ["error", { max: 75, skipBlankLines: true, skipComments: true }],
         "vitest/no-importing-vitest-globals": "off",
         "vitest/max-nested-describe": ["error", { max: 3 }],
+      },
+    },
+    {
+      files: [
+        "**/worker-configuration.d.ts",
+        "**/generated/**",
+        "**/*.generated.{js,jsx,ts,tsx,mjs,cjs,mts,cts,d.ts}",
+      ],
+      rules: {
+        "max-lines": "off",
+        "unicorn/no-abusive-eslint-disable": "off",
       },
     },
   ],

@@ -10,6 +10,7 @@ export const react: OxlintConfig = defineConfig({
     "jsx-a11y/alt-text": "error",
 
     "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
     "react/exhaustive-deps": "error",
     "react/jsx-key": "error",
     "react/jsx-max-depth": ["error", { max: 4 }],
@@ -25,6 +26,7 @@ export const react: OxlintConfig = defineConfig({
     "react/no-find-dom-node": "error",
     "react/no-react-children": "error",
     "react/no-string-refs": "error",
+    "react/style-prop-object": "off",
     "react/no-unsafe": "error",
     "react/no-unknown-property": "error",
     "react/void-dom-elements-no-children": "error",

@@ -1,1 +1,1 @@
-export { node as default } from "./dist/src/node/index.js";
+export { base as default } from "./dist/src/base/index.js";
