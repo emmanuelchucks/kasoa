@@ -1,5 +1,11 @@
 # @kasoa/oxlint-config
 
+## 0.0.8
+
+### Patch Changes
+
+- Rename the exported `node` preset to `server` and update the shared config exports accordingly.
+
 ## 0.0.7
 
 ### Patch Changes

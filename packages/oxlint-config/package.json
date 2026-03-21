@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/oxlint-config",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Kasoa's Oxlint configurations",
   "keywords": [
     "kasoa",
