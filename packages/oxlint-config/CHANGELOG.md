@@ -1,5 +1,11 @@
 # @kasoa/oxlint-config
 
+## 0.0.9
+
+### Patch Changes
+
+- Disable max-classes-per-file and new-cap rules, remove generated-file lint exemptions
+
 ## 0.0.8
 
 ### Patch Changes
