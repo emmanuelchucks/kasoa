@@ -149,16 +149,5 @@ export const base: OxlintConfig = defineConfig({
         "vitest/max-nested-describe": ["error", { max: 3 }],
       },
     },
-    {
-      files: [
-        "**/worker-configuration.d.ts",
-        "**/generated/**",
-        "**/*.generated.{js,jsx,ts,tsx,mjs,cjs,mts,cts,d.ts}",
-      ],
-      rules: {
-        "max-lines": "off",
-        "unicorn/no-abusive-eslint-disable": "off",
-      },
-    },
   ],
 });
