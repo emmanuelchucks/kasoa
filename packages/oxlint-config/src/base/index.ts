@@ -154,8 +154,6 @@ export const base: OxlintConfig = defineConfig({
         vitest: true,
       },
       rules: {
-        "max-lines-per-function": "off",
-        "max-statements": "off",
         "vitest/no-importing-vitest-globals": "off",
         "vitest/max-nested-describe": ["error", { max: 3 }],
       },
