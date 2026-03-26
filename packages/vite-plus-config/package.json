@@ -1,0 +1,101 @@
+{
+  "name": "@kasoa/vite-plus-config",
+  "version": "0.0.1",
+  "description": "Kasoa's Vite+ configurations",
+  "keywords": [
+    "config",
+    "kasoa",
+    "tooling",
+    "vite",
+    "vite-plus"
+  ],
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/vite-plus-config",
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Emmanuel Chucks",
+    "email": "hi@emmanuelchucks.com",
+    "url": "https://emmanuelchucks.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelchucks/kasoa.git",
+    "directory": "packages/vite-plus-config"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.mts",
+      "import": "./dist/src/index.mjs"
+    },
+    "./base": {
+      "types": "./dist/src/base/index.d.mts",
+      "import": "./dist/src/base/index.mjs"
+    },
+    "./react": {
+      "types": "./dist/src/react/index.d.mts",
+      "import": "./dist/src/react/index.mjs"
+    },
+    "./server": {
+      "types": "./dist/src/server/index.d.mts",
+      "import": "./dist/src/server/index.mjs"
+    },
+    "./library": {
+      "types": "./dist/src/library/index.d.mts",
+      "import": "./dist/src/library/index.mjs"
+    },
+    "./monorepo": {
+      "types": "./dist/src/monorepo/index.d.mts",
+      "import": "./dist/src/monorepo/index.mjs"
+    },
+    "./test/cloudflare-workers": {
+      "types": "./dist/src/test/cloudflare-workers/index.d.mts",
+      "import": "./dist/src/test/cloudflare-workers/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vp pack --watch",
+    "build": "vp pack",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "lint": "vp lint --fix .",
+    "format": "vp fmt .",
+    "typecheck": "vp exec tsgo --noEmit",
+    "test": "vp test --passWithNoTests",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.13.4",
+    "@types/node": "^25.5.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260319.1",
+    "oxfmt": "^0.42.0",
+    "oxlint": "^1.57.0",
+    "oxlint-tsgolint": "^0.17.3",
+    "vite-plus": "^0.1.14",
+    "wrangler": "^4.77.0"
+  },
+  "peerDependencies": {
+    "@cloudflare/vitest-pool-workers": ">=0.13.0 <1",
+    "vite-plus": ">=0.1.14 <1",
+    "wrangler": ">=4 <5"
+  },
+  "peerDependenciesMeta": {
+    "@cloudflare/vitest-pool-workers": {
+      "optional": true
+    },
+    "wrangler": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
