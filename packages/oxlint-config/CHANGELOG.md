@@ -1,5 +1,11 @@
 # @kasoa/oxlint-config
 
+## 0.0.10
+
+### Patch Changes
+
+- Relax the shared Oxlint preset by disabling `max-lines-per-function`, `max-statements`, `require-await`, `typescript/require-await`, `promise/prefer-await-to-callbacks`, and `no-continue`; remove the explicit `typescript/promise-function-async` and `typescript/no-empty-object-type` rules; and allow `typescript/no-empty-interface` in declaration files.
+
 ## 0.0.9
 
 ### Patch Changes
