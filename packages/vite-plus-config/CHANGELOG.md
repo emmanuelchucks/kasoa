@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.4
+
+### Patch Changes
+
+- f9011c1: Raise the shared `complexity` limit in the Vite+ preset from `10` to `20` to better fit real application components.
+
 ## 0.0.3
 
 ### Patch Changes
