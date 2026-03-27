@@ -4,6 +4,11 @@ export const BASE_LINT_PLUGINS = ["typescript", "unicorn", "oxc", "import", "pro
 
 const baseLintConfig: OxlintConfig = {
   plugins: [...BASE_LINT_PLUGINS],
+  ignorePatterns: [
+    "**/worker-configuration.d.ts",
+    "**/drizzle/migrations.js",
+    "**/drizzle/meta/*.json",
+  ],
   env: {
     serviceworker: true,
     worker: true,

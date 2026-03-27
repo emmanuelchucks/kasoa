@@ -1,6 +1,11 @@
 import { defineConfig } from "oxfmt";
 
 export const baseFmt = defineConfig({
+  ignorePatterns: [
+    "**/worker-configuration.d.ts",
+    "**/drizzle/migrations.js",
+    "**/drizzle/meta/*.json",
+  ],
   sortImports: {
     internalPattern: ["#", "@/"],
     newlinesBetween: false,
