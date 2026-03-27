@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.5
+
+### Patch Changes
+
+- d52e8ce: Ignore common generated Cloudflare and Drizzle files in formatting and linting.
+
 ## 0.0.4
 
 ### Patch Changes
