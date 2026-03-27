@@ -73,14 +73,11 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.13.4",
+    "@cloudflare/vitest-pool-workers": "^0.13.5",
     "@types/node": "^25.5.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260319.1",
-    "oxfmt": "^0.42.0",
-    "oxlint": "^1.57.0",
-    "oxlint-tsgolint": "^0.17.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
     "vite-plus": "^0.1.14",
-    "wrangler": "^4.77.0"
+    "wrangler": "^4.78.0"
   },
   "peerDependencies": {
     "@cloudflare/vitest-pool-workers": ">=0.13.0 <1",

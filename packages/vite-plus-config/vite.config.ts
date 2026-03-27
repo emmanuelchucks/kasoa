@@ -9,7 +9,7 @@ export default defineConfig({
     ...libraryPack,
     clean: true,
     deps: {
-      neverBundle: ["vite-plus", "oxfmt", "oxlint", "@cloudflare/vitest-pool-workers", "wrangler"],
+      neverBundle: ["vite-plus", "@cloudflare/vitest-pool-workers", "wrangler"],
     },
     entry: {
       "src/index": "./src/index.ts",

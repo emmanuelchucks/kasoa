@@ -1,7 +1,9 @@
-import { defineConfig } from "oxfmt";
+import type { UserConfig } from "vite-plus";
 import { GENERATED_FILE_IGNORE_PATTERNS } from "./constants.ts";
 
-export const baseFmt = defineConfig({
+type FmtConfig = NonNullable<UserConfig["fmt"]>;
+
+export const baseFmt = {
   ignorePatterns: [...GENERATED_FILE_IGNORE_PATTERNS],
   sortImports: {
     internalPattern: ["#", "@/"],
@@ -16,12 +18,12 @@ export const baseFmt = defineConfig({
       "unknown",
     ],
   },
-});
+} satisfies FmtConfig;
 
-export const reactFmt = defineConfig({
+export const reactFmt = {
   ...baseFmt,
   sortTailwindcss: {
     attributes: ["/.*ClassName/"],
     functions: ["tv"],
   },
-});
+} satisfies FmtConfig;

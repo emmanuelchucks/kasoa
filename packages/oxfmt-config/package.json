@@ -35,16 +35,15 @@
   },
   "scripts": {
     "build": "tsgo",
-    "lint": "oxlint --fix .",
-    "format": "oxfmt .",
-    "typecheck": "tsgo --noEmit",
-    "test": "echo 'No tests'",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "test": "vp test --passWithNoTests",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@typescript/native-preview": "^7.0.0-dev.20260319.1",
-    "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0"
+    "@kasoa/vite-plus-config": "workspace:*",
+    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
+    "vite-plus": "^0.1.14"
   },
   "peerDependencies": {
     "oxfmt": ">=0.31.0 <1"

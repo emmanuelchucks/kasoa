@@ -1,9 +1,11 @@
-import type { OxlintConfig } from "oxlint";
+import type { UserConfig } from "vite-plus";
 import { GENERATED_FILE_IGNORE_PATTERNS } from "./constants.ts";
 
 export const BASE_LINT_PLUGINS = ["typescript", "unicorn", "oxc", "import", "promise"] as const;
 
-const baseLintConfig: OxlintConfig = {
+type LintConfig = NonNullable<UserConfig["lint"]>;
+
+const baseLintConfig: LintConfig = {
   plugins: [...BASE_LINT_PLUGINS],
   ignorePatterns: [...GENERATED_FILE_IGNORE_PATTERNS],
   env: {
@@ -166,9 +168,9 @@ const baseLintConfig: OxlintConfig = {
   ],
 };
 
-export const baseLint: OxlintConfig = baseLintConfig;
+export const baseLint: LintConfig = baseLintConfig;
 
-const reactLintConfig: OxlintConfig = {
+const reactLintConfig: LintConfig = {
   ...baseLint,
   plugins: [...(baseLint.plugins ?? []), "react", "jsx-a11y"],
   rules: {
@@ -199,9 +201,9 @@ const reactLintConfig: OxlintConfig = {
   },
 };
 
-export const reactLint: OxlintConfig = reactLintConfig;
+export const reactLint: LintConfig = reactLintConfig;
 
-const serverLintConfig: OxlintConfig = {
+const serverLintConfig: LintConfig = {
   ...baseLint,
   plugins: [...(baseLint.plugins ?? []), "node"],
   globals: {
@@ -214,4 +216,4 @@ const serverLintConfig: OxlintConfig = {
   },
 };
 
-export const serverLint: OxlintConfig = serverLintConfig;
+export const serverLint: LintConfig = serverLintConfig;

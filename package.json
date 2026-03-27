@@ -2,27 +2,23 @@
   "name": "kasoa",
   "private": true,
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "lint": "turbo run lint",
-    "format": "turbo run format",
-    "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
+    "dev": "vp run -r dev",
+    "build": "vp run -r build",
+    "check": "vp run -r check",
+    "check:fix": "vp run -r check:fix",
+    "test": "vp run -r test",
     "clean": "git clean -xdf",
-    "check:all": "turbo lint format typecheck",
     "update:deps": "pnpm dlx taze latest -wrli",
-    "ci": "pnpm build && pnpm check:all && pnpm test",
+    "ci": "pnpm build && pnpm check && pnpm test",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260319.1",
-    "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0",
-    "oxlint-tsgolint": "^0.17.0",
-    "turbo": "^2.8.19"
+    "@kasoa/vite-plus-config": "workspace:*",
+    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
+    "vite-plus": "^0.1.14"
   },
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=24"
   }

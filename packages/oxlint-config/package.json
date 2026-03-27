@@ -37,18 +37,16 @@
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo",
-    "lint": "oxlint --fix .",
-    "format": "oxfmt .",
-    "typecheck": "tsgo --noEmit",
-    "test": "echo 'No tests'",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "test": "vp test --passWithNoTests",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
+    "@kasoa/vite-plus-config": "workspace:*",
     "@types/node": "^25.5.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260319.1",
-    "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0",
-    "oxlint-tsgolint": "^0.17.0"
+    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
+    "vite-plus": "^0.1.14"
   },
   "peerDependencies": {
     "oxlint": ">=1.51.0 <2",

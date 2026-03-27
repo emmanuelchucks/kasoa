@@ -1,30 +1,30 @@
 {
   "name": "@kasoa/prettier-config",
   "version": "0.0.13",
-  "type": "module",
-  "license": "MIT",
   "description": "Kasoa's Prettier configurations",
   "keywords": [
-    "prettier",
-    "kasoa"
+    "kasoa",
+    "prettier"
   ],
+  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/prettier-config",
+  "bugs": {
+    "url": "https://github.com/emmanuelchucks/kasoa/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Emmanuel Chucks",
     "email": "hi@emmanuelchucks.com",
     "url": "https://emmanuelchucks.com"
   },
-  "homepage": "https://github.com/emmanuelchucks/kasoa/tree/main/packages/prettier-config",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/emmanuelchucks/kasoa.git",
     "directory": "packages/prettier-config"
   },
-  "bugs": {
-    "url": "https://github.com/emmanuelchucks/kasoa/issues"
-  },
   "files": [
     "dist"
   ],
+  "type": "module",
   "exports": {
     "./base": "./dist/src/base.js",
     "./react": "./dist/src/react.js"
@@ -35,22 +35,23 @@
   "scripts": {
     "dev": "tsgo --watch",
     "build": "tsgo",
-    "lint": "eslint --fix --cache .",
-    "format": "prettier --write --cache --experimental-cli .",
-    "typecheck": "tsgo --noEmit",
-    "test": "echo 'No tests'",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "test": "vp test --passWithNoTests",
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@prettier/plugin-oxc": "^0.1.3",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2"
   },
   "devDependencies": {
     "@kasoa/eslint-config": "workspace:*",
+    "@kasoa/vite-plus-config": "workspace:*",
     "@types/node": "^25.5.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260319.1"
+    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
+    "vite-plus": "^0.1.14"
   },
   "peerDependencies": {
     "prettier": ">=3.6.2 <4"

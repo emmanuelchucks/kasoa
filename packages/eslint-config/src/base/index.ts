@@ -8,7 +8,6 @@ import { regexpConfig } from "./regexp.ts";
 import { sonarjsConfig } from "./sonarjs.ts";
 import { typescriptEslintConfig } from "./typescript-eslint.ts";
 import { unicornXConfig } from "./unicorn-x.ts";
-import { unusedImportsConfig } from "./unused-imports.ts";
 
 export const base = defineConfig(
   gitignore(),
@@ -17,7 +16,6 @@ export const base = defineConfig(
   typescriptEslintConfig,
   unicornXConfig,
   importLiteConfig,
-  unusedImportsConfig,
   perfectionistConfig,
   sonarjsConfig,
   regexpConfig,
