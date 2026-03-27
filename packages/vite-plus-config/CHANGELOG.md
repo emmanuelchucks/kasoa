@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.6
+
+### Patch Changes
+
+- Ignore common generated files like `worker-configuration.d.ts` and Drizzle output by default, and simplify the package internals so the shared configs are authored directly through Vite+.
+
 ## 0.0.5
 
 ### Patch Changes
