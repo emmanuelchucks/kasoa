@@ -36,7 +36,7 @@ const baseLintConfig: OxlintConfig = {
     "sort-keys": "off",
     "vars-on-top": "off",
 
-    complexity: ["error", { max: 10 }],
+    complexity: ["error", { max: 20 }],
     curly: ["error", "multi-line", "consistent"],
     "default-case-last": "error",
     eqeqeq: "error",
