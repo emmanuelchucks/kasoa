@@ -1,14 +1,11 @@
 import type { OxlintConfig } from "oxlint";
+import { GENERATED_FILE_IGNORE_PATTERNS } from "./constants.ts";
 
 export const BASE_LINT_PLUGINS = ["typescript", "unicorn", "oxc", "import", "promise"] as const;
 
 const baseLintConfig: OxlintConfig = {
   plugins: [...BASE_LINT_PLUGINS],
-  ignorePatterns: [
-    "**/worker-configuration.d.ts",
-    "**/drizzle/migrations.js",
-    "**/drizzle/meta/*.json",
-  ],
+  ignorePatterns: [...GENERATED_FILE_IGNORE_PATTERNS],
   env: {
     serviceworker: true,
     worker: true,

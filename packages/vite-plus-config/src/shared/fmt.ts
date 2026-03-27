@@ -1,11 +1,8 @@
 import { defineConfig } from "oxfmt";
+import { GENERATED_FILE_IGNORE_PATTERNS } from "./constants.ts";
 
 export const baseFmt = defineConfig({
-  ignorePatterns: [
-    "**/worker-configuration.d.ts",
-    "**/drizzle/migrations.js",
-    "**/drizzle/meta/*.json",
-  ],
+  ignorePatterns: [...GENERATED_FILE_IGNORE_PATTERNS],
   sortImports: {
     internalPattern: ["#", "@/"],
     newlinesBetween: false,
