@@ -1,5 +1,11 @@
 # @kasoa/oxlint-config
 
+## 0.0.11
+
+### Patch Changes
+
+- 8cbc99a: Remove the `react-perf` plugin from the shared React presets to reduce noisy inline-prop findings in application code.
+
 ## 0.0.10
 
 ### Patch Changes

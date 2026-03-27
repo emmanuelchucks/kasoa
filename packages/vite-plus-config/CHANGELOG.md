@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.3
+
+### Patch Changes
+
+- 8cbc99a: Remove the `react-perf` plugin from the shared React presets to reduce noisy inline-prop findings in application code.
+
 ## 0.0.2
 
 ### Patch Changes
