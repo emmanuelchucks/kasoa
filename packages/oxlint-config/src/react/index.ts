@@ -4,7 +4,7 @@ import { base } from "../base/index.ts";
 
 export const react: OxlintConfig = defineConfig({
   ...base,
-  plugins: [...(base.plugins ?? []), "react", "react-perf", "jsx-a11y"],
+  plugins: [...(base.plugins ?? []), "react", "jsx-a11y"],
   rules: {
     ...base.rules,
     "jsx-a11y/alt-text": "error",
@@ -30,10 +30,5 @@ export const react: OxlintConfig = defineConfig({
     "react/no-unsafe": "error",
     "react/no-unknown-property": "error",
     "react/void-dom-elements-no-children": "error",
-
-    "react-perf/jsx-no-jsx-as-prop": "error",
-    "react-perf/jsx-no-new-array-as-prop": "error",
-    "react-perf/jsx-no-new-function-as-prop": "error",
-    "react-perf/jsx-no-new-object-as-prop": "error",
   },
 });

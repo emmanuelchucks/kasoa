@@ -168,7 +168,7 @@ export const baseLint: OxlintConfig = baseLintConfig;
 
 const reactLintConfig: OxlintConfig = {
   ...baseLint,
-  plugins: [...(baseLint.plugins ?? []), "react", "react-perf", "jsx-a11y"],
+  plugins: [...(baseLint.plugins ?? []), "react", "jsx-a11y"],
   rules: {
     ...baseLint.rules,
     "jsx-a11y/alt-text": "error",
@@ -194,11 +194,6 @@ const reactLintConfig: OxlintConfig = {
     "react/no-unsafe": "error",
     "react/no-unknown-property": "error",
     "react/void-dom-elements-no-children": "error",
-
-    "react-perf/jsx-no-jsx-as-prop": "error",
-    "react-perf/jsx-no-new-array-as-prop": "error",
-    "react-perf/jsx-no-new-function-as-prop": "error",
-    "react-perf/jsx-no-new-object-as-prop": "error",
   },
 };
 
