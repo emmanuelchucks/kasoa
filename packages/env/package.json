@@ -29,14 +29,17 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./dist/src/index.js"
+    ".": {
+      "types": "./dist/src/index.d.mts",
+      "import": "./dist/src/index.mjs"
+    }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "dev": "tsgo --watch",
-    "build": "tsgo",
+    "dev": "vp pack --watch",
+    "build": "vp pack",
     "check": "vp check",
     "check:fix": "vp check --fix",
     "test": "vp test",

@@ -26,15 +26,21 @@
   ],
   "type": "module",
   "exports": {
-    "./base": "./dist/src/base.js",
-    "./react": "./dist/src/react.js"
+    "./base": {
+      "types": "./dist/src/base.d.mts",
+      "import": "./dist/src/base.mjs"
+    },
+    "./react": {
+      "types": "./dist/src/react.d.mts",
+      "import": "./dist/src/react.mjs"
+    }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "dev": "tsgo --watch",
-    "build": "tsgo",
+    "dev": "vp pack --watch",
+    "build": "vp pack",
     "check": "vp check",
     "check:fix": "vp check --fix",
     "test": "vp test --passWithNoTests",
