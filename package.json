@@ -8,9 +8,7 @@
     "check:fix": "vp run -r check:fix",
     "test": "vp run -r test",
     "clean": "git clean -xdf",
-    "update:deps": "pnpm dlx taze latest -wrli",
-    "ci": "pnpm build && pnpm check && pnpm test",
-    "release": "pnpm build && changeset publish"
+    "update:deps": "pnpm dlx taze latest -wrli"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
