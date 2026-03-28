@@ -1,6 +1,7 @@
 export const DEFAULT_TEST_INCLUDE = ["**/*.{test,spec}.{ts,tsx,mts,cts}"] as const;
 export const GENERATED_FILE_IGNORE_PATTERNS = [
   "**/worker-configuration.d.ts",
+  "**/migrations/**",
   "**/drizzle/migrations.js",
   "**/drizzle/meta/*.json",
 ] as const;
