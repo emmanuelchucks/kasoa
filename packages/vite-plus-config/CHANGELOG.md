@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.7
+
+### Patch Changes
+
+- Enforce explicit module boundary types in the shared lint preset and align the workspace on declaration-friendly exported public surfaces.
+
 ## 0.0.6
 
 ### Patch Changes
