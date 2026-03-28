@@ -27,7 +27,7 @@ const sharedConfig = {
   } satisfies Linter.RulesRecord,
 };
 
-export const typescriptEslintConfig = defineConfig(
+export const typescriptEslintConfig: ReturnType<typeof defineConfig> = defineConfig(
   {
     extends: sharedConfig.extends,
     files: ["**/*.{js,jsx,mjs,ts,tsx,mts}"],

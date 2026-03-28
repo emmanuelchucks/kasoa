@@ -3,7 +3,7 @@ import { defineConfig } from "eslint/config";
 
 const COGNITIVE_COMPLEXITY_THRESHOLD = 15;
 
-export const sonarjsConfig = defineConfig({
+export const sonarjsConfig: ReturnType<typeof defineConfig> = defineConfig({
   plugins: { sonarjs },
   rules: {
     "sonarjs/cognitive-complexity": ["warn", COGNITIVE_COMPLEXITY_THRESHOLD],

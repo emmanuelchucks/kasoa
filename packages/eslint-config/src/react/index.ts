@@ -7,7 +7,7 @@ import { reactHooksConfig } from "./react-hooks.ts";
 import { reactRefreshConfig } from "./react-refresh.ts";
 import { reactYouMightNotNeedAnEffectConfig } from "./react-you-might-not-need-an-effect.ts";
 
-export const react = defineConfig(
+export const react: ReturnType<typeof defineConfig> = defineConfig(
   base,
   eslintReactConfig,
   jsxA11yConfig,

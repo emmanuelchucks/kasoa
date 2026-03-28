@@ -6,6 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "declarationMap": true,
+    "isolatedDeclarations": true,
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true,
     "rewriteRelativeImportExtensions": true,

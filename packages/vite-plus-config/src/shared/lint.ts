@@ -83,6 +83,7 @@ const baseLintConfig: LintConfig = {
       { prefer: "type-imports", fixStyle: "separate-type-imports" },
     ],
     "typescript/dot-notation": "error",
+    "typescript/explicit-module-boundary-types": "error",
     "typescript/no-confusing-void-expression": "error",
     "typescript/no-dynamic-delete": "error",
     "typescript/no-explicit-any": "error",

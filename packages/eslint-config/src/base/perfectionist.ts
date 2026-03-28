@@ -6,7 +6,7 @@ const baseConfig = {
   type: "natural" as const,
 };
 
-export const perfectionistConfig = defineConfig({
+export const perfectionistConfig: ReturnType<typeof defineConfig> = defineConfig({
   plugins: { perfectionist },
   rules: {
     "perfectionist/sort-imports": [
@@ -32,7 +32,7 @@ export const perfectionistConfig = defineConfig({
   },
 });
 
-export const perfectionistJsxConfig = defineConfig({
+export const perfectionistJsxConfig: ReturnType<typeof defineConfig> = defineConfig({
   plugins: { perfectionist },
   rules: {
     "perfectionist/sort-jsx-props": [

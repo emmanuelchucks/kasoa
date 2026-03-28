@@ -1,4 +1,8 @@
-export const base = {
+import type { UserConfig } from "vite-plus";
+
+type FmtConfig = NonNullable<UserConfig["fmt"]>;
+
+export const base: FmtConfig = {
   sortImports: {
     internalPattern: ["#", "@/"],
     newlinesBetween: false,

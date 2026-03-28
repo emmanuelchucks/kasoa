@@ -1,5 +1,5 @@
 import type { Config } from "prettier";
 
-export const base = {
+export const base: Config = {
   plugins: ["@prettier/plugin-oxc"],
-} satisfies Config;
+};

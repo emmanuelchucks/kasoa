@@ -9,7 +9,7 @@ import { sonarjsConfig } from "./sonarjs.ts";
 import { typescriptEslintConfig } from "./typescript-eslint.ts";
 import { unicornXConfig } from "./unicorn-x.ts";
 
-export const base = defineConfig(
+export const base: ReturnType<typeof defineConfig> = defineConfig(
   gitignore(),
   globalIgnores(["**/*.d.ts"]),
   eslintConfig,

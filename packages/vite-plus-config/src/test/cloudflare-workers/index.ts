@@ -37,4 +37,4 @@ export function createCloudflareWorkersTestConfig(
   });
 }
 
-export const cloudflareWorkers = createCloudflareWorkersTestConfig();
+export const cloudflareWorkers: UserConfig = createCloudflareWorkersTestConfig();
