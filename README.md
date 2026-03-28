@@ -1,6 +1,17 @@
 # Kasoa
 
-Shared configurations for Emmanuel Chucks' projects.
+Shared tooling packages for Emmanuel Chucks' projects.
+
+This monorepo is built around `pnpm` workspaces and `vite-plus` for repo-wide checks, builds, and tests.
+
+## Workflow
+
+```bash
+pnpm check
+pnpm check:fix
+pnpm build
+pnpm test
+```
 
 ## Packages
 
@@ -9,7 +20,12 @@ Shared configurations for Emmanuel Chucks' projects.
 - **[@kasoa/oxfmt-config](./packages/oxfmt-config)** - Oxfmt configurations for base and React projects
 - **[@kasoa/oxlint-config](./packages/oxlint-config)** - Oxlint configurations for base, Node.js, and React projects
 - **[@kasoa/prettier-config](./packages/prettier-config)** - Prettier configurations with Tailwind CSS support
-- **[@kasoa/tsconfig](./packages/tsconfig)** - TypeScript configurations for base and Node.js projects
+- **[@kasoa/vite-plus-config](./packages/vite-plus-config)** - Opinionated Vite+ presets for base, React, server, library, monorepo, and Cloudflare Workers test setups
+
+## Notes
+
+- `@kasoa/vite-plus-config` is the forward path for unified linting, formatting, type checking, and related tooling.
+- The Oxlint and Oxfmt packages still exist alongside it and remain usable where needed.
 
 ## Author
 
