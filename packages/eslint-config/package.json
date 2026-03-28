@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/eslint-config",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "Kasoa's ESLint config",
   "keywords": [
     "eslint",

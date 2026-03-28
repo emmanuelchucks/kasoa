@@ -1,5 +1,11 @@
 # @kasoa/oxlint-config
 
+## 0.0.12
+
+### Patch Changes
+
+- Pack the shared library packages through Vite+ end to end so builds, outputs, and package exports all follow the same unified toolchain.
+
 ## 0.0.11
 
 ### Patch Changes

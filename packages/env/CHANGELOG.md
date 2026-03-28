@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.14
+
+### Patch Changes
+
+- Pack the shared library packages through Vite+ end to end so builds, outputs, and package exports all follow the same unified toolchain.
+
 ## 0.0.13
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @kasoa/oxfmt-config
 
+## 0.0.7
+
+### Patch Changes
+
+- Pack the shared library packages through Vite+ end to end so builds, outputs, and package exports all follow the same unified toolchain.
+
 ## 0.0.6
 
 ### Patch Changes
