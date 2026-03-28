@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.8
+
+### Patch Changes
+
+- Ignore migrations directories in the shared generated-file patterns for linting and formatting.
+
 ## 0.0.7
 
 ### Patch Changes
