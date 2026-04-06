@@ -1,5 +1,5 @@
+import { defineConfig } from "@eslint/config-helpers";
 import unicornX from "eslint-plugin-unicorn-x";
-import { defineConfig } from "eslint/config";
 
 export const unicornXConfig: ReturnType<typeof defineConfig> = defineConfig(
   unicornX.configs.recommended,

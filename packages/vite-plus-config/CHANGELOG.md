@@ -1,5 +1,15 @@
 # @kasoa/vite-plus-config
 
+## 0.0.9
+
+### Patch Changes
+
+- Refactor the preset API to use subpath `createConfig(...)` factories as the single supported pattern.
+
+  This release removes the old preset value exports such as `base`, `react`, `server`, `library`, and `monorepo`. Consumers should switch to the matching subpath factory instead, for example `@kasoa/vite-plus-config/react` with `createConfig(...)`.
+
+  It also moves `pack.clean` into the shared library preset by default and keeps the Cloudflare Worker test helper available without reintroducing a second preset export style from the package root.
+
 ## 0.0.8
 
 ### Patch Changes

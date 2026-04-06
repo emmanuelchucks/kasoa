@@ -1,4 +1,4 @@
-import { defineConfig } from "eslint/config";
+import { defineConfig } from "@eslint/config-helpers";
 import { base } from "../base/index.ts";
 import { perfectionistJsxConfig } from "../base/perfectionist.ts";
 import { eslintReactConfig } from "./eslint-react.ts";

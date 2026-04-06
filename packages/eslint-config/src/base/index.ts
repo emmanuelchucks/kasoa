@@ -1,6 +1,6 @@
+import { defineConfig, globalIgnores } from "@eslint/config-helpers";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
-import { defineConfig, globalIgnores } from "eslint/config";
 import { eslintConfig } from "./eslint.ts";
 import { importLiteConfig } from "./import-lite.ts";
 import { perfectionistConfig } from "./perfectionist.ts";

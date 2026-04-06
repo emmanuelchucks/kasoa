@@ -1,9 +1,8 @@
 import type { UserConfig } from "vite-plus";
-import { defineConfig } from "vite-plus";
-import { base } from "../base/index.ts";
+import { createBaseConfig } from "../base/index.ts";
+import { createDefinedConfig } from "../shared/config.ts";
 
-export const monorepo: UserConfig = defineConfig({
-  ...base,
+const monorepoConfig: UserConfig = {
   run: {
     cache: {
       scripts: true,
@@ -11,4 +10,10 @@ export const monorepo: UserConfig = defineConfig({
     },
     enablePrePostScripts: true,
   },
-});
+};
+
+export function createMonorepoConfig(overrides: UserConfig = {}): UserConfig {
+  return createDefinedConfig(createBaseConfig(), monorepoConfig, overrides);
+}
+
+export { createMonorepoConfig as createConfig };

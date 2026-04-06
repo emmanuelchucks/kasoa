@@ -50,10 +50,10 @@
   },
   "devDependencies": {
     "@kasoa/vite-plus-config": "workspace:*",
-    "@types/node": "^25.5.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
+    "@types/node": "^25.5.2",
+    "@typescript/native-preview": "^7.0.0-dev.20260406.1",
     "valibot": "^1.3.1",
-    "vite-plus": "^0.1.14",
+    "vite-plus": "^0.1.15",
     "vitest": "^4.1.2"
   },
   "engines": {

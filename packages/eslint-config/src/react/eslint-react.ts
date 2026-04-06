@@ -1,5 +1,5 @@
 import eslintReact from "@eslint-react/eslint-plugin";
-import { defineConfig } from "eslint/config";
+import { defineConfig } from "@eslint/config-helpers";
 
 export const eslintReactConfig: ReturnType<typeof defineConfig> = defineConfig({
   ...eslintReact.configs["strict-type-checked"],

@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/vite-plus-config",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Kasoa's Vite+ configurations",
   "keywords": [
     "config",
@@ -73,11 +73,11 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.13.5",
-    "@types/node": "^25.5.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
-    "vite-plus": "^0.1.14",
-    "wrangler": "^4.78.0"
+    "@cloudflare/vitest-pool-workers": "^0.14.1",
+    "@types/node": "^25.5.2",
+    "@typescript/native-preview": "^7.0.0-dev.20260406.1",
+    "vite-plus": "^0.1.15",
+    "wrangler": "^4.80.0"
   },
   "peerDependencies": {
     "@cloudflare/vitest-pool-workers": ">=0.13.0 <1",

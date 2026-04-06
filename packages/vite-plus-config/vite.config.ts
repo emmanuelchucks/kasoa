@@ -1,13 +1,7 @@
-import { defineConfig } from "vite-plus";
-import { library } from "./src/library/index.ts";
+import { createLibraryConfig } from "./src/library/index.ts";
 
-const libraryPack = (Array.isArray(library.pack) ? library.pack[0] : library.pack) ?? {};
-
-export default defineConfig({
-  ...library,
+export default createLibraryConfig({
   pack: {
-    ...libraryPack,
-    clean: true,
     deps: {
       neverBundle: ["vite-plus", "@cloudflare/vitest-pool-workers", "wrangler"],
     },

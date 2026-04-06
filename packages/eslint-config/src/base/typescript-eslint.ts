@@ -1,5 +1,5 @@
 import type { Linter } from "eslint";
-import { defineConfig } from "eslint/config";
+import { defineConfig } from "@eslint/config-helpers";
 import globals from "globals";
 import typescriptEslint from "typescript-eslint";
 

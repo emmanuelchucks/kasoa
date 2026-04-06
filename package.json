@@ -8,8 +8,8 @@
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "@kasoa/vite-plus-config": "workspace:*",
-    "@typescript/native-preview": "^7.0.0-dev.20260327.2",
-    "vite-plus": "^0.1.14"
+    "@typescript/native-preview": "^7.0.0-dev.20260406.1",
+    "vite-plus": "^0.1.15"
   },
   "packageManager": "pnpm@10.33.0",
   "engines": {

@@ -1,6 +1,6 @@
+import { defineConfig } from "@eslint/config-helpers";
 import importLite from "eslint-plugin-import-lite";
 import unusedImports from "eslint-plugin-unused-imports";
-import { defineConfig } from "eslint/config";
 
 export const importLiteConfig: ReturnType<typeof defineConfig> = defineConfig(
   importLite.configs.recommended,

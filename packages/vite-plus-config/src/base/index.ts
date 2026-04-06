@@ -1,5 +1,5 @@
 import type { UserConfig } from "vite-plus";
-import { defineConfig } from "vite-plus";
+import { createDefinedConfig } from "../shared/config.ts";
 import {
   DEFAULT_STAGED_CHECK_COMMAND,
   DEFAULT_STAGED_CHECK_GLOB,
@@ -8,7 +8,7 @@ import {
 import { baseFmt } from "../shared/fmt.ts";
 import { baseLint } from "../shared/lint.ts";
 
-export const base: UserConfig = defineConfig({
+const baseConfig: UserConfig = {
   fmt: baseFmt,
   lint: baseLint,
   test: {
@@ -17,4 +17,10 @@ export const base: UserConfig = defineConfig({
   staged: {
     [DEFAULT_STAGED_CHECK_GLOB]: DEFAULT_STAGED_CHECK_COMMAND,
   },
-});
+};
+
+export function createBaseConfig(overrides: UserConfig = {}): UserConfig {
+  return createDefinedConfig(baseConfig, overrides);
+}
+
+export { createBaseConfig as createConfig };

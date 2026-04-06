@@ -1,5 +1,5 @@
+import { defineConfig } from "@eslint/config-helpers";
 import perfectionist from "eslint-plugin-perfectionist";
-import { defineConfig } from "eslint/config";
 
 const baseConfig = {
   order: "asc" as const,

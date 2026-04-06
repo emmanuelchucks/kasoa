@@ -1,4 +1,4 @@
-import { defineConfig } from "eslint/config";
+import { defineConfig } from "@eslint/config-helpers";
 import { base } from "../base/index.ts";
 import { nodeConfig } from "./n.ts";
 import { vitestConfig } from "./vitest.ts";

@@ -1,5 +1,5 @@
+import { defineConfig } from "@eslint/config-helpers";
 import nodePlugin from "eslint-plugin-n";
-import { defineConfig } from "eslint/config";
 
 export const nodeConfig: ReturnType<typeof defineConfig> = defineConfig(
   nodePlugin.configs["flat/recommended-module"],

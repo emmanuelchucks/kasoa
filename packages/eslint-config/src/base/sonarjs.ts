@@ -1,5 +1,5 @@
+import { defineConfig } from "@eslint/config-helpers";
 import sonarjs from "eslint-plugin-sonarjs";
-import { defineConfig } from "eslint/config";
 
 const COGNITIVE_COMPLEXITY_THRESHOLD = 15;
 

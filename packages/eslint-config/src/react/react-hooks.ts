@@ -1,5 +1,5 @@
+import { defineConfig } from "@eslint/config-helpers";
 import reactHooks from "eslint-plugin-react-hooks";
-import { defineConfig } from "eslint/config";
 
 export const reactHooksConfig: ReturnType<typeof defineConfig> = defineConfig({
   ...reactHooks.configs.flat["recommended-latest"],

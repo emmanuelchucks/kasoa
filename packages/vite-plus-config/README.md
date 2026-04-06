@@ -14,55 +14,64 @@ pnpm add -D @kasoa/vite-plus-config vite-plus
 
 ## Usage
 
-Create a local `vite.config.ts` and re-export the shared preset that matches the project.
+Create a local `vite.config.ts` and call the shared preset factory that matches the project.
 
 ### Base Config
 
 ```ts
-export { base as default } from "@kasoa/vite-plus-config/base";
+import { createConfig } from "@kasoa/vite-plus-config/base";
+
+export default createConfig();
 ```
 
 ### React Projects
 
 ```ts
-export { react as default } from "@kasoa/vite-plus-config/react";
+import { createConfig } from "@kasoa/vite-plus-config/react";
+
+export default createConfig();
 ```
 
 ### Server Projects
 
 ```ts
-export { server as default } from "@kasoa/vite-plus-config/server";
+import { createConfig } from "@kasoa/vite-plus-config/server";
+
+export default createConfig();
 ```
 
 ### Libraries
 
 ```ts
-export { library as default } from "@kasoa/vite-plus-config/library";
+import { createConfig } from "@kasoa/vite-plus-config/library";
+
+export default createConfig();
 ```
 
 ### Monorepo Root
 
 ```ts
-export { monorepo as default } from "@kasoa/vite-plus-config/monorepo";
+import { createConfig } from "@kasoa/vite-plus-config/monorepo";
+
+export default createConfig();
 ```
 
-## Composing Presets
+## Customizing a Preset
 
-Use Vite+'s normal `defineConfig` API when a project needs to mix presets or add overrides.
+Pass overrides directly to the preset factory. Nested config is merged so consumers can stay strict by default and still tweak what they need.
 
 ```ts
-import { defineConfig } from "vite-plus";
-import { library } from "@kasoa/vite-plus-config/library";
-import { react } from "@kasoa/vite-plus-config/react";
+import { createConfig } from "@kasoa/vite-plus-config/react";
 
-export default defineConfig({
-  ...react,
-  pack: library.pack,
+export default createConfig({
   lint: {
-    ...react.lint,
     rules: {
-      ...react.lint?.rules,
       "no-console": "warn",
+    },
+  },
+  test: {
+    coverage: {
+      reporter: ["text", "html"],
     },
   },
 });
@@ -77,33 +86,28 @@ pnpm add -D @cloudflare/vitest-pool-workers wrangler
 ```
 
 ```ts
-import { defineConfig } from "vite-plus";
-import { server } from "@kasoa/vite-plus-config/server";
+import { createConfig } from "@kasoa/vite-plus-config/server";
 import { createCloudflareWorkersTestConfig } from "@kasoa/vite-plus-config/test/cloudflare-workers";
 
-const cloudflareWorkers = createCloudflareWorkersTestConfig({
-  miniflare: {
-    bindings: {
-      CORS_ALLOWED_ORIGINS: "",
+export default createConfig(
+  createCloudflareWorkersTestConfig({
+    miniflare: {
+      bindings: {
+        CORS_ALLOWED_ORIGINS: "",
+      },
     },
-  },
-});
-
-export default defineConfig({
-  ...server,
-  ...cloudflareWorkers,
-  test: {
-    ...cloudflareWorkers.test,
-    provide: {
-      d1Migrations: [],
+    test: {
+      provide: {
+        d1Migrations: [],
+      },
     },
-  },
-});
+  }),
+);
 ```
 
 The shared preset only covers the repeated Worker runtime wiring. Project-specific migrations, bindings, coverage, setup files, and `test.provide` values should stay in the consuming project.
 
-At the moment, Cloudflare Worker projects should prefer plain `vitest --config vite.config.ts` for running tests. The Worker test preset itself is validated, but `vp test` is not yet a recommended path there because the current `vite-plus-test` runner still appears to have compatibility issues with this setup.
+This preset assumes the consuming project is already set up like a normal Vite+ project, including Vite+'s standard `vite` and `vitest` overrides.
 
 ## Recommended Workflow
 
@@ -128,10 +132,10 @@ Example:
 ## Configurations
 
 - **`base`**: Strict TypeScript-first format, lint, test include, and staged-file defaults.
-- **`react`**: Extends `base` with React lint rules and Tailwind-aware formatting.
-- **`server`**: Extends `base` with server-oriented lint rules.
-- **`library`**: Extends `base` with ESM-only packaging defaults for `vp pack`.
-- **`monorepo`**: Extends `base` with root-only `run` defaults for workspace caching.
+- **`react`**: `base` plus React lint rules and Tailwind-aware formatting.
+- **`server`**: `base` plus server-oriented lint rules.
+- **`library`**: `base` plus ESM-only packaging defaults for `vp pack`.
+- **`monorepo`**: `base` plus root-only `run` defaults for workspace caching.
 - **`test/cloudflare-workers`**: Optional Cloudflare Worker test wiring for Vitest.
 
 ## Author

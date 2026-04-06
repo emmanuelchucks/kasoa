@@ -1,10 +1,7 @@
-import { defineConfig } from "vite-plus";
-import { monorepo } from "./packages/vite-plus-config/src/monorepo/index.ts";
+import { createMonorepoConfig } from "./packages/vite-plus-config/src/monorepo/index.ts";
 
-export default defineConfig({
-  ...monorepo,
+export default createMonorepoConfig({
   run: {
-    ...monorepo.run,
     tasks: {
       build: {
         command: "vp run -r build",
