@@ -6,7 +6,6 @@ import process from "node:process";
 import { createNodeConfig } from "../node/index.ts";
 import { createDefinedConfig, mergeConfigFragments } from "../shared/config.ts";
 import { DEFAULT_TEST_INCLUDE, DEFAULT_WRANGLER_CONFIG_PATH } from "../shared/constants.ts";
-import { assertVitePlusVitestAlias } from "../shared/vitest.ts";
 
 type CloudflareWorkersPluginOptions = Exclude<
   NonNullable<Parameters<typeof cloudflareTest>[0]>,
@@ -36,8 +35,6 @@ export function createCloudflareWorkersConfig(
     ...testPluginOptions
   } = options;
   const isTest = process.env.VITEST === "true";
-
-  assertVitePlusVitestAlias();
 
   return createNodeConfig(
     mergeConfigFragments(
