@@ -29,10 +29,6 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/src/index.d.mts",
-      "import": "./dist/src/index.mjs"
-    },
     "./base": {
       "types": "./dist/src/base/index.d.mts",
       "import": "./dist/src/base/index.mjs"
@@ -41,9 +37,9 @@
       "types": "./dist/src/react/index.d.mts",
       "import": "./dist/src/react/index.mjs"
     },
-    "./server": {
-      "types": "./dist/src/server/index.d.mts",
-      "import": "./dist/src/server/index.mjs"
+    "./node": {
+      "types": "./dist/src/node/index.d.mts",
+      "import": "./dist/src/node/index.mjs"
     },
     "./library": {
       "types": "./dist/src/library/index.d.mts",
@@ -53,9 +49,9 @@
       "types": "./dist/src/monorepo/index.d.mts",
       "import": "./dist/src/monorepo/index.mjs"
     },
-    "./test/cloudflare-workers": {
-      "types": "./dist/src/test/cloudflare-workers/index.d.mts",
-      "import": "./dist/src/test/cloudflare-workers/index.mjs"
+    "./cloudflare-workers": {
+      "types": "./dist/src/cloudflare-workers/index.d.mts",
+      "import": "./dist/src/cloudflare-workers/index.mjs"
     }
   },
   "publishConfig": {
@@ -73,6 +69,7 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.31.0",
     "@cloudflare/vitest-pool-workers": "^0.14.1",
     "@types/node": "^25.5.2",
     "@typescript/native-preview": "^7.0.0-dev.20260406.1",
@@ -80,11 +77,15 @@
     "wrangler": "^4.80.0"
   },
   "peerDependencies": {
+    "@cloudflare/vite-plugin": ">=1 <2",
     "@cloudflare/vitest-pool-workers": ">=0.13.0 <1",
     "vite-plus": ">=0.1.14 <1",
     "wrangler": ">=4 <5"
   },
   "peerDependenciesMeta": {
+    "@cloudflare/vite-plugin": {
+      "optional": true
+    },
     "@cloudflare/vitest-pool-workers": {
       "optional": true
     },

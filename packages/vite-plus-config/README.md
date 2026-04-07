@@ -32,10 +32,10 @@ import { createConfig } from "@kasoa/vite-plus-config/react";
 export default createConfig();
 ```
 
-### Server Projects
+### Node Projects
 
 ```ts
-import { createConfig } from "@kasoa/vite-plus-config/server";
+import { createConfig } from "@kasoa/vite-plus-config/node";
 
 export default createConfig();
 ```
@@ -79,35 +79,30 @@ export default createConfig({
 
 ## Cloudflare Workers Tests
 
-For Worker projects, the package also ships a thin Cloudflare test preset that wires up `cloudflareTest()` with a default root `wrangler.jsonc`.
+For Worker projects, the package ships a Cloudflare Worker preset that combines the node preset, `cloudflare()`, and `cloudflareTest()` in a single `vite.config.ts`, using a default root `wrangler.jsonc`.
 
 ```bash
-pnpm add -D @cloudflare/vitest-pool-workers wrangler
+pnpm add -D @cloudflare/vite-plugin @cloudflare/vitest-pool-workers vitest@npm:@voidzero-dev/vite-plus-test@latest wrangler
 ```
 
 ```ts
-import { createConfig } from "@kasoa/vite-plus-config/server";
-import { createCloudflareWorkersTestConfig } from "@kasoa/vite-plus-config/test/cloudflare-workers";
+import { createConfig } from "@kasoa/vite-plus-config/cloudflare-workers";
 
-export default createConfig(
-  createCloudflareWorkersTestConfig({
-    miniflare: {
-      bindings: {
-        CORS_ALLOWED_ORIGINS: "",
-      },
+export default createConfig({
+  miniflare: {
+    bindings: {
+      CORS_ALLOWED_ORIGINS: "",
     },
-    test: {
-      provide: {
-        d1Migrations: [],
-      },
+  },
+  test: {
+    provide: {
+      d1Migrations: [],
     },
-  }),
-);
+  },
+});
 ```
 
-The shared preset only covers the repeated Worker runtime wiring. Project-specific migrations, bindings, coverage, setup files, and `test.provide` values should stay in the consuming project.
-
-This preset assumes the consuming project is already set up like a normal Vite+ project, including Vite+'s standard `vite` and `vitest` overrides.
+Project-specific migrations, bindings, coverage, setup files, and `test.provide` values should stay in the consuming project.
 
 ## Recommended Workflow
 
@@ -133,10 +128,10 @@ Example:
 
 - **`base`**: Strict TypeScript-first format, lint, test include, and staged-file defaults.
 - **`react`**: `base` plus React lint rules and Tailwind-aware formatting.
-- **`server`**: `base` plus server-oriented lint rules.
+- **`node`**: `base` plus Node-oriented lint rules.
 - **`library`**: `base` plus ESM-only packaging defaults for `vp pack`.
 - **`monorepo`**: `base` plus root-only `run` defaults for workspace caching.
-- **`test/cloudflare-workers`**: Optional Cloudflare Worker test wiring for Vitest.
+- **`cloudflare-workers`**: `node` plus Cloudflare Worker dev and test wiring.
 
 ## Author
 

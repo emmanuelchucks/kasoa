@@ -6,9 +6,7 @@ export default createLibraryConfig({
       neverBundle: ["vite-plus", "@cloudflare/vitest-pool-workers", "wrangler"],
     },
     entry: {
-      "src/index": "./src/index.ts",
       "src/*": "./src/*/index.ts",
-      "src/test/cloudflare-workers/index": "./src/test/cloudflare-workers/index.ts",
     },
   },
 });
