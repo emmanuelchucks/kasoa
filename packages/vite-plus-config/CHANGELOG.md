@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.12
+
+### Patch Changes
+
+- 6dbe800: Fix preset composition so the React, Node, and Cloudflare Workers configs no longer duplicate inherited array settings and rule tuples.
+
 ## 0.0.11
 
 ### Patch Changes
