@@ -2,6 +2,10 @@
   "name": "kasoa",
   "private": true,
   "scripts": {
+    "check": "vp run -r check",
+    "check:fix": "vp run -r check:fix",
+    "build": "vp run -r build",
+    "test": "vp run -r test",
     "clean": "git clean -xdf",
     "update:deps": "pnpm dlx taze latest -wrli"
   },
@@ -11,8 +15,8 @@
     "@typescript/native-preview": "^7.0.0-dev.20260406.1",
     "vite-plus": "^0.1.15"
   },
-  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=24"
-  }
+  },
+  "packageManager": "pnpm@10.33.0"
 }

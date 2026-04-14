@@ -62,9 +62,6 @@
     "build": "vp pack",
     "check": "vp check",
     "check:fix": "vp check --fix",
-    "lint": "vp lint --fix .",
-    "format": "vp fmt .",
-    "typecheck": "vp exec tsgo --noEmit",
     "test": "vp test --passWithNoTests",
     "prepublishOnly": "pnpm build"
   },
