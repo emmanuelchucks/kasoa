@@ -3,7 +3,7 @@ import { GENERATED_FILE_IGNORE_PATTERNS } from "./constants.ts";
 
 type FmtConfig = NonNullable<UserConfig["fmt"]>;
 
-export const baseFmt = {
+export const baseFmt: FmtConfig = {
   ignorePatterns: [...GENERATED_FILE_IGNORE_PATTERNS],
   sortImports: {
     internalPattern: ["#", "@/"],
@@ -18,12 +18,11 @@ export const baseFmt = {
       "unknown",
     ],
   },
-} satisfies FmtConfig;
+};
 
-export const reactFmt = {
-  ...baseFmt,
+export const reactFmt: FmtConfig = {
   sortTailwindcss: {
     attributes: ["/.*ClassName/"],
     functions: ["tv"],
   },
-} satisfies FmtConfig;
+};

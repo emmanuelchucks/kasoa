@@ -172,10 +172,8 @@ const baseLintConfig: LintConfig = {
 export const baseLint: LintConfig = baseLintConfig;
 
 const reactLintConfig: LintConfig = {
-  ...baseLint,
-  plugins: [...(baseLint.plugins ?? []), "react", "jsx-a11y"],
+  plugins: ["react", "jsx-a11y"],
   rules: {
-    ...baseLint.rules,
     "jsx-a11y/alt-text": "error",
 
     "react/jsx-props-no-spreading": "off",
@@ -205,14 +203,11 @@ const reactLintConfig: LintConfig = {
 export const reactLint: LintConfig = reactLintConfig;
 
 const serverLintConfig: LintConfig = {
-  ...baseLint,
-  plugins: [...(baseLint.plugins ?? []), "node"],
+  plugins: ["node"],
   globals: {
-    ...baseLint.globals,
     WebSocketPair: "readonly",
   },
   rules: {
-    ...baseLint.rules,
     "node/no-exports-assign": "error",
   },
 };
