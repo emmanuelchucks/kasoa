@@ -1,6 +1,6 @@
 # @kasoa/vite-plus-config
 
-Kasoa's Vite+ configurations
+Kasoa's shared Vite+ presets for formatting, linting, and type checking.
 
 ## Installation
 
@@ -106,14 +106,7 @@ Project-specific migrations, bindings, coverage, setup files, and `test.provide`
 
 ## Recommended Workflow
 
-- For Vite+-first apps and packages, prefer a simple `check` script that runs `vp check`.
-- Pair it with `check:fix` that runs `vp check --fix`.
-- Use `vp check` for formatting, linting, and type checking in one pass.
-- Use `vp check --fix` for autofixable formatting and linting issues.
-- Use `vp config` if you want commit hooks generated from the shared `staged` rules.
-- Use one `vite.config.ts` by default, then keep separate config files only when a project genuinely needs them.
-
-Example:
+For Vite+-first apps and packages, prefer a simple repo-native check workflow:
 
 ```json
 {
@@ -124,9 +117,33 @@ Example:
 }
 ```
 
+Use `vp check` as the default static check command.
+
+It already covers:
+
+- formatting
+- linting
+- type checking
+
+Type checking is included in that workflow. The shared lint config enables Vite+'s type-aware and type-check modes by default, so most projects using this package do not need a separate raw `tsc` step for the standard check flow.
+
+Use `vp check --fix` for autofixable formatting and linting issues.
+
+`vp check` also accepts file or path arguments:
+
+```bash
+vp check src/foo.ts src/bar.ts
+```
+
+These narrower runs are useful during focused edits. For final validation, prefer the normal whole-project `vp check` flow.
+
+Use `vp config` if you want commit hooks generated from the shared `staged` rules.
+
+Use one `vite.config.ts` by default, then keep separate config files only when a project genuinely needs them.
+
 ## Configurations
 
-- **`base`**: Strict TypeScript-first format, lint, test include, and staged-file defaults.
+- **`base`**: Strict TypeScript-first format, lint, type-aware/type-check defaults, test include, and staged-file defaults.
 - **`react`**: `base` plus React lint rules and Tailwind-aware formatting.
 - **`node`**: `base` plus Node-oriented lint rules.
 - **`library`**: `base` plus ESM-only packaging defaults for `vp pack`.
