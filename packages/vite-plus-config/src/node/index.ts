@@ -7,8 +7,10 @@ const nodeConfig: UserConfig = {
   lint: serverLint,
 };
 
-export function createNodeConfig(overrides: UserConfig = {}): UserConfig {
-  return createDefinedConfig(createBaseConfig(), nodeConfig, overrides);
+export function createNodeConfig<const Overrides extends UserConfig = UserConfig>(
+  overrides?: Overrides,
+): UserConfig & Pick<Overrides, never> {
+  return createDefinedConfig(createBaseConfig(), nodeConfig, overrides ?? {});
 }
 
 export { createNodeConfig as createConfig };

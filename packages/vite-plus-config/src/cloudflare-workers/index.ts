@@ -9,23 +9,23 @@ import { DEFAULT_WRANGLER_CONFIG_PATH } from "../shared/constants.ts";
 
 type CloudflareWorkersPluginOptions = Exclude<
   NonNullable<Parameters<typeof cloudflareTest>[0]>,
-  (...args: never[]) => unknown
+  (...args: readonly never[]) => unknown
 >;
 
 export interface CloudflareWorkersConfigOptions extends Omit<
   CloudflareWorkersPluginOptions,
   "wrangler"
 > {
-  cloudflare?: CloudflareVitePluginConfig | false;
-  config?: UserConfig;
-  include?: string[];
-  test?: UserConfig["test"];
-  wrangler?: CloudflareWorkersPluginOptions["wrangler"];
+  readonly cloudflare?: CloudflareVitePluginConfig | false;
+  readonly config?: UserConfig;
+  readonly include?: readonly string[];
+  readonly test?: UserConfig["test"];
+  readonly wrangler?: CloudflareWorkersPluginOptions["wrangler"];
 }
 
-export function createCloudflareWorkersConfig(
-  options: CloudflareWorkersConfigOptions = {},
-): UserConfig {
+export function createCloudflareWorkersConfig<
+  const Options extends CloudflareWorkersConfigOptions = CloudflareWorkersConfigOptions,
+>(options?: Options): UserConfig & Pick<Options, never> {
   const {
     cloudflare: cloudflareOptions = {},
     config = {},
@@ -33,7 +33,7 @@ export function createCloudflareWorkersConfig(
     test,
     wrangler,
     ...testPluginOptions
-  } = options;
+  } = options ?? {};
   const isTest = process.env.VITEST === "true";
   const cloudflareTestConfig = createDefinedConfig(
     {
@@ -51,7 +51,7 @@ export function createCloudflareWorkersConfig(
       ? {}
       : {
           test: {
-            include,
+            include: [...include],
           },
         },
     {

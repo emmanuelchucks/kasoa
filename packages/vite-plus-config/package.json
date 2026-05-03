@@ -66,12 +66,12 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.31.0",
-    "@cloudflare/vitest-pool-workers": "^0.14.1",
-    "@types/node": "^25.5.2",
-    "@typescript/native-preview": "^7.0.0-dev.20260406.1",
-    "vite-plus": "^0.1.15",
-    "wrangler": "^4.80.0"
+    "@cloudflare/vite-plugin": "^1.35.0",
+    "@cloudflare/vitest-pool-workers": "^0.15.2",
+    "@types/node": "^25.6.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260503.1",
+    "vite-plus": "^0.1.20",
+    "wrangler": "^4.87.0"
   },
   "peerDependencies": {
     "@cloudflare/vite-plugin": ">=1 <2",
