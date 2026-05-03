@@ -1,5 +1,13 @@
 # @kasoa/eslint-config
 
+## 0.0.31
+
+### Patch Changes
+
+- 47b2c68: Refresh shared tooling dependencies and adapt Vite+ config helpers for stricter readonly parameter checks without changing the object-based config API.
+
+  Tighten the Prettier peer range for the Tailwind plugin update and keep ESLint as a development-only dependency in the Prettier config package.
+
 ## 0.0.30
 
 ### Patch Changes
