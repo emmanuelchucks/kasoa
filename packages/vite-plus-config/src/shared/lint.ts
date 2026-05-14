@@ -30,6 +30,7 @@ const baseLintConfig: LintConfig = {
     "id-length": "off",
     "init-declarations": "off",
     "max-classes-per-file": "off",
+    "max-lines": "off",
     "max-lines-per-function": "off",
     "max-statements": "off",
     "no-continue": "off",
@@ -70,6 +71,7 @@ const baseLintConfig: LintConfig = {
     "import/no-nodejs-modules": "off",
     "import/no-unassigned-import": "off",
     "import/prefer-default-export": "off",
+    "import/max-dependencies": "off",
     "import/no-cycle": "error",
 
     "promise/prefer-await-to-callbacks": "off",
