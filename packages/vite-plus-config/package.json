@@ -1,6 +1,6 @@
 {
   "name": "@kasoa/vite-plus-config",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Kasoa's Vite+ configurations",
   "keywords": [
     "config",

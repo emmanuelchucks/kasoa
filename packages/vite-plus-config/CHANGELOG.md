@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.14
+
+### Patch Changes
+
+- 5723d42: Turn off the `max-lines` and `import/max-dependencies` lint rules in the shared lint preset.
+
 ## 0.0.13
 
 ### Patch Changes
