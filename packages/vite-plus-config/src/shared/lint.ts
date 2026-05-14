@@ -111,6 +111,7 @@ const baseLintConfig: LintConfig = {
     "typescript/prefer-nullish-coalescing": "error",
     "typescript/prefer-optional-chain": "error",
     "typescript/prefer-readonly": "error",
+    "typescript/prefer-readonly-parameter-types": "off",
     "typescript/prefer-regexp-exec": "error",
     "typescript/require-await": "off",
     "typescript/require-array-sort-compare": "error",
