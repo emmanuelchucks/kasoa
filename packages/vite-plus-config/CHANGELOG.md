@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.15
+
+### Patch Changes
+
+- 739d8a8: Turn off the `typescript/prefer-readonly-parameter-types` lint rule in the shared lint preset.
+
 ## 0.0.14
 
 ### Patch Changes
