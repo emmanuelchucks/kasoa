@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.16
+
+### Patch Changes
+
+- 258d695: Update Vite+/tooling dependencies and simplify Vite+ config helper types for Vite 8 compatibility.
+
 ## 0.0.15
 
 ### Patch Changes
