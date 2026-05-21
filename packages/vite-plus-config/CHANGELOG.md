@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.0.17
+
+### Patch Changes
+
+- 1684a4e: Relax public plugin config input typing to avoid Vite 8 recursive plugin type comparisons.
+
 ## 0.0.16
 
 ### Patch Changes
