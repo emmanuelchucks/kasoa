@@ -4,6 +4,7 @@ import { cloudflare } from "@cloudflare/vite-plugin";
 import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
 import process from "node:process";
 import { lazyPlugins } from "vite-plus";
+import type { ConfigInput } from "../shared/config.ts";
 import { createNodeConfig } from "../node/index.ts";
 import { createDefinedConfig, mergeConfigFragments } from "../shared/config.ts";
 import { DEFAULT_WRANGLER_CONFIG_PATH } from "../shared/constants.ts";
@@ -18,7 +19,7 @@ export interface CloudflareWorkersConfigOptions extends Omit<
   "wrangler"
 > {
   readonly cloudflare?: CloudflareVitePluginConfig | false;
-  readonly config?: UserConfig;
+  readonly config?: ConfigInput;
   readonly include?: readonly string[];
   readonly test?: UserConfig["test"];
   readonly wrangler?: CloudflareWorkersPluginOptions["wrangler"];

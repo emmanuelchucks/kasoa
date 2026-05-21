@@ -1,4 +1,5 @@
 import type { UserConfig } from "vite-plus";
+import type { ConfigInput } from "../shared/config.ts";
 import { createBaseConfig } from "../base/index.ts";
 import { createDefinedConfig } from "../shared/config.ts";
 import { reactFmt } from "../shared/fmt.ts";
@@ -9,7 +10,7 @@ const reactConfig: UserConfig = {
   lint: reactLint,
 };
 
-export function createReactConfig(overrides: UserConfig = {}): UserConfig {
+export function createReactConfig(overrides: ConfigInput = {}): UserConfig {
   return createDefinedConfig(createBaseConfig(), reactConfig, overrides);
 }
 

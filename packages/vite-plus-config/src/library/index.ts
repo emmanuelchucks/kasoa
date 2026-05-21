@@ -1,4 +1,5 @@
 import type { UserConfig } from "vite-plus";
+import type { ConfigInput } from "../shared/config.ts";
 import { createBaseConfig } from "../base/index.ts";
 import { createDefinedConfig } from "../shared/config.ts";
 
@@ -11,7 +12,7 @@ const libraryConfig: UserConfig = {
   },
 };
 
-export function createLibraryConfig(overrides: UserConfig = {}): UserConfig {
+export function createLibraryConfig(overrides: ConfigInput = {}): UserConfig {
   return createDefinedConfig(createBaseConfig(), libraryConfig, overrides);
 }
 

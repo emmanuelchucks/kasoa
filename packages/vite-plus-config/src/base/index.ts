@@ -1,4 +1,5 @@
 import type { UserConfig } from "vite-plus";
+import type { ConfigInput } from "../shared/config.ts";
 import { createDefinedConfig } from "../shared/config.ts";
 import {
   DEFAULT_STAGED_CHECK_COMMAND,
@@ -19,7 +20,7 @@ const baseConfig: UserConfig = {
   },
 };
 
-export function createBaseConfig(overrides: UserConfig = {}): UserConfig {
+export function createBaseConfig(overrides: ConfigInput = {}): UserConfig {
   return createDefinedConfig(baseConfig, overrides);
 }
 
