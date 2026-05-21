@@ -19,10 +19,8 @@ const baseConfig: UserConfig = {
   },
 };
 
-export function createBaseConfig<const Overrides extends UserConfig = UserConfig>(
-  overrides?: Overrides,
-): UserConfig & Pick<Overrides, never> {
-  return createDefinedConfig(baseConfig, overrides ?? {});
+export function createBaseConfig(overrides: UserConfig = {}): UserConfig {
+  return createDefinedConfig(baseConfig, overrides);
 }
 
 export { createBaseConfig as createConfig };

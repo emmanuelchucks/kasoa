@@ -12,10 +12,8 @@ const monorepoConfig: UserConfig = {
   },
 };
 
-export function createMonorepoConfig<const Overrides extends UserConfig = UserConfig>(
-  overrides?: Overrides,
-): UserConfig & Pick<Overrides, never> {
-  return createDefinedConfig(createBaseConfig(), monorepoConfig, overrides ?? {});
+export function createMonorepoConfig(overrides: UserConfig = {}): UserConfig {
+  return createDefinedConfig(createBaseConfig(), monorepoConfig, overrides);
 }
 
 export { createMonorepoConfig as createConfig };

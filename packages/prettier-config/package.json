@@ -54,10 +54,10 @@
   "devDependencies": {
     "@kasoa/eslint-config": "workspace:*",
     "@kasoa/vite-plus-config": "workspace:*",
-    "@types/node": "^25.8.0",
-    "@typescript/native-preview": "7.0.0-dev.20260514.1",
-    "eslint": "^10.3.0",
-    "vite-plus": "^0.1.21"
+    "@types/node": "^25.9.1",
+    "@typescript/native-preview": "7.0.0-dev.20260521.1",
+    "eslint": "^10.4.0",
+    "vite-plus": "^0.1.22"
   },
   "peerDependencies": {
     "prettier": ">=3.7.0 <4"

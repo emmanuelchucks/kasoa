@@ -1,12 +1,7 @@
 import type { UserConfig } from "vite-plus";
 import { defineConfig, mergeConfig } from "vite-plus";
 
-type ConfigResult<Config> = UserConfig & Pick<Config, never>;
-
-export function mergeConfigFragments<
-  const Base extends UserConfig,
-  const Overrides extends readonly UserConfig[],
->(base: Base, ...overrides: Overrides): ConfigResult<Base & Overrides[number]> {
+export function mergeConfigFragments(base: UserConfig, ...overrides: UserConfig[]): UserConfig {
   let result: UserConfig = {};
   result = mergeConfig<UserConfig, UserConfig>(result, base);
 
@@ -17,9 +12,6 @@ export function mergeConfigFragments<
   return result;
 }
 
-export function createDefinedConfig<
-  const Base extends UserConfig,
-  const Overrides extends readonly UserConfig[],
->(base: Base, ...overrides: Overrides): ConfigResult<Base & Overrides[number]> {
+export function createDefinedConfig(base: UserConfig, ...overrides: UserConfig[]): UserConfig {
   return defineConfig(mergeConfigFragments(base, ...overrides));
 }

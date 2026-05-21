@@ -9,10 +9,8 @@ const reactConfig: UserConfig = {
   lint: reactLint,
 };
 
-export function createReactConfig<const Overrides extends UserConfig = UserConfig>(
-  overrides?: Overrides,
-): UserConfig & Pick<Overrides, never> {
-  return createDefinedConfig(createBaseConfig(), reactConfig, overrides ?? {});
+export function createReactConfig(overrides: UserConfig = {}): UserConfig {
+  return createDefinedConfig(createBaseConfig(), reactConfig, overrides);
 }
 
 export { createReactConfig as createConfig };

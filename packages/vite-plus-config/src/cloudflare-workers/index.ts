@@ -3,6 +3,7 @@ import type { UserConfig } from "vite-plus";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
 import process from "node:process";
+import { lazyPlugins } from "vite-plus";
 import { createNodeConfig } from "../node/index.ts";
 import { createDefinedConfig, mergeConfigFragments } from "../shared/config.ts";
 import { DEFAULT_WRANGLER_CONFIG_PATH } from "../shared/constants.ts";
@@ -23,9 +24,9 @@ export interface CloudflareWorkersConfigOptions extends Omit<
   readonly wrangler?: CloudflareWorkersPluginOptions["wrangler"];
 }
 
-export function createCloudflareWorkersConfig<
-  const Options extends CloudflareWorkersConfigOptions = CloudflareWorkersConfigOptions,
->(options?: Options): UserConfig & Pick<Options, never> {
+export function createCloudflareWorkersConfig(
+  options: CloudflareWorkersConfigOptions = {},
+): UserConfig {
   const {
     cloudflare: cloudflareOptions = {},
     config = {},
@@ -33,11 +34,11 @@ export function createCloudflareWorkersConfig<
     test,
     wrangler,
     ...testPluginOptions
-  } = options ?? {};
+  } = options;
   const isTest = process.env.VITEST === "true";
   const cloudflareTestConfig = createDefinedConfig(
     {
-      plugins: [
+      plugins: lazyPlugins(() => [
         cloudflareTest({
           ...testPluginOptions,
           wrangler: {
@@ -45,7 +46,7 @@ export function createCloudflareWorkersConfig<
             ...wrangler,
           },
         }),
-      ],
+      ]),
     },
     include === undefined
       ? {}
@@ -59,17 +60,14 @@ export function createCloudflareWorkersConfig<
     },
   );
 
-  return createNodeConfig(
-    mergeConfigFragments(
-      cloudflareTestConfig,
-      !isTest && cloudflareOptions !== false
-        ? {
-            plugins: [...cloudflare(cloudflareOptions)],
-          }
-        : {},
-      config,
-    ),
-  );
+  const cloudflareConfig: UserConfig =
+    !isTest && cloudflareOptions !== false
+      ? {
+          plugins: lazyPlugins(() => [...cloudflare(cloudflareOptions)]),
+        }
+      : {};
+
+  return createNodeConfig(mergeConfigFragments(cloudflareTestConfig, cloudflareConfig, config));
 }
 
 export { createCloudflareWorkersConfig as createConfig };

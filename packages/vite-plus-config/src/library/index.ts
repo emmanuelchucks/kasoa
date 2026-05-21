@@ -11,10 +11,8 @@ const libraryConfig: UserConfig = {
   },
 };
 
-export function createLibraryConfig<const Overrides extends UserConfig = UserConfig>(
-  overrides?: Overrides,
-): UserConfig & Pick<Overrides, never> {
-  return createDefinedConfig(createBaseConfig(), libraryConfig, overrides ?? {});
+export function createLibraryConfig(overrides: UserConfig = {}): UserConfig {
+  return createDefinedConfig(createBaseConfig(), libraryConfig, overrides);
 }
 
 export { createLibraryConfig as createConfig };
