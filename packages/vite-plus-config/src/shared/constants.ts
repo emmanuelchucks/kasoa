@@ -1,5 +1,8 @@
 export const DEFAULT_TEST_INCLUDE = ["**/*.{test,spec}.{ts,tsx,mts,cts}"] as const;
-export const GENERATED_FILE_IGNORE_PATTERNS = [
+export const DEFAULT_IGNORE_PATTERNS = [
+  "node_modules/**",
+  "dist/**",
+  "dist-ssr/**",
   "**/worker-configuration.d.ts",
   "**/migrations/**",
   "**/drizzle/migrations.js",

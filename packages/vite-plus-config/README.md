@@ -143,8 +143,8 @@ Use one `vite.config.ts` by default, then keep separate config files only when a
 
 ## Configurations
 
-- **`base`**: Strict TypeScript-first format, lint, type-aware/type-check defaults, test include, and staged-file defaults.
-- **`react`**: `base` plus React lint rules and Tailwind-aware formatting.
+- **`base`**: Strict TypeScript-first format, lint, type-aware/type-check defaults, dependency/build ignores, test include, and staged-file defaults.
+- **`react`**: `base` plus browser globals, React lint rules, and Tailwind-aware formatting. React Native or Expo projects that want to reject DOM globals can override `lint.env.browser` to `false`.
 - **`node`**: `base` plus Node-oriented lint rules.
 - **`library`**: `base` plus ESM-only packaging defaults for `vp pack`.
 - **`monorepo`**: `base` plus root-only `run` defaults for workspace caching.
