@@ -1,10 +1,10 @@
 import type { UserConfig } from "vite-plus";
-import { GENERATED_FILE_IGNORE_PATTERNS } from "./constants.ts";
+import { DEFAULT_IGNORE_PATTERNS } from "./constants.ts";
 
 type FmtConfig = NonNullable<UserConfig["fmt"]>;
 
 export const baseFmt: FmtConfig = {
-  ignorePatterns: [...GENERATED_FILE_IGNORE_PATTERNS],
+  ignorePatterns: [...DEFAULT_IGNORE_PATTERNS],
   sortImports: {
     internalPattern: ["#", "@/"],
     newlinesBetween: false,

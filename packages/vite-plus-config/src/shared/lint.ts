@@ -1,5 +1,5 @@
 import type { UserConfig } from "vite-plus";
-import { GENERATED_FILE_IGNORE_PATTERNS } from "./constants.ts";
+import { DEFAULT_IGNORE_PATTERNS } from "./constants.ts";
 
 export const BASE_LINT_PLUGINS = ["typescript", "unicorn", "oxc", "import", "promise"] as const;
 
@@ -7,7 +7,7 @@ type LintConfig = NonNullable<UserConfig["lint"]>;
 
 const baseLintConfig: LintConfig = {
   plugins: [...BASE_LINT_PLUGINS],
-  ignorePatterns: [...GENERATED_FILE_IGNORE_PATTERNS],
+  ignorePatterns: [...DEFAULT_IGNORE_PATTERNS],
   env: {
     serviceworker: true,
     worker: true,
@@ -176,6 +176,9 @@ export const baseLint: LintConfig = baseLintConfig;
 
 const reactLintConfig: LintConfig = {
   plugins: ["react", "jsx-a11y"],
+  env: {
+    browser: true,
+  },
   rules: {
     "jsx-a11y/alt-text": "error",
 
