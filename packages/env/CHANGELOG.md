@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.15
+
+### Patch Changes
+
+- 2094f2d: Expose `EnvValidationError` with the original Standard Schema issues while retaining readable validation messages. Document safe Cloudflare configuration projection, optional `process.env` usage, and the separate role of generated resource-binding types.
+
 ## 0.0.14
 
 ### Patch Changes
