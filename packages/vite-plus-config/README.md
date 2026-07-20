@@ -79,10 +79,10 @@ export default createConfig({
 
 ## Cloudflare Workers Tests
 
-For Worker projects, the package ships a Cloudflare Worker preset that combines the node preset, `cloudflare()`, and `cloudflareTest()` in a single `vite.config.ts`, using a default root `wrangler.jsonc`.
+The `cloudflare-workers` preset combines the Node.js preset with `cloudflareTest()` and reads `wrangler.jsonc` from the project root by default. Vite+ provides Vitest; import test APIs from `vite-plus/test`.
 
 ```bash
-pnpm add -D @cloudflare/vite-plugin @cloudflare/vitest-pool-workers vitest@npm:@voidzero-dev/vite-plus-test@latest wrangler
+pnpm add -D @cloudflare/vitest-pool-workers wrangler
 ```
 
 ```ts
@@ -102,11 +102,22 @@ export default createConfig({
 });
 ```
 
-Project-specific migrations, bindings, coverage, setup files, and `test.provide` values should stay in the consuming project.
+Use Wrangler for backend Worker development, builds, type generation, remote development, and deployment. Use Vite+ for checks and Worker tests:
+
+```json
+{
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run",
+    "check": "vp check",
+    "test": "vp test"
+  }
+}
+```
+
+Keep project-specific migrations, bindings, coverage, setup files, and `test.provide` values in the consuming project. Vite-owned frontend and full-stack applications should configure `@cloudflare/vite-plugin` with their project-specific plugins.
 
 ## Recommended Workflow
-
-For Vite+-first apps and packages, prefer a simple repo-native check workflow:
 
 ```json
 {
@@ -117,29 +128,9 @@ For Vite+-first apps and packages, prefer a simple repo-native check workflow:
 }
 ```
 
-Use `vp check` as the default static check command.
+`vp check` formats, lints, and type-checks the project. Use `vp check --fix` for automatic fixes, path arguments for focused checks, and the full command for final verification.
 
-It already covers:
-
-- formatting
-- linting
-- type checking
-
-Type checking is included in that workflow. The shared lint config enables Vite+'s type-aware and type-check modes by default, so most projects using this package do not need a separate raw `tsc` step for the standard check flow.
-
-Use `vp check --fix` for autofixable formatting and linting issues.
-
-`vp check` also accepts file or path arguments:
-
-```bash
-vp check src/foo.ts src/bar.ts
-```
-
-These narrower runs are useful during focused edits. For final validation, prefer the normal whole-project `vp check` flow.
-
-Use `vp config` if you want commit hooks generated from the shared `staged` rules.
-
-Use one `vite.config.ts` by default, then keep separate config files only when a project genuinely needs them.
+Use `vp config` to generate commit hooks from the shared `staged` rules. Keep one `vite.config.ts` unless the project needs separate configurations.
 
 ## Configurations
 
@@ -148,7 +139,7 @@ Use one `vite.config.ts` by default, then keep separate config files only when a
 - **`node`**: `base` plus Node-oriented lint rules.
 - **`library`**: `base` plus ESM-only packaging defaults for `vp pack`.
 - **`monorepo`**: `base` plus root-only `run` defaults for workspace caching.
-- **`cloudflare-workers`**: `node` plus Cloudflare Worker dev and test wiring.
+- **`cloudflare-workers`**: `node` plus Cloudflare Worker test wiring.
 
 ## Author
 

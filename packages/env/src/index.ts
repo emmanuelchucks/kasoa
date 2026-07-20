@@ -7,6 +7,16 @@ export type EnvSource<T extends StandardSchemaV1<EnvInput, unknown>> = Readonly<
   EnvInput & Partial<StandardSchemaV1.InferInput<T>>
 >;
 
+export class EnvValidationError extends Error {
+  readonly issues: readonly StandardSchemaV1.Issue[];
+
+  constructor(issues: readonly StandardSchemaV1.Issue[]) {
+    super(formatIssues(issues));
+    this.name = "EnvValidationError";
+    this.issues = issues;
+  }
+}
+
 export function defineEnv<T extends StandardSchemaV1<EnvInput, unknown>>(
   schema: T,
 ): (env: EnvSource<T>) => InferEnv<T> {
@@ -25,10 +35,10 @@ function parseEnv<T extends StandardSchemaV1<EnvInput, unknown>>(
   }
 
   if (result.issues) {
-    throw new Error(formatIssues(result.issues));
+    throw new EnvValidationError(result.issues);
   }
 
-  return result.value as InferEnv<T>;
+  return result.value;
 }
 
 function normalizeEnv(env: Readonly<Record<string, unknown>>): Record<string, unknown> {
@@ -41,14 +51,19 @@ function normalizeEnv(env: Readonly<Record<string, unknown>>): Record<string, un
 }
 
 function formatIssues(issues: readonly StandardSchemaV1.Issue[]): string {
-  const lines = issues.map((issue) => {
-    const key = issue.path ? getPathString(issue.path) : "root";
-    return `  ${key}: ${issue.message}`;
-  });
+  const lines = issues.map((issue) => `  ${getPathString(issue.path)}: ${issue.message}`);
 
   return `Environment validation failed:\n\n${lines.join("\n")}`;
 }
 
-function getPathString(path: readonly (PropertyKey | StandardSchemaV1.PathSegment)[]): string {
-  return path.map((segment) => (typeof segment === "object" ? segment.key : segment)).join(".");
+function getPathString(
+  path: readonly (PropertyKey | StandardSchemaV1.PathSegment)[] | undefined,
+): string {
+  if (path === undefined || path.length === 0) {
+    return "root";
+  }
+
+  return path
+    .map((segment) => String(typeof segment === "object" ? segment.key : segment))
+    .join(".");
 }

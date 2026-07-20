@@ -1,6 +1,7 @@
+import type { StandardSchemaV1 } from "@standard-schema/spec";
 import * as v from "valibot";
-import { describe, expect, it } from "vitest";
-import { defineEnv } from "./index.ts";
+import { describe, expect, it } from "vite-plus/test";
+import { defineEnv, EnvValidationError } from "./index.ts";
 
 describe("defineEnv()", () => {
   it("returns a parser that validates an env object", () => {
@@ -29,6 +30,38 @@ describe("defineEnv()", () => {
 
     expect(() => parseEnv({})).toThrow("Environment validation failed");
     expect(() => parseEnv({})).toThrow("DATABASE_URL");
+  });
+
+  it("exposes validation issues and labels whole-object failures", () => {
+    expect.assertions(5);
+
+    const issues = [{ message: "Invalid environment", path: [] }] as const;
+    const parseEnv = defineEnv(createFailingSchema(issues));
+
+    try {
+      parseEnv({});
+    } catch (error) {
+      expect(error).toBeInstanceOf(EnvValidationError);
+
+      if (!(error instanceof EnvValidationError)) {
+        throw error;
+      }
+
+      expect(error.name).toBe("EnvValidationError");
+      expect(error.issues).toBe(issues);
+      expect(error.message).toContain("Environment validation failed");
+      expect(error.message).toContain("root: Invalid environment");
+    }
+  });
+
+  it("keeps symbol keys readable in validation errors", () => {
+    expect.assertions(2);
+
+    const issues = [{ message: "Invalid value", path: [Symbol("API_KEY")] }] as const;
+    const parseEnv = defineEnv(createFailingSchema(issues));
+
+    expect(() => parseEnv({})).toThrow(EnvValidationError);
+    expect(() => parseEnv({})).toThrow("Symbol(API_KEY): Invalid value");
   });
 
   it("treats empty string as undefined", () => {
@@ -104,6 +137,18 @@ function createDatabaseSchema() {
     DATABASE_URL: v.string(),
     PORT: v.pipe(v.string(), v.toNumber()),
   });
+}
+
+function createFailingSchema(
+  issues: readonly StandardSchemaV1.Issue[],
+): StandardSchemaV1<Record<string, unknown>, unknown> {
+  return {
+    "~standard": {
+      vendor: "test",
+      version: 1,
+      validate: (_value: unknown) => ({ issues }),
+    },
+  };
 }
 
 function createAsyncSchema() {

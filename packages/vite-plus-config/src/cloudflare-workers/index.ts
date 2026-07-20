@@ -1,8 +1,5 @@
-import type { PluginConfig as CloudflareVitePluginConfig } from "@cloudflare/vite-plugin";
 import type { UserConfig } from "vite-plus";
-import { cloudflare } from "@cloudflare/vite-plugin";
 import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
-import process from "node:process";
 import { lazyPlugins } from "vite-plus";
 import type { ConfigInput } from "../shared/config.ts";
 import { createNodeConfig } from "../node/index.ts";
@@ -18,7 +15,6 @@ export interface CloudflareWorkersConfigOptions extends Omit<
   CloudflareWorkersPluginOptions,
   "wrangler"
 > {
-  readonly cloudflare?: CloudflareVitePluginConfig | false;
   readonly config?: ConfigInput;
   readonly include?: readonly string[];
   readonly test?: UserConfig["test"];
@@ -28,15 +24,7 @@ export interface CloudflareWorkersConfigOptions extends Omit<
 export function createCloudflareWorkersConfig(
   options: CloudflareWorkersConfigOptions = {},
 ): UserConfig {
-  const {
-    cloudflare: cloudflareOptions = {},
-    config = {},
-    include,
-    test,
-    wrangler,
-    ...testPluginOptions
-  } = options;
-  const isTest = process.env.VITEST === "true";
+  const { config = {}, include, test, wrangler, ...testPluginOptions } = options;
   const cloudflareTestConfig = createDefinedConfig(
     {
       plugins: lazyPlugins(() => [
@@ -61,14 +49,7 @@ export function createCloudflareWorkersConfig(
     },
   );
 
-  const cloudflareConfig: UserConfig =
-    !isTest && cloudflareOptions !== false
-      ? {
-          plugins: lazyPlugins(() => [...cloudflare(cloudflareOptions)]),
-        }
-      : {};
-
-  return createNodeConfig(mergeConfigFragments(cloudflareTestConfig, cloudflareConfig, config));
+  return createNodeConfig(mergeConfigFragments(cloudflareTestConfig, config));
 }
 
 export { createCloudflareWorkersConfig as createConfig };

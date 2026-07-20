@@ -66,23 +66,18 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.37.3",
     "@cloudflare/vitest-pool-workers": "^0.16.8",
     "@types/node": "^25.9.1",
     "@typescript/native-preview": "7.0.0-dev.20260521.1",
-    "vite-plus": "^0.1.22",
+    "vite-plus": "^0.2.5",
     "wrangler": "^4.93.1"
   },
   "peerDependencies": {
-    "@cloudflare/vite-plugin": ">=1 <2",
     "@cloudflare/vitest-pool-workers": ">=0.13.0 <1",
-    "vite-plus": ">=0.1.14 <1",
+    "vite-plus": ">=0.2.1 <1",
     "wrangler": ">=4 <5"
   },
   "peerDependenciesMeta": {
-    "@cloudflare/vite-plugin": {
-      "optional": true
-    },
     "@cloudflare/vitest-pool-workers": {
       "optional": true
     },

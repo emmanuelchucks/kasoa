@@ -14,7 +14,7 @@
     "@kasoa/vite-plus-config": "workspace:*",
     "@typescript/native-preview": "7.0.0-dev.20260521.1",
     "vite": "^8.0.14",
-    "vite-plus": "^0.1.22"
+    "vite-plus": "^0.2.5"
   },
   "engines": {
     "node": ">=24"
