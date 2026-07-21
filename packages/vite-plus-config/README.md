@@ -7,10 +7,10 @@ Kasoa's shared Vite+ presets for formatting, linting, and type checking.
 Install Vite+ and the shared config:
 
 ```bash
-pnpm add -D @kasoa/vite-plus-config vite-plus
+pnpm add -D @kasoa/vite-plus-config vite-plus typescript@^7
 ```
 
-**Note**: Requires Node.js >=24 and TypeScript-first projects.
+**Note**: Requires Node.js >=24 and TypeScript-first projects. Use the stable `typescript` package; Vite+'s native type-checking path does not require `@typescript/native-preview` or a separate `tsgo` command.
 
 ## Usage
 
