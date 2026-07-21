@@ -2,11 +2,15 @@
 
 Type-safe environment variable validation using [Standard Schema](https://standardschema.dev/).
 
+`@kasoa/env` is a small ESM-only parser. It validates values supplied by your application; loading `.env` files and exposing runtime configuration remain the responsibility of Node.js, Expo, Vite, Cloudflare, or the framework you use.
+
 ## Installation
 
 ```bash
 pnpm add @kasoa/env valibot
 ```
+
+Use any Standard Schema compatible library in place of Valibot.
 
 ## Usage
 
@@ -14,19 +18,13 @@ pnpm add @kasoa/env valibot
 import { defineEnv } from "@kasoa/env";
 import * as v from "valibot";
 
-const parseEnv = defineEnv(
-  v.object({
-    DATABASE_URL: v.pipe(v.string(), v.url()),
-    PORT: v.pipe(v.string(), v.transform(Number)),
-    NODE_ENV: v.optional(v.picklist(["development", "production"]), "development"),
-  }),
-);
-
-const env = parseEnv({
-  DATABASE_URL: process.env.DATABASE_URL,
-  PORT: process.env.PORT,
-  NODE_ENV: process.env.NODE_ENV,
+const schema = v.object({
+  DATABASE_URL: v.pipe(v.string(), v.url()),
+  PORT: v.pipe(v.string(), v.toNumber()),
+  NODE_ENV: v.optional(v.picklist(["development", "production"]), "development"),
 });
+
+export const env = defineEnv(schema, process.env);
 
 // env is fully typed:
 // { DATABASE_URL: string; PORT: number; NODE_ENV: "development" | "production" }
@@ -34,42 +32,40 @@ const env = parseEnv({
 
 ## Features
 
-- Works with any [Standard Schema](https://standardschema.dev/) compatible library (Valibot, Zod, ArkType, etc.)
-- Treats empty strings as missing values
+- Works with any Standard Schema compatible library, including Valibot, Zod, and ArkType
+- Accepts Node environment objects, Vite environment objects, Expo projections, and generated Cloudflare binding interfaces
+- Treats empty strings as missing values so optional defaults work with entries such as `PORT=`
 - Exposes structured validation issues with readable error messages
-- Full TypeScript inference
+- Preserves schema input and output inference
 
 ## API
 
-### `defineEnv(schema)`
+### `defineEnv(schema, source)`
 
-Creates an env parser for the provided schema.
-
-- `schema` - A Standard Schema compatible schema
-
-Returns a function that accepts an env-like object and validates it.
+Validates and transforms an environment-like object with a synchronous Standard Schema object schema.
 
 ```ts
-const parseEnv = defineEnv(schema);
-const env = parseEnv(envSource);
+const env = defineEnv(schema, source);
 ```
 
-The parser input is derived from the schema's inferred object input type while still accepting extra runtime keys from env-like objects such as `process.env`. Whether a schema ignores or rejects those extra keys is determined by the schema library and schema configuration.
+The source may omit required schema properties because missing environment variables must be detected at runtime. Known source properties are checked against the schema input type, while additional platform values are accepted. Whether the schema ignores or rejects additional keys is determined by the schema library and schema configuration.
 
-Throws an `EnvValidationError` if validation fails. The error extends `Error`, keeps the original Standard Schema issues on `error.issues`, and provides a readable message:
+Empty strings are normalized to `undefined` before validation. The package intentionally treats an unset variable and an empty variable as equivalent.
 
-```
+Throws an `EnvValidationError` when validation fails. The error extends `Error`, retains the original Standard Schema issues on `error.issues`, and provides a readable message:
+
+```text
 Environment validation failed:
 
   DATABASE_URL: Invalid URL
   PORT: Required
 ```
 
-Async schemas are not supported and throw a `TypeError` instead.
+Async schemas are not supported and throw a `TypeError`.
 
 ### `InferEnv<T>`
 
-Type helper to infer the output type of a schema:
+Infers the output type of a schema:
 
 ```ts
 import type { InferEnv } from "@kasoa/env";
@@ -79,57 +75,90 @@ type Env = InferEnv<typeof schema>;
 // { PORT: string }
 ```
 
-## Runtime Notes
+### `EnvSource<T>`
+
+Describes an environment-like input accepted by a schema. This is useful when exposing helpers around `defineEnv`:
+
+```ts
+import type { EnvSource } from "@kasoa/env";
+
+function loadEnv(source: EnvSource<typeof schema>) {
+  return defineEnv(schema, source);
+}
+```
+
+## Runtime usage
 
 ### Node.js
 
-Pass `process.env` directly:
+Pass `process.env` directly. Use Node's `--env-file`, `process.loadEnvFile()`, or your application's existing loader when `.env` file loading is needed.
 
 ```ts
-const parseEnv = defineEnv(schema);
-
-const env = parseEnv(process.env);
+export const env = defineEnv(schema, process.env);
 ```
+
+A strict object schema will reject unrelated `process.env` entries. Use a normal object schema that discards unknown keys, or pass an explicit projection when strict validation is intentional.
+
+### Vite
+
+Vite exposes client variables through `import.meta.env`. Only variables allowed by Vite's prefix configuration, normally `VITE_`, are exposed to client code.
+
+```ts
+const schema = v.object({
+  VITE_API_URL: v.pipe(v.string(), v.url()),
+});
+
+export const env = defineEnv(schema, import.meta.env);
+```
+
+Vite replaces these values in the client bundle. Calling `defineEnv` in application code validates when the application starts; it does not make `vite build` execute the generated client bundle.
 
 ### Expo / React Native
 
-Pass an explicit object built from app code:
+Expo only inlines statically referenced `EXPO_PUBLIC_` properties in application code. Pass an explicit object that uses dot notation:
 
 ```ts
-const parseEnv = defineEnv(schema);
+const schema = v.object({
+  EXPO_PUBLIC_API_URL: v.pipe(v.string(), v.url()),
+});
 
-const env = parseEnv({
+export const env = defineEnv(schema, {
   EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
 });
 ```
 
+Do not pass `process.env` as a whole, use computed property access, or place the environment references inside a dependency. Expo does not inline those forms. `EXPO_PUBLIC_` values are included in the application bundle and must not contain secrets.
+
+Validation in application code occurs when the generated application bundle starts, not while `expo export` is producing it.
+
 ### Cloudflare Workers
 
-Project the scalar configuration described by the schema and parse it when the configuration is accessed:
+Pass the generated Worker bindings interface when configuration is accessed:
 
 ```ts
-import { env as workerEnv } from "cloudflare:workers";
-
-const parseEnv = defineEnv(schema);
+const schema = v.object({
+  API_URL: v.pipe(v.string(), v.url()),
+  SETTINGS: v.object({
+    region: v.string(),
+    replicas: v.number(),
+  }),
+});
 
 export default {
-  fetch() {
-    const env = parseEnv({
-      API_URL: workerEnv.API_URL,
-      AUTH_SECRET: workerEnv.AUTH_SECRET,
-    });
+  fetch(_request, bindings) {
+    const env = defineEnv(schema, bindings);
 
-    return Response.json({ apiUrl: env.API_URL });
+    return Response.json({ apiUrl: env.API_URL, region: env.SETTINGS.region });
   },
-};
+} satisfies ExportedHandler<Cloudflare.Env>;
 ```
 
-Keep resource bindings such as D1, KV, R2, Durable Objects, Queues, and services on the generated `Cloudflare.Env` type. Do not cache parsed binding values in global scope because Cloudflare may reuse an isolate after binding changes.
+Text, secret, and JSON variables can be validated. Keep resource bindings such as D1, KV, R2, Durable Objects, Queues, and services on the generated `Cloudflare.Env` type; `defineEnv` only returns the schema output.
 
-With `nodejs_compat`, `process.env` is an alternative for string-oriented configuration:
+Do not cache parsed binding values in global scope. Cloudflare may reuse an isolate after bindings change, so derive configuration when it is accessed. Strict object schemas require projecting only the configuration keys because resource bindings are additional properties.
 
-```ts
-const env = parseEnv(process.env);
-```
+With `nodejs_compat`, `process.env` is an alternative for string-oriented configuration. This requires `nodejs_compat_populate_process_env`, enabled by default for compatibility dates on or after `2025-04-01`. Non-string JSON variables are JSON-encoded strings and resource bindings are not included.
 
-This requires `nodejs_compat_populate_process_env`, enabled by default for compatibility dates on or after `2025-04-01`. Non-string JSON variables are JSON-encoded strings, and resource bindings are not included.
+## Validation timing
+
+`defineEnv` validates synchronously when it is called. This normally means Node.js startup, Vite or Expo application startup, or a Cloudflare request. It does not install build-tool hooks or load environment files. Build-time validation, when required, should call the same schema from the build configuration or CI boundary that owns those values.
