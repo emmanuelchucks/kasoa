@@ -7,10 +7,10 @@ Kasoa's ESLint config
 Install ESLint and the config:
 
 ```bash
-pnpm add -D @kasoa/eslint-config eslint
+pnpm add -D @kasoa/eslint-config eslint typescript@^6
 ```
 
-**Note**: Requires Node.js >=24 and a TypeScript setup.
+**Note**: Requires Node.js >=24 and TypeScript >=5 <6.1. The config uses `typescript-eslint`, which still depends on TypeScript's legacy programmatic compiler API. Prefer `@kasoa/vite-plus-config` for new TypeScript 7 projects.
 
 ## Usage
 
