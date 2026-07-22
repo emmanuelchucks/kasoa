@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.1.2
+
+### Patch Changes
+
+- bfcdc88: Make lint rule overrides replace configured rule values instead of concatenating rule tuples.
+
 ## 0.1.1
 
 ### Patch Changes
