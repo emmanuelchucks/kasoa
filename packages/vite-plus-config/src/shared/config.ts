@@ -19,12 +19,32 @@ function toUserConfig(config: ConfigInput): UserConfig {
   return config as UserConfig;
 }
 
+function mergeConfigFragment(current: UserConfig, fragment: ConfigInput): UserConfig {
+  const merged = toUserConfig(mergeConfig<UserConfig, UserConfig>(current, toUserConfig(fragment)));
+  // Vite concatenates nested arrays, but an Oxlint rule tuple is one atomic value.
+  const rules = fragment.lint?.rules;
+
+  if (rules === undefined) {
+    return merged;
+  }
+
+  return {
+    ...merged,
+    lint: {
+      ...merged.lint,
+      rules: {
+        ...current.lint?.rules,
+        ...rules,
+      },
+    },
+  };
+}
+
 export function mergeConfigFragments(base: ConfigInput, ...overrides: ConfigInput[]): UserConfig {
-  let result: UserConfig = {};
-  result = mergeConfig<UserConfig, UserConfig>(result, toUserConfig(base));
+  let result = mergeConfigFragment({}, base);
 
   for (const override of overrides) {
-    result = mergeConfig<UserConfig, UserConfig>(result, toUserConfig(override));
+    result = mergeConfigFragment(result, override);
   }
 
   return result;
