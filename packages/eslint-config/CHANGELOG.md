@@ -1,5 +1,11 @@
 # @kasoa/eslint-config
 
+## 0.0.33
+
+### Patch Changes
+
+- c510e7f: Declare the TypeScript 5 and 6 compatibility range required by the legacy `typescript-eslint` compiler API and direct new TypeScript 7 projects to the Vite+ config.
+
 ## 0.0.32
 
 ### Patch Changes

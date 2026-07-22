@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.1.1
+
+### Patch Changes
+
+- 45dceb0: Document stable TypeScript 7 setup and replace the obsolete native preview dependency used during package development.
+
 ## 0.1.0
 
 ### Minor Changes
