@@ -32,6 +32,8 @@ import { createConfig } from "@kasoa/vite-plus-config/react";
 export default createConfig();
 ```
 
+The React preset enables Oxlint's native `react/react-compiler` diagnostics as errors. This experimental aggregate lint rule does not enable React Compiler transforms; override it to `off` if a project needs to opt out.
+
 ### Node Projects
 
 ```ts

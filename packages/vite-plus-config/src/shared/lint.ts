@@ -185,6 +185,7 @@ const reactLintConfig: LintConfig = {
     "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
     "react/exhaustive-deps": "error",
+    "react/react-compiler": "error",
     "react/jsx-key": "error",
     "react/jsx-max-depth": ["error", { max: 4 }],
     "react/jsx-no-constructed-context-values": "error",
