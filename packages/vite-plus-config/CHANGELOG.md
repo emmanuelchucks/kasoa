@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.1.3
+
+### Patch Changes
+
+- 71d857b: Enable Oxlint's native React Compiler diagnostics in the React preset.
+
 ## 0.1.2
 
 ### Patch Changes
