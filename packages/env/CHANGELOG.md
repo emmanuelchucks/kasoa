@@ -1,5 +1,11 @@
 # @kasoa/env
 
+## 0.0.17
+
+### Patch Changes
+
+- 1503008: Require Node.js 24.11 or newer and refresh development dependencies.
+
 ## 0.0.16
 
 ### Patch Changes
