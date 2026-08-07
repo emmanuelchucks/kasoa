@@ -2,7 +2,7 @@
 
 Type-safe environment variable validation using [Standard Schema](https://standardschema.dev/).
 
-`@kasoa/env` is a small ESM-only parser. It validates values supplied by your application; loading `.env` files and exposing runtime configuration remain the responsibility of Node.js, Expo, Vite, Cloudflare, or the framework you use.
+`@kasoa/env` is a small ESM-only parser for Node.js 24.11 or newer. It validates values supplied by your application; loading `.env` files and exposing runtime configuration remain the responsibility of Node.js, Expo, Vite, Cloudflare, or the framework you use.
 
 ## Installation
 

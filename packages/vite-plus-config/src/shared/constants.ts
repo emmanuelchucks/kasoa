@@ -3,11 +3,13 @@ export const DEFAULT_IGNORE_PATTERNS = [
   "node_modules/**",
   "dist/**",
   "dist-ssr/**",
+  "**/.wrangler/**",
   "**/worker-configuration.d.ts",
   "**/migrations/**",
   "**/drizzle/migrations.js",
   "**/drizzle/meta/*.json",
 ] as const;
+export const REACT_NATIVE_IGNORE_PATTERNS = ["**/.expo/**"] as const;
 
 export const DEFAULT_STAGED_CHECK_GLOB = "*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}";
 export const DEFAULT_STAGED_CHECK_COMMAND = "vp check --fix";

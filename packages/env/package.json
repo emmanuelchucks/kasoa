@@ -43,6 +43,7 @@
     "check": "vp check",
     "check:fix": "vp check --fix",
     "test": "vp test",
+    "verify:package": "publint --pack pnpm --strict && attw --pack --profile esm-only",
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
@@ -50,12 +51,12 @@
   },
   "devDependencies": {
     "@kasoa/vite-plus-config": "workspace:*",
-    "@types/node": "^25.9.1",
+    "@types/node": "^24.13.3",
     "typescript": "^7.0.2",
-    "valibot": "^1.4.0",
-    "vite-plus": "^0.2.5"
+    "valibot": "^1.4.2",
+    "vite-plus": "^0.2.8"
   },
   "engines": {
-    "node": ">=22.12"
+    "node": ">=24.11.0"
   }
 }

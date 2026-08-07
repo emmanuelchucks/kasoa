@@ -1,30 +1,26 @@
 # @kasoa/vite-plus-config
 
-Kasoa's shared Vite+ presets for formatting, linting, and type checking.
+Strict Vite+ presets for formatting, linting, type checking, testing, packaging, and staged checks. Requires Node.js 24.11 or newer, Vite+ 0.2.8 or newer, and TypeScript 7.
 
 ## Installation
-
-Install Vite+ and the shared config:
 
 ```bash
 pnpm add -D @kasoa/vite-plus-config vite-plus typescript@^7
 ```
 
-**Note**: Requires Node.js >=24 and TypeScript-first projects. Use the stable `typescript` package; Vite+'s native type-checking path does not require `@typescript/native-preview` or a separate `tsgo` command.
+## Presets
 
-## Usage
+| Export               | Use                                             |
+| -------------------- | ----------------------------------------------- |
+| `base`               | TypeScript applications and custom compositions |
+| `react`              | Browser React applications                      |
+| `react-native`       | React Native and Expo applications              |
+| `node`               | Node.js applications and tools                  |
+| `library`            | ESM libraries built with `vp pack`              |
+| `monorepo`           | Workspace roots using Vite+ tasks               |
+| `cloudflare-workers` | Node preset plus workerd-based Vitest wiring    |
 
-Create a local `vite.config.ts` and call the shared preset factory that matches the project.
-
-### Base Config
-
-```ts
-import { createConfig } from "@kasoa/vite-plus-config/base";
-
-export default createConfig();
-```
-
-### React Projects
+Create `vite.config.ts` with the matching factory:
 
 ```ts
 import { createConfig } from "@kasoa/vite-plus-config/react";
@@ -32,56 +28,19 @@ import { createConfig } from "@kasoa/vite-plus-config/react";
 export default createConfig();
 ```
 
-The React preset enables Oxlint's native `react/react-compiler` diagnostics as errors. This experimental aggregate lint rule does not enable React Compiler transforms; override it to `off` if a project needs to opt out.
-
-### Node Projects
+### React Native and Expo
 
 ```ts
-import { createConfig } from "@kasoa/vite-plus-config/node";
+import { createConfig } from "@kasoa/vite-plus-config/react-native";
 
 export default createConfig();
 ```
 
-### Libraries
+The native preset rejects DOM globals, permits Expo's statically replaced `process.env` and React Native's `__DEV__`, excludes DOM accessibility rules, and ignores `.expo` output. It does not ignore `android` or `ios`, which may be project-owned source.
 
-```ts
-import { createConfig } from "@kasoa/vite-plus-config/library";
+### Cloudflare Workers tests
 
-export default createConfig();
-```
-
-### Monorepo Root
-
-```ts
-import { createConfig } from "@kasoa/vite-plus-config/monorepo";
-
-export default createConfig();
-```
-
-## Customizing a Preset
-
-Pass overrides directly to the preset factory. Nested config is merged so consumers can stay strict by default and still tweak what they need.
-
-```ts
-import { createConfig } from "@kasoa/vite-plus-config/react";
-
-export default createConfig({
-  lint: {
-    rules: {
-      "no-console": "warn",
-    },
-  },
-  test: {
-    coverage: {
-      reporter: ["text", "html"],
-    },
-  },
-});
-```
-
-## Cloudflare Workers Tests
-
-The `cloudflare-workers` preset combines the Node.js preset with `cloudflareTest()` and reads `wrangler.jsonc` from the project root by default. Vite+ provides Vitest; import test APIs from `vite-plus/test`.
+Install the optional peers:
 
 ```bash
 pnpm add -D @cloudflare/vitest-pool-workers wrangler
@@ -104,49 +63,43 @@ export default createConfig({
 });
 ```
 
-Use Wrangler for backend Worker development, builds, type generation, remote development, and deployment. Use Vite+ for checks and Worker tests:
+Wrangler owns Worker development, builds, type generation, and deployment. Vite+ owns static checks and workerd tests. Consumers retain ownership of bindings, migrations, setup files, coverage, and `test.provide` values.
 
-```json
-{
-  "scripts": {
-    "dev": "wrangler dev",
-    "build": "wrangler deploy --dry-run",
-    "check": "vp check",
-    "test": "vp test"
-  }
-}
+## Overrides
+
+Pass project-specific overrides to the factory. Lint rule tuples are replaced atomically; other arrays follow Vite's merge behavior.
+
+```ts
+import { createConfig } from "@kasoa/vite-plus-config/react";
+
+export default createConfig({
+  lint: {
+    rules: {
+      complexity: "off",
+      "max-params": ["warn", { max: 5 }],
+    },
+  },
+  test: {
+    coverage: {
+      reporter: ["text", "html"],
+    },
+  },
+});
 ```
 
-Keep project-specific migrations, bindings, coverage, setup files, and `test.provide` values in the consuming project. Vite-owned frontend and full-stack applications should configure `@cloudflare/vite-plugin` with their project-specific plugins.
+The React presets report React Compiler violations, but linting does not install or enable compiler transforms. Configure the compiler separately in applications that use it.
 
-## Recommended Workflow
+## Commands
 
-```json
-{
-  "scripts": {
-    "check": "vp check",
-    "check:fix": "vp check --fix"
-  }
-}
+```bash
+vp check
+vp check --fix
+vp test
 ```
 
-`vp check` formats, lints, and type-checks the project. Use `vp check --fix` for automatic fixes, path arguments for focused checks, and the full command for final verification.
+Use path arguments for focused iteration and run the complete command before committing. Import Vitest APIs from `vite-plus/test`.
 
-Use `vp config` to generate commit hooks from the shared `staged` rules. Keep one `vite.config.ts` unless the project needs separate configurations.
-
-## Configurations
-
-- **`base`**: Strict TypeScript-first format, lint, type-aware/type-check defaults, dependency/build ignores, test include, and staged-file defaults.
-- **`react`**: `base` plus browser globals, React lint rules, and Tailwind-aware formatting. React Native or Expo projects that want to reject DOM globals can override `lint.env.browser` to `false`.
-- **`node`**: `base` plus Node-oriented lint rules.
-- **`library`**: `base` plus ESM-only packaging defaults for `vp pack`.
-- **`monorepo`**: `base` plus root-only `run` defaults for workspace caching.
-- **`cloudflare-workers`**: `node` plus Cloudflare Worker test wiring.
-
-## Author
-
-Emmanuel Chucks  
-https://github.com/emmanuelchucks
+`vp config` generates commit hooks from the preset's staged-check configuration.
 
 ## License
 

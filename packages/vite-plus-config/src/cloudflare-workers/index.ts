@@ -1,9 +1,12 @@
 import type { UserConfig } from "vite-plus";
 import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
-import { lazyPlugins } from "vite-plus";
 import type { ConfigInput } from "../shared/config.ts";
 import { createNodeConfig } from "../node/index.ts";
-import { createDefinedConfig, mergeConfigFragments } from "../shared/config.ts";
+import {
+  createDefinedConfig,
+  createLazyPluginInputs,
+  mergeConfigFragments,
+} from "../shared/config.ts";
 import { DEFAULT_WRANGLER_CONFIG_PATH } from "../shared/constants.ts";
 
 type CloudflareWorkersPluginOptions = Exclude<
@@ -27,7 +30,7 @@ export function createCloudflareWorkersConfig(
   const { config = {}, include, test, wrangler, ...testPluginOptions } = options;
   const cloudflareTestConfig = createDefinedConfig(
     {
-      plugins: lazyPlugins(() => [
+      plugins: createLazyPluginInputs(() => [
         cloudflareTest({
           ...testPluginOptions,
           wrangler: {

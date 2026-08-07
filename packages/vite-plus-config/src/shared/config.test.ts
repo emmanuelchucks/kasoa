@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
 import type { ConfigInput } from "./config.ts";
-import { createConfig } from "../react/index.ts";
+import { createConfig as createReactNativeConfig } from "../react-native/index.ts";
+import { createConfig as createReactConfig } from "../react/index.ts";
 import { mergeConfigFragments } from "./config.ts";
 
 describe("mergeConfigFragments()", () => {
@@ -103,7 +104,7 @@ describe("mergeConfigFragments()", () => {
 
 describe("React createConfig()", () => {
   it("replaces preset rule tuples while preserving normal array merging", () => {
-    const config = createConfig({
+    const config = createReactConfig({
       lint: {
         rules: {
           complexity: "off",
@@ -126,5 +127,48 @@ describe("React createConfig()", () => {
       "**/*.{test,spec}.{ts,tsx,mts,cts}",
       "custom.test.ts",
     ]);
+  });
+});
+
+describe("React Native createConfig()", () => {
+  it("keeps native source separate from the DOM and Expo output", () => {
+    const native = createReactNativeConfig();
+
+    expect({
+      browser: native.lint?.env?.browser,
+      expoIgnoredByFmt: native.fmt?.ignorePatterns?.includes("**/.expo/**"),
+      expoIgnoredByLint: native.lint?.ignorePatterns?.includes("**/.expo/**"),
+      globals: native.lint?.globals,
+      hasDomAccessibility: native.lint?.plugins?.includes("jsx-a11y"),
+      noUnknownProperty: native.lint?.rules?.["react/no-unknown-property"],
+      noUnescapedEntities: native.lint?.rules?.["react/no-unescaped-entities"],
+      unstableNestedComponents: native.lint?.rules?.["react/no-unstable-nested-components"],
+    }).toStrictEqual({
+      browser: false,
+      expoIgnoredByFmt: true,
+      expoIgnoredByLint: true,
+      globals: {
+        __DEV__: "readonly",
+        process: "readonly",
+      },
+      hasDomAccessibility: false,
+      noUnknownProperty: "off",
+      noUnescapedEntities: "off",
+      unstableNestedComponents: ["error", { allowAsProps: true }],
+    });
+  });
+
+  it("preserves browser accessibility and shared Wrangler ignores", () => {
+    const web = createReactConfig();
+
+    expect({
+      browser: web.lint?.env?.browser,
+      hasDomAccessibility: web.lint?.plugins?.includes("jsx-a11y"),
+      wranglerIgnored: web.lint?.ignorePatterns?.includes("**/.wrangler/**"),
+    }).toStrictEqual({
+      browser: true,
+      hasDomAccessibility: true,
+      wranglerIgnored: true,
+    });
   });
 });

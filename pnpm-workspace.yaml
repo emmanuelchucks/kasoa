@@ -1,6 +1,5 @@
 packages:
   - "packages/*"
-
-overrides:
-  # eslint-plugin-sonarjs imports the legacy compiler API despite declaring TypeScript >=5.
-  "eslint-plugin-sonarjs>typescript": "6.0.3"
+allowBuilds:
+  esbuild: true
+  workerd: true

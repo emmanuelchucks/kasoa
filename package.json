@@ -10,15 +10,17 @@
     "update:deps": "pnpm dlx taze latest -wrli"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@changesets/cli": "^2.31.1",
     "@kasoa/vite-plus-config": "workspace:*",
-    "@typescript/native": "npm:typescript@^7.0.2",
-    "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "vite": "^8.0.14",
-    "vite-plus": "^0.2.5"
+    "@types/node": "^24.13.3",
+    "publint": "^0.3.23",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1",
+    "vite-plus": "^0.2.8"
   },
   "engines": {
-    "node": ">=24"
+    "node": ">=24.11.0"
   },
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@11.20.0"
 }

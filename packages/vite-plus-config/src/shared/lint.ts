@@ -1,9 +1,84 @@
 import type { UserConfig } from "vite-plus";
-import { DEFAULT_IGNORE_PATTERNS } from "./constants.ts";
+import { DEFAULT_IGNORE_PATTERNS, REACT_NATIVE_IGNORE_PATTERNS } from "./constants.ts";
+import {
+  reviewedBaseRules,
+  reviewedNodeRules,
+  reviewedReactRules,
+  reviewedVitestRules,
+} from "./rule-policy.ts";
 
 export const BASE_LINT_PLUGINS = ["typescript", "unicorn", "oxc", "import", "promise"] as const;
 
 type LintConfig = NonNullable<UserConfig["lint"]>;
+type LintRules = NonNullable<LintConfig["rules"]>;
+
+const baseRules: LintRules = {
+  ...reviewedBaseRules,
+
+  complexity: ["error", { max: 20 }],
+  "getter-return": "error",
+  "no-alert": "error",
+  "no-bitwise": "error",
+  "no-console": ["error", { allow: ["info", "warn", "error"] }],
+  "no-param-reassign": ["error", { props: true }],
+  "no-plusplus": "error",
+  "no-undef": "error",
+  "no-unneeded-ternary": "error",
+  "no-unreachable": "error",
+  "no-useless-return": "error",
+  "prefer-template": "error",
+
+  "import/no-cycle": "error",
+  "import/no-unassigned-import": "off",
+
+  "oxc/bad-match-all-arg": "error",
+
+  "typescript/consistent-return": "error",
+  "typescript/consistent-type-exports": "error",
+  "typescript/consistent-type-imports": [
+    "error",
+    { prefer: "type-imports", fixStyle: "separate-type-imports" },
+  ],
+  "typescript/dot-notation": "error",
+  "typescript/explicit-module-boundary-types": "error",
+  "typescript/no-confusing-void-expression": "error",
+  "typescript/no-dynamic-delete": "error",
+  "typescript/no-explicit-any": "error",
+  "typescript/no-floating-promises": "error",
+  "typescript/no-misused-promises": "error",
+  "typescript/no-misused-spread": "error",
+  "typescript/no-non-null-assertion": "error",
+  "typescript/no-require-imports": "error",
+  "typescript/no-unnecessary-condition": "error",
+  "typescript/no-unnecessary-qualifier": "error",
+  "typescript/no-unnecessary-type-arguments": "error",
+  "typescript/no-unnecessary-type-assertion": "error",
+  "typescript/no-unnecessary-type-parameters": "error",
+  "typescript/no-unsafe-argument": "error",
+  "typescript/no-unsafe-assignment": "error",
+  "typescript/no-unsafe-call": "error",
+  "typescript/no-unsafe-member-access": "error",
+  "typescript/no-unsafe-return": "error",
+  "typescript/no-useless-default-assignment": "error",
+  "typescript/non-nullable-type-assertion-style": "error",
+  "typescript/only-throw-error": "error",
+  "typescript/prefer-find": "error",
+  "typescript/prefer-nullish-coalescing": "error",
+  "typescript/prefer-optional-chain": "error",
+  "typescript/prefer-readonly": "error",
+  "typescript/prefer-regexp-exec": "error",
+  "typescript/require-array-sort-compare": "error",
+  "typescript/restrict-plus-operands": "error",
+  "typescript/restrict-template-expressions": "error",
+  "typescript/return-await": "error",
+  "typescript/strict-boolean-expressions": "error",
+  "typescript/strict-void-return": "error",
+  "typescript/switch-exhaustiveness-check": "error",
+  "typescript/unbound-method": "error",
+  "typescript/use-unknown-in-catch-callback-variable": "error",
+
+  "unicorn/no-abusive-eslint-disable": "error",
+};
 
 const baseLintConfig: LintConfig = {
   plugins: [...BASE_LINT_PLUGINS],
@@ -20,114 +95,8 @@ const baseLintConfig: LintConfig = {
   categories: {
     correctness: "error",
     suspicious: "error",
-    pedantic: "error",
-    perf: "error",
-    style: "error",
   },
-  rules: {
-    "capitalized-comments": "off",
-    "func-style": "off",
-    "id-length": "off",
-    "init-declarations": "off",
-    "max-classes-per-file": "off",
-    "max-lines": "off",
-    "max-lines-per-function": "off",
-    "max-statements": "off",
-    "no-continue": "off",
-    "no-magic-numbers": "off",
-    "no-ternary": "off",
-    "require-await": "off",
-    "sort-imports": "off",
-    "sort-keys": "off",
-    "vars-on-top": "off",
-
-    complexity: ["error", { max: 20 }],
-    curly: ["error", "multi-line", "consistent"],
-    "default-case-last": "error",
-    eqeqeq: "error",
-    "getter-return": "error",
-    "grouped-accessor-pairs": ["error", "getBeforeSet"],
-    "max-depth": ["error", { max: 3 }],
-    "max-nested-callbacks": ["error", { max: 3 }],
-    "max-params": ["error", { max: 3 }],
-    "new-cap": "off",
-    "no-alert": "error",
-    "no-bitwise": "error",
-    "no-console": ["error", { allow: ["info", "warn", "error"] }],
-    "no-duplicate-imports": ["error", { allowSeparateTypeImports: true }],
-    "no-param-reassign": ["error", { props: true }],
-    "no-plusplus": "error",
-    "no-undef": "error",
-    "no-unneeded-ternary": "error",
-    "no-unreachable": "error",
-    "no-useless-return": "error",
-    "prefer-template": "error",
-
-    "import/exports-last": "off",
-    "import/group-exports": "off",
-    "import/no-anonymous-default-export": "off",
-    "import/no-named-export": "off",
-    "import/no-namespace": "off",
-    "import/no-nodejs-modules": "off",
-    "import/no-unassigned-import": "off",
-    "import/prefer-default-export": "off",
-    "import/max-dependencies": "off",
-    "import/no-cycle": "error",
-
-    "promise/prefer-await-to-callbacks": "off",
-
-    "typescript/ban-ts-comment": ["error", { minimumDescriptionLength: 10 }],
-    "typescript/consistent-type-definitions": "off",
-    "typescript/consistent-return": "error",
-    "typescript/consistent-type-exports": "error",
-    "typescript/consistent-type-imports": [
-      "error",
-      { prefer: "type-imports", fixStyle: "separate-type-imports" },
-    ],
-    "typescript/dot-notation": "error",
-    "typescript/explicit-module-boundary-types": "error",
-    "typescript/no-confusing-void-expression": "error",
-    "typescript/no-dynamic-delete": "error",
-    "typescript/no-explicit-any": "error",
-    "typescript/no-floating-promises": "error",
-    "typescript/no-misused-promises": "error",
-    "typescript/no-misused-spread": "error",
-    "typescript/no-non-null-assertion": "error",
-    "typescript/no-require-imports": "error",
-    "typescript/no-unnecessary-condition": "error",
-    "typescript/no-unnecessary-qualifier": "error",
-    "typescript/no-unnecessary-type-arguments": "error",
-    "typescript/no-unnecessary-type-assertion": "error",
-    "typescript/no-unnecessary-type-parameters": "error",
-    "typescript/no-unsafe-argument": "error",
-    "typescript/no-unsafe-assignment": "error",
-    "typescript/no-unsafe-call": "error",
-    "typescript/no-unsafe-member-access": "error",
-    "typescript/no-unsafe-return": "error",
-    "typescript/no-useless-default-assignment": "error",
-    "typescript/non-nullable-type-assertion-style": "error",
-    "typescript/only-throw-error": "error",
-    "typescript/prefer-find": "error",
-    "typescript/prefer-nullish-coalescing": "error",
-    "typescript/prefer-optional-chain": "error",
-    "typescript/prefer-readonly": "error",
-    "typescript/prefer-readonly-parameter-types": "off",
-    "typescript/prefer-regexp-exec": "error",
-    "typescript/require-await": "off",
-    "typescript/require-array-sort-compare": "error",
-    "typescript/restrict-plus-operands": "error",
-    "typescript/restrict-template-expressions": "error",
-    "typescript/return-await": "error",
-    "typescript/strict-boolean-expressions": "error",
-    "typescript/strict-void-return": "error",
-    "typescript/switch-exhaustiveness-check": "error",
-    "typescript/unbound-method": "error",
-    "typescript/use-unknown-in-catch-callback-variable": "error",
-
-    "unicorn/no-null": "off",
-    "unicorn/no-abusive-eslint-disable": "error",
-    "unicorn/filename-case": ["error", { case: "kebabCase" }],
-  },
+  rules: baseRules,
   overrides: [
     {
       files: ["**/*.{cjs,cts}"],
@@ -164,59 +133,74 @@ const baseLintConfig: LintConfig = {
       env: {
         vitest: true,
       },
-      rules: {
-        "vitest/no-importing-vitest-globals": "off",
-        "vitest/max-nested-describe": ["error", { max: 3 }],
-      },
+      rules: reviewedVitestRules,
     },
   ],
 };
 
 export const baseLint: LintConfig = baseLintConfig;
 
+const reactRules: LintRules = {
+  ...reviewedReactRules,
+
+  "react/exhaustive-deps": "error",
+  "react/react-compiler": "error",
+  "react/react-in-jsx-scope": "off",
+  "react/jsx-key": "error",
+  "react/jsx-no-constructed-context-values": "error",
+  "react/jsx-no-duplicate-props": "error",
+  "react/jsx-no-undef": "error",
+  "react/no-array-index-key": "error",
+  "react/no-children-prop": "error",
+  "react/no-clone-element": "error",
+  "react/no-danger": "error",
+  "react/no-danger-with-children": "error",
+  "react/no-direct-mutation-state": "error",
+  "react/no-find-dom-node": "error",
+  "react/no-react-children": "error",
+  "react/no-string-refs": "error",
+  "react/no-unsafe": "error",
+  "react/no-unknown-property": "error",
+  "react/style-prop-object": "off",
+  "react/void-dom-elements-no-children": "error",
+};
+
 const reactLintConfig: LintConfig = {
   plugins: ["react", "jsx-a11y"],
   env: {
     browser: true,
   },
-  rules: {
-    "jsx-a11y/alt-text": "error",
-
-    "react/jsx-props-no-spreading": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/exhaustive-deps": "error",
-    "react/react-compiler": "error",
-    "react/jsx-key": "error",
-    "react/jsx-max-depth": ["error", { max: 4 }],
-    "react/jsx-no-constructed-context-values": "error",
-    "react/jsx-no-duplicate-props": "error",
-    "react/jsx-no-undef": "error",
-    "react/no-array-index-key": "error",
-    "react/no-children-prop": "error",
-    "react/no-clone-element": "error",
-    "react/no-danger": "error",
-    "react/no-danger-with-children": "error",
-    "react/no-direct-mutation-state": "error",
-    "react/no-find-dom-node": "error",
-    "react/no-react-children": "error",
-    "react/no-string-refs": "error",
-    "react/style-prop-object": "off",
-    "react/no-unsafe": "error",
-    "react/no-unknown-property": "error",
-    "react/void-dom-elements-no-children": "error",
-  },
+  rules: reactRules,
 };
 
 export const reactLint: LintConfig = reactLintConfig;
+
+const reactNativeLintConfig: LintConfig = {
+  plugins: ["react"],
+  ignorePatterns: [...REACT_NATIVE_IGNORE_PATTERNS],
+  env: {
+    browser: false,
+  },
+  globals: {
+    __DEV__: "readonly",
+    process: "readonly",
+  },
+  rules: {
+    ...reactRules,
+    "react/no-unknown-property": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-unstable-nested-components": ["error", { allowAsProps: true }],
+  },
+};
+
+export const reactNativeLint: LintConfig = reactNativeLintConfig;
 
 const serverLintConfig: LintConfig = {
   plugins: ["node"],
   globals: {
     WebSocketPair: "readonly",
   },
-  rules: {
-    "node/no-exports-assign": "error",
-  },
+  rules: reviewedNodeRules,
 };
 
 export const serverLint: LintConfig = serverLintConfig;

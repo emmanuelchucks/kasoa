@@ -1,5 +1,5 @@
 import type { UserConfig } from "vite-plus";
-import { DEFAULT_IGNORE_PATTERNS } from "./constants.ts";
+import { DEFAULT_IGNORE_PATTERNS, REACT_NATIVE_IGNORE_PATTERNS } from "./constants.ts";
 
 type FmtConfig = NonNullable<UserConfig["fmt"]>;
 
@@ -25,4 +25,9 @@ export const reactFmt: FmtConfig = {
     attributes: ["/.*ClassName/"],
     functions: ["tv"],
   },
+};
+
+export const reactNativeFmt: FmtConfig = {
+  ...reactFmt,
+  ignorePatterns: [...REACT_NATIVE_IGNORE_PATTERNS],
 };
