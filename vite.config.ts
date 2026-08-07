@@ -3,10 +3,15 @@ import { createMonorepoConfig } from "./packages/vite-plus-config/src/monorepo/i
 export default createMonorepoConfig({
   run: {
     tasks: {
+      "verify-packages": {
+        cache: false,
+        command: "pnpm -r --if-present run verify:package",
+        dependsOn: ["build"],
+      },
       release: {
         cache: false,
         command: "pnpm exec changeset publish",
-        dependsOn: ["build", "check", "test"],
+        dependsOn: ["check", "test", "verify-packages"],
       },
     },
   },

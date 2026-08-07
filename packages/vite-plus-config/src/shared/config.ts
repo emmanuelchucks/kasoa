@@ -1,5 +1,5 @@
 import type { UserConfig } from "vite-plus";
-import { defineConfig, mergeConfig } from "vite-plus";
+import { defineConfig, lazyPlugins, mergeConfig } from "vite-plus";
 
 export type PluginInput = object | readonly object[] | false | null | undefined;
 
@@ -13,6 +13,13 @@ export type ConfigInput = Omit<UserConfig, "plugins"> & {
    */
   readonly plugins?: readonly PluginInput[];
 };
+
+export function createLazyPluginInputs(
+  factory: () => readonly PluginInput[],
+): readonly PluginInput[] | undefined {
+  // eslint-disable-next-line typescript/no-unsafe-type-assertion -- Vite 8 plugin types recurse beyond TypeScript's comparison limit; runtime lazyPlugins accepts this structurally equivalent factory.
+  return lazyPlugins(factory as never);
+}
 
 function toUserConfig(config: ConfigInput): UserConfig {
   // eslint-disable-next-line typescript/no-unsafe-type-assertion -- ConfigInput preserves UserConfig autocomplete but keeps plugin assignability shallow at our public boundary.
