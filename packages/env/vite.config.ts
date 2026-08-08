@@ -1,6 +1,11 @@
-import { createLibraryConfig } from "../vite-plus-config/src/library/index.ts";
+import {
+  baseToolingConfig,
+  composeConfig,
+  libraryPackConfig,
+  nodeTestLintConfig,
+} from "../vite-plus-config/src/index.ts";
 
-export default createLibraryConfig({
+export default composeConfig(baseToolingConfig, nodeTestLintConfig, libraryPackConfig, {
   pack: {
     entry: {
       "src/index": "./src/index.ts",

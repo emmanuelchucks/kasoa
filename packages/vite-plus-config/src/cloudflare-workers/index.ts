@@ -1,58 +1,40 @@
-import type { UserConfig } from "vite-plus";
 import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
-import type { ConfigInput } from "../shared/config.ts";
-import { createNodeConfig } from "../node/index.ts";
-import {
-  createDefinedConfig,
-  createLazyPluginInputs,
-  mergeConfigFragments,
-} from "../shared/config.ts";
-import { DEFAULT_WRANGLER_CONFIG_PATH } from "../shared/constants.ts";
+import { lazyPlugins } from "vite-plus";
+import type { ConfigFragment } from "../compose.ts";
+import { DEFAULT_WRANGLER_CONFIG_PATH } from "../constants.ts";
 
-type CloudflareWorkersPluginOptions = Exclude<
+type LazyPluginInput = object | readonly object[] | false | null | undefined;
+
+type CloudflareTestOptions = Exclude<
   NonNullable<Parameters<typeof cloudflareTest>[0]>,
   (...args: readonly never[]) => unknown
 >;
 
-export interface CloudflareWorkersConfigOptions extends Omit<
-  CloudflareWorkersPluginOptions,
-  "wrangler"
-> {
-  readonly config?: ConfigInput;
-  readonly include?: readonly string[];
-  readonly test?: UserConfig["test"];
-  readonly wrangler?: CloudflareWorkersPluginOptions["wrangler"];
+export interface CloudflareTestConfigOptions extends Omit<CloudflareTestOptions, "wrangler"> {
+  readonly wrangler?: CloudflareTestOptions["wrangler"];
 }
 
-export function createCloudflareWorkersConfig(
-  options: CloudflareWorkersConfigOptions = {},
-): UserConfig {
-  const { config = {}, include, test, wrangler, ...testPluginOptions } = options;
-  const cloudflareTestConfig = createDefinedConfig(
-    {
-      plugins: createLazyPluginInputs(() => [
-        cloudflareTest({
-          ...testPluginOptions,
-          wrangler: {
-            configPath: DEFAULT_WRANGLER_CONFIG_PATH,
-            ...wrangler,
-          },
-        }),
-      ]),
-    },
-    include === undefined
-      ? {}
-      : {
-          test: {
-            include: [...include],
-          },
+function createLazyPluginInputs(
+  factory: () => readonly LazyPluginInput[],
+): ConfigFragment["plugins"] {
+  // eslint-disable-next-line typescript/no-unsafe-type-assertion -- Vite 8 plugin types recurse beyond TypeScript's comparison limit; lazyPlugins returns the named Vite plugins represented by this shallow boundary.
+  return lazyPlugins(factory as never) as ConfigFragment["plugins"];
+}
+
+export function createCloudflareTestConfig(
+  options: CloudflareTestConfigOptions = {},
+): ConfigFragment {
+  const { wrangler, ...pluginOptions } = options;
+
+  return {
+    plugins: createLazyPluginInputs(() => [
+      cloudflareTest({
+        ...pluginOptions,
+        wrangler: {
+          configPath: DEFAULT_WRANGLER_CONFIG_PATH,
+          ...wrangler,
         },
-    {
-      test,
-    },
-  );
-
-  return createNodeConfig(mergeConfigFragments(cloudflareTestConfig, config));
+      }),
+    ]),
+  };
 }
-
-export { createCloudflareWorkersConfig as createConfig };
