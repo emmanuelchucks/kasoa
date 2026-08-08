@@ -1,0 +1,46 @@
+import type { LintRules } from "../types.ts";
+
+export const reactCoreRules: LintRules = {
+  "react/display-name": "error",
+  "react/function-component-definition": [
+    "error",
+    {
+      namedComponents: "function-declaration",
+      unnamedComponents: ["arrow-function", "function-expression"],
+    },
+  ],
+  "react/hook-use-state": "error",
+  "react/jsx-boolean-value": "error",
+  "react/jsx-curly-brace-presence": "error",
+  "react/jsx-fragments": "error",
+  "react/jsx-max-depth": [
+    "error",
+    {
+      max: 6,
+    },
+  ],
+  "react/jsx-no-constructed-context-values": "error",
+  "react/jsx-no-useless-fragment": "error",
+  "react/jsx-pascal-case": "error",
+  "react/no-array-index-key": "error",
+  "react/no-object-type-as-default-prop": "error",
+  "react/no-redundant-should-component-update": "error",
+  "react/no-set-state": "error",
+  "react/prefer-es6-class": "error",
+  "react/rules-of-hooks": "error",
+  "react/self-closing-comp": "error",
+  "react/state-in-constructor": "error",
+  "react/exhaustive-deps": "error",
+  "react/react-compiler": "error",
+  "react/react-in-jsx-scope": "off",
+  "react/jsx-key": "error",
+  "react/jsx-no-duplicate-props": "error",
+  "react/jsx-no-undef": "error",
+  "react/no-children-prop": "error",
+  "react/no-clone-element": "error",
+  "react/no-direct-mutation-state": "error",
+  "react/no-react-children": "error",
+  "react/no-string-refs": "error",
+  "react/no-unsafe": "error",
+  "react/style-prop-object": "off",
+};

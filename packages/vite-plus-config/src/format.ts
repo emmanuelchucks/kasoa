@@ -1,9 +1,13 @@
 import type { UserConfig } from "vite-plus";
-import { DEFAULT_IGNORE_PATTERNS, REACT_NATIVE_IGNORE_PATTERNS } from "./constants.ts";
+import {
+  CLOUDFLARE_WORKER_IGNORE_PATTERNS,
+  DEFAULT_IGNORE_PATTERNS,
+  REACT_NATIVE_IGNORE_PATTERNS,
+} from "./constants.ts";
 
-type FmtConfig = NonNullable<UserConfig["fmt"]>;
+type FormatConfig = NonNullable<UserConfig["fmt"]>;
 
-export const baseFmt: FmtConfig = {
+export const baseFormatConfig: FormatConfig = {
   ignorePatterns: [...DEFAULT_IGNORE_PATTERNS],
   sortImports: {
     internalPattern: ["#", "@/"],
@@ -20,14 +24,17 @@ export const baseFmt: FmtConfig = {
   },
 };
 
-export const reactFmt: FmtConfig = {
+export const reactFormatConfig: FormatConfig = {
   sortTailwindcss: {
     attributes: ["/.*ClassName/"],
     functions: ["tv"],
   },
 };
 
-export const reactNativeFmt: FmtConfig = {
-  ...reactFmt,
+export const reactNativeFormatConfig: FormatConfig = {
   ignorePatterns: [...REACT_NATIVE_IGNORE_PATTERNS],
+};
+
+export const cloudflareWorkerFormatConfig: FormatConfig = {
+  ignorePatterns: [...CLOUDFLARE_WORKER_IGNORE_PATTERNS],
 };

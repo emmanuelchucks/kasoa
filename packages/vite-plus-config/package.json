@@ -29,29 +29,9 @@
   ],
   "type": "module",
   "exports": {
-    "./base": {
-      "types": "./dist/src/base/index.d.mts",
-      "import": "./dist/src/base/index.mjs"
-    },
-    "./react": {
-      "types": "./dist/src/react/index.d.mts",
-      "import": "./dist/src/react/index.mjs"
-    },
-    "./react-native": {
-      "types": "./dist/src/react-native/index.d.mts",
-      "import": "./dist/src/react-native/index.mjs"
-    },
-    "./node": {
-      "types": "./dist/src/node/index.d.mts",
-      "import": "./dist/src/node/index.mjs"
-    },
-    "./library": {
-      "types": "./dist/src/library/index.d.mts",
-      "import": "./dist/src/library/index.mjs"
-    },
-    "./monorepo": {
-      "types": "./dist/src/monorepo/index.d.mts",
-      "import": "./dist/src/monorepo/index.mjs"
+    ".": {
+      "types": "./dist/src/index.d.mts",
+      "import": "./dist/src/index.mjs"
     },
     "./cloudflare-workers": {
       "types": "./dist/src/cloudflare-workers/index.d.mts",
@@ -67,7 +47,7 @@
     "check": "vp check",
     "check:fix": "vp check --fix",
     "test": "vp test --passWithNoTests",
-    "verify:package": "publint --pack pnpm --strict && attw --pack --profile esm-only",
+    "verify:package": "publint --pack pnpm --strict && attw --pack --profile esm-only && node scripts/verify-packed-exports.mts",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
@@ -79,6 +59,7 @@
   },
   "peerDependencies": {
     "@cloudflare/vitest-pool-workers": ">=0.13.0 <1",
+    "typescript": ">=7 <8",
     "vite-plus": ">=0.2.8 <1",
     "wrangler": ">=4 <5"
   },

@@ -1,6 +1,10 @@
-import { createMonorepoConfig } from "./packages/vite-plus-config/src/monorepo/index.ts";
+import {
+  baseToolingConfig,
+  composeConfig,
+  workspaceRunConfig,
+} from "./packages/vite-plus-config/src/index.ts";
 
-export default createMonorepoConfig({
+export default composeConfig(baseToolingConfig, workspaceRunConfig, {
   run: {
     tasks: {
       "verify-packages": {
