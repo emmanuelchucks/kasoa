@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.3.1
+
+### Patch Changes
+
+- b4c3b11: Accept asynchronous and recursively nested Vite plugins in configuration fragments.
+
 ## 0.3.0
 
 ### Minor Changes
