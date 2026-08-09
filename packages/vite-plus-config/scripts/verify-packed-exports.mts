@@ -123,7 +123,13 @@ import {
 } from "@kasoa/vite-plus-config";
 
 const plugin = { name: "consumer-plugin" } satisfies Plugin;
-const override = { plugins: [plugin], resolve: { alias: { "#": new URL("./src", import.meta.url).pathname } } } satisfies ConfigFragment;
+const asynchronousPlugin = Promise.resolve(plugin);
+const asynchronousPluginGroup = Promise.resolve([plugin]);
+const recursivelyNestedPlugins = [[plugin, [Promise.resolve([plugin, [null]])]]];
+const override = {
+  plugins: [plugin, asynchronousPlugin, asynchronousPluginGroup, recursivelyNestedPlugins, false],
+  resolve: { alias: { "#": new URL("./src", import.meta.url).pathname } },
+} satisfies ConfigFragment;
 export default composeConfig(baseToolingConfig, nodeRuntimeConfig, nodeTestLintConfig, libraryPackConfig, override);
 `,
   );

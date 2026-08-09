@@ -7,7 +7,7 @@ interface NamedPlugin {
 
 type PluginValue = NamedPlugin | false | null | undefined;
 
-export type PluginInput = PluginValue | readonly PluginValue[];
+export type PluginInput = PluginValue | Promise<PluginInput> | readonly PluginInput[];
 
 export type ConfigFragment = Omit<UserConfig, "plugins"> & {
   readonly plugins?: readonly PluginInput[];
