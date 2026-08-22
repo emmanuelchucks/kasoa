@@ -182,6 +182,30 @@ describe("composable configuration fragments", () => {
         "parameters.ts",
         'export function join(first: string, second: string, third: string, fourth: string): string {\n  return [first, second, third, fourth].join("");\n}\n',
       ),
+      writeFixtureFile(
+        "commented-empty.ts",
+        "export function intentional(value: boolean): boolean {\n  if (value) {\n    // This block intentionally does nothing.\n  }\n  return value;\n}\n",
+      ),
+      writeFixtureFile(
+        "accidental-empty.ts",
+        "export function accidental(value: boolean): boolean {\n  if (value) {}\n  return value;\n}\n",
+      ),
+      writeFixtureFile(
+        "protocol.ts",
+        'import { basename } from "path";\n\nexport const filename = basename("directory/file.ts");\n',
+      ),
+      writeFixtureFile(
+        "protocol.config.ts",
+        'import { basename } from "path";\n\nexport const filename = basename("directory/file.ts");\n',
+      ),
+      writeFixtureFile(
+        "nested.ts",
+        "export const nested = [1].map((first) =>\n  [first].map((second) => [second].map((third) => [third].map((fourth) => fourth))),\n);\n",
+      ),
+      writeFixtureFile(
+        "nested.test.ts",
+        "export const nested = [1].map((first) =>\n  [first].map((second) => [second].map((third) => [third].map((fourth) => fourth))),\n);\n",
+      ),
     ]);
   });
 
@@ -320,6 +344,31 @@ describe("composable configuration fragments", () => {
 
     expect(format(".expo/generated.ts").status).toBe(0);
     expect(lintIgnored(".expo/generated.ts").status).toBe(0);
+  });
+
+  it("composes universal, Node, and test policy without conflicting scopes", async () => {
+    await useFragments(["baseToolingConfig"]);
+
+    expect(lint("commented-empty.ts", "protocol.ts")).toStrictEqual({ output: "", status: 0 });
+
+    const emptyResult = lint("accidental-empty.ts");
+
+    expect(emptyResult.status).toBe(1);
+    expect(emptyResult.output).toContain("[Error/eslint(no-empty)]");
+
+    const configResult = lint("protocol.config.ts");
+
+    expect(configResult.status).toBe(1);
+    expect(configResult.output).toContain("[Error/unicorn(prefer-node-protocol)]");
+
+    await useFragments(["baseToolingConfig", "nodeRuntimeConfig", "nodeTestLintConfig"]);
+
+    const nodeResult = lint("protocol.ts", "nested.ts");
+
+    expect(nodeResult.status).toBe(1);
+    expect(nodeResult.output).toContain("[Error/unicorn(prefer-node-protocol)]");
+    expect(nodeResult.output).toContain("[Error/eslint(max-nested-callbacks)]");
+    expect(lint("nested.test.ts")).toStrictEqual({ output: "", status: 0 });
   });
 
   it("lets consumer rules replace inherited rule tuples atomically", async () => {
