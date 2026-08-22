@@ -5,4 +5,5 @@ export const nodeRules: LintRules = {
   "node/global-require": "error",
   "node/no-exports-assign": "error",
   "node/no-mixed-requires": "error",
+  "unicorn/prefer-node-protocol": "error",
 };

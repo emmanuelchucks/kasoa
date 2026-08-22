@@ -65,7 +65,7 @@ export const baseLintConfig: LintConfig = {
     {
       files: ["**/*.d.ts"],
       rules: {
-        "typescript/no-empty-interface": "off",
+        "typescript/no-empty-object-type": "off",
       },
     },
   ],

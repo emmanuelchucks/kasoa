@@ -1,6 +1,12 @@
 import type { LintRules } from "../types.ts";
 
 export const vitestRules: LintRules = {
+  "max-nested-callbacks": [
+    "error",
+    {
+      max: 4,
+    },
+  ],
   "vitest/consistent-each-for": "error",
   "vitest/consistent-test-it": [
     "error",

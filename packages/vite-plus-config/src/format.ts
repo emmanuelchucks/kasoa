@@ -26,7 +26,6 @@ export const baseFormatConfig: FormatConfig = {
 
 export const reactFormatConfig: FormatConfig = {
   sortTailwindcss: {
-    attributes: ["/.*ClassName/"],
     functions: ["tv"],
   },
 };
