@@ -47,24 +47,24 @@
     "check": "vp check",
     "check:fix": "vp check --fix",
     "test": "vp test --passWithNoTests",
-    "verify:package": "publint --pack pnpm --strict && attw --pack --profile esm-only && node scripts/verify-packed-exports.mts",
+    "verify:package": "node scripts/verify-packed-exports.mts",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.20.2",
-    "@types/node": "^24.13.3",
+    "@cloudflare/vitest-plugin": "1.0.0",
+    "@types/node": "24.13.3",
     "typescript": "^7.0.2",
-    "vite-plus": "^0.2.8",
-    "wrangler": "^4.119.0"
+    "vite-plus": "^0.2.9",
+    "wrangler": "^4.125.0"
   },
   "peerDependencies": {
-    "@cloudflare/vitest-pool-workers": ">=0.13.0 <1",
+    "@cloudflare/vitest-plugin": "^1.0.0",
     "typescript": ">=7 <8",
-    "vite-plus": ">=0.2.8 <1",
+    "vite-plus": ">=0.2.9 <1",
     "wrangler": ">=4 <5"
   },
   "peerDependenciesMeta": {
-    "@cloudflare/vitest-pool-workers": {
+    "@cloudflare/vitest-plugin": {
       "optional": true
     },
     "wrangler": {

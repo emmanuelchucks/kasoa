@@ -24,11 +24,10 @@ Use the local Changesets workflow only.
 4. Run `pnpm exec vp run check`.
 5. Run `pnpm exec vp run test`.
 6. Run `pnpm exec changeset version`.
-7. Review generated version and changelog updates.
-8. Commit the release versioning changes.
-9. Run `pnpm exec vp run release`.
-10. Push the release commit and tags.
-11. Verify the published package versions with `npm view`.
+7. Review the generated version, changelog updates, and release commit. Because `commit: true` is configured, `changeset version` creates this commit.
+8. Run `pnpm exec vp run release`.
+9. Push the release commit and tags.
+10. Verify the published package versions with `npm view`.
 
 ## Rules
 
