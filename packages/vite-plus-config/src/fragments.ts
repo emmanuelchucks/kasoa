@@ -1,6 +1,11 @@
 import type { UserConfig } from "vite-plus";
 import type { ConfigFragment } from "./compose.ts";
-import { DEFAULT_STAGED_CHECK_COMMAND, DEFAULT_STAGED_CHECK_GLOB } from "./constants.ts";
+import {
+  DEFAULT_STAGED_CHECK_COMMAND,
+  DEFAULT_STAGED_CHECK_GLOB,
+  DEFAULT_STAGED_FORMAT_COMMAND,
+  DEFAULT_STAGED_FORMAT_GLOB,
+} from "./constants.ts";
 import {
   baseFormatConfig,
   cloudflareWorkerFormatConfig,
@@ -29,6 +34,7 @@ export const baseToolingConfig: ConfigFragment = {
   lint: baseLintConfig,
   staged: {
     [DEFAULT_STAGED_CHECK_GLOB]: DEFAULT_STAGED_CHECK_COMMAND,
+    [DEFAULT_STAGED_FORMAT_GLOB]: DEFAULT_STAGED_FORMAT_COMMAND,
   },
 };
 

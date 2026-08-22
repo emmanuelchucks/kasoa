@@ -13,21 +13,19 @@ Use the local Changesets workflow only.
 - Confirm release-worthy code changes are already committed.
 - Confirm a changeset exists for each package that should publish.
 - Confirm the root Vite+ task graph still defines the release validation flow.
-- Run the root validation tasks and fix failures before versioning or publishing.
+- Run the canonical `pnpm verify` gate and fix failures before versioning or publishing.
 - Confirm the worktree is clean before versioning unless the user explicitly wants to review pending changes first.
 
 ## Workflow
 
 1. Review pending changesets and the packages they affect.
 2. Add or fix `.changeset/*.md` files if needed.
-3. Run `pnpm exec vp run build`.
-4. Run `pnpm exec vp run check`.
-5. Run `pnpm exec vp run test`.
-6. Run `pnpm exec changeset version`.
-7. Review the generated version, changelog updates, and release commit. Because `commit: true` is configured, `changeset version` creates this commit.
-8. Run `pnpm exec vp run release`.
-9. Push the release commit and tags.
-10. Verify the published package versions with `npm view`.
+3. Run the canonical repository gate with `pnpm verify`.
+4. Run `pnpm exec changeset version`.
+5. Review the generated version, changelog updates, and release commit. Because `commit: true` is configured, `changeset version` creates this commit.
+6. Run `pnpm exec vp run release`.
+7. Push the release commit and tags.
+8. Verify the published package versions with `npm view`.
 
 ## Rules
 

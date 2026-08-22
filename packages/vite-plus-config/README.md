@@ -1,6 +1,8 @@
 # @kasoa/vite-plus-config
 
-Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 0.2.8 or newer, and TypeScript 7.
+Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 0.2.9 or newer, and TypeScript 7.
+
+Strict rules intentionally give code-generating agents useful backpressure and keep their output predictable for human review. Treat a failure as feedback about the code. Use a narrow, explained exception only for a real runtime, protocol, generated-code, or framework constraint; do not hide the same behavior behind more obscure syntax merely to satisfy a rule.
 
 ## Installation
 
@@ -221,7 +223,7 @@ Wrangler owns Worker development, builds, type generation, and deployment. Vite+
 
 ## Overrides
 
-Preset rules are inherited through Oxlint, so an ordinary final rule replaces a preset tuple atomically:
+Preset rules are inherited through Oxlint, so an ordinary final rule replaces a preset tuple atomically. Prefer improving owned code. Tune a shared limit only when the project has a deliberate, reviewable reason:
 
 ```ts
 import { baseToolingConfig, composeConfig, nodeRuntimeConfig } from "@kasoa/vite-plus-config";
@@ -229,12 +231,13 @@ import { baseToolingConfig, composeConfig, nodeRuntimeConfig } from "@kasoa/vite
 export default composeConfig(baseToolingConfig, nodeRuntimeConfig, {
   lint: {
     rules: {
-      complexity: "off",
-      "max-params": ["warn", { max: 5 }],
+      "max-params": ["error", { max: 4 }],
     },
   },
 });
 ```
+
+Keep exceptions as narrow as the constraint. For example, an externally fixed callback signature should use a local directive with a concrete reason rather than weakening `max-params` throughout a project. An intentional sequential loop may suppress `no-await-in-loop` at the dependent `await`; do not replace it with a promise chain, recursion, or a helper that only conceals the same ordering.
 
 To change a scoped test rule, construct that test fragment directly instead of composing the default one:
 
@@ -268,7 +271,7 @@ vp check --fix
 vp test
 ```
 
-Import Vitest APIs from `vite-plus/test`. Use `vp config` to generate commit hooks from the staged-check fragment.
+Import Vitest APIs from `vite-plus/test`. The base fragment routes code through `vp check --fix` and supported non-code files through `vp fmt --write` when `vp staged` runs. Commit a project-owned `.vite-hooks/pre-commit` containing `vp staged`, then run `vp config --no-agent` to install or refresh Vite+'s generated dispatcher.
 
 ## License
 

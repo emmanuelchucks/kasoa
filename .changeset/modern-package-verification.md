@@ -2,4 +2,4 @@
 "@kasoa/vite-plus-config": patch
 ---
 
-Migrate the Cloudflare Workers test integration to `@cloudflare/vitest-plugin` and enable strict Publint and ESM-only ATTW checks in the library pack defaults.
+Migrate Cloudflare Workers tests to `@cloudflare/vitest-plugin`, enable strict Publint and ESM-only ATTW pack checks, refine the reviewed lint policy, and format supported non-code files during staged checks.
