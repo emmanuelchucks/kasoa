@@ -2,10 +2,13 @@
   "name": "kasoa",
   "private": true,
   "scripts": {
-    "check": "vp run -r check",
-    "check:fix": "vp run -r check:fix",
+    "audit": "pnpm audit --audit-level high",
+    "check": "vp fmt --check && vp run --filter=@kasoa/* check",
+    "check:fix": "vp fmt --write && vp run --filter=@kasoa/* check:fix",
     "build": "vp run -r build",
     "test": "vp run -r test",
+    "verify": "pnpm run audit && pnpm run check && pnpm run test && pnpm exec vp run verify-packages",
+    "prepare": "vp config --no-agent",
     "clean": "git clean -xdf",
     "update:deps": "pnpm dlx taze latest -wrli"
   },

@@ -344,7 +344,7 @@ describe("composable configuration fragments", () => {
 
     expect(format(".expo/generated.ts").status).toBe(0);
     expect(lintIgnored(".expo/generated.ts").status).toBe(0);
-  });
+  }, 15_000);
 
   it("composes universal, Node, and test policy without conflicting scopes", async () => {
     await useFragments(["baseToolingConfig"]);

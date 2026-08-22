@@ -25,6 +25,8 @@ export const DEFAULT_IGNORE_PATTERNS = [
 export const CLOUDFLARE_WORKER_IGNORE_PATTERNS = ["**/worker-configuration.d.ts"] as const;
 export const REACT_NATIVE_IGNORE_PATTERNS = ["**/.expo/**"] as const;
 
-export const DEFAULT_STAGED_CHECK_GLOB = "*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}";
+export const DEFAULT_STAGED_CHECK_GLOB = "*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,svelte,vue}";
 export const DEFAULT_STAGED_CHECK_COMMAND = "vp check --fix";
+export const DEFAULT_STAGED_FORMAT_GLOB = "*.{css,html,json,jsonc,less,md,mdx,scss,yaml,yml}";
+export const DEFAULT_STAGED_FORMAT_COMMAND = "vp fmt --write --no-error-on-unmatched-pattern";
 export const DEFAULT_WRANGLER_CONFIG_PATH = "./wrangler.jsonc";

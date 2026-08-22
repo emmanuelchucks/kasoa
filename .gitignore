@@ -41,3 +41,6 @@ yarn-error.log*
 
 # OpenCode worktrees
 .opencode/worktrees/
+
+# Vite+ generated hooks
+.vite-hooks/_/
