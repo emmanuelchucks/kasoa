@@ -80,9 +80,16 @@ export const cloudflareWorkerTestLintConfig: ConfigFragment = {
 };
 
 export const libraryPackDefaults: PackConfig = {
+  attw: {
+    level: "error",
+    profile: "esm-only",
+  },
   clean: true,
   dts: true,
   format: ["esm"],
+  publint: {
+    strict: true,
+  },
   sourcemap: true,
 };
 

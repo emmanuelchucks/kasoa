@@ -14,7 +14,7 @@ export default composeConfig(
   {
     pack: {
       deps: {
-        neverBundle: ["vite-plus", "@cloudflare/vitest-pool-workers", "wrangler"],
+        neverBundle: ["vite-plus", "@cloudflare/vitest-plugin", "wrangler"],
       },
       entry: {
         "src/index": "./src/index.ts",

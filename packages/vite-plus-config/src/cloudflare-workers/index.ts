@@ -1,4 +1,4 @@
-import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
+import { cloudflareTest } from "@cloudflare/vitest-plugin";
 import { lazyPlugins } from "vite-plus";
 import type { ConfigFragment } from "../compose.ts";
 import { DEFAULT_WRANGLER_CONFIG_PATH } from "../constants.ts";

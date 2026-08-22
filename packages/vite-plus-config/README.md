@@ -182,7 +182,7 @@ Configuration and CommonJS files receive the Node profile from `baseToolingConfi
 Install the optional peers:
 
 ```bash
-pnpm add -D @cloudflare/vitest-pool-workers wrangler
+pnpm add -D @cloudflare/vitest-plugin@1.0.0 wrangler@4.125.0
 ```
 
 ```ts

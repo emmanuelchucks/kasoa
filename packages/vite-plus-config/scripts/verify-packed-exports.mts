@@ -141,7 +141,7 @@ export default composeConfig(baseToolingConfig, nodeRuntimeConfig, nodeTestLintC
   await typeCheck(fixturePath);
 
   await Promise.all([
-    linkDependency(fixturePath, "@cloudflare/vitest-pool-workers"),
+    linkDependency(fixturePath, "@cloudflare/vitest-plugin"),
     linkDependency(fixturePath, "wrangler"),
   ]);
   await writeFile(
