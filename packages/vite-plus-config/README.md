@@ -2,7 +2,7 @@
 
 Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 0.2.9 or newer, and TypeScript 7.
 
-Strict rules intentionally give code-generating agents useful backpressure and keep their output predictable for human review. Treat a failure as feedback about the code. Use a narrow, explained exception only for a real runtime, protocol, generated-code, or framework constraint; do not hide the same behavior behind more obscure syntax merely to satisfy a rule.
+The preset is intentionally strict. Fix violations by default. When a runtime, protocol, generated file, framework, or external signature requires an exception, keep it narrow and explain why it is necessary.
 
 ## Installation
 
@@ -184,7 +184,7 @@ Configuration and CommonJS files receive the Node profile from `baseToolingConfi
 Install the optional peers:
 
 ```bash
-pnpm add -D @cloudflare/vitest-plugin@1.0.0 wrangler@4.125.0
+pnpm add -D @cloudflare/vitest-plugin@^1 wrangler@^4
 ```
 
 ```ts
@@ -237,7 +237,7 @@ export default composeConfig(baseToolingConfig, nodeRuntimeConfig, {
 });
 ```
 
-Keep exceptions as narrow as the constraint. For example, an externally fixed callback signature should use a local directive with a concrete reason rather than weakening `max-params` throughout a project. An intentional sequential loop may suppress `no-await-in-loop` at the dependent `await`; do not replace it with a promise chain, recursion, or a helper that only conceals the same ordering.
+Keep exceptions as narrow as the constraint. For example, an externally fixed callback signature should use a local directive with a concrete reason rather than weakening `max-params` throughout a project. Dependent sequential work may suppress `no-await-in-loop` at the relevant `await` with a concrete explanation.
 
 To change a scoped test rule, construct that test fragment directly instead of composing the default one:
 
@@ -263,7 +263,9 @@ const testLintConfig = {
 
 React fragments report React Compiler violations but do not install or enable compiler transforms.
 
-## Commands
+## Project commands and hooks
+
+Run these commands in the consuming project:
 
 ```bash
 vp check
@@ -272,6 +274,10 @@ vp test
 ```
 
 Import Vitest APIs from `vite-plus/test`. The base fragment routes code through `vp check --fix` and supported non-code files through `vp fmt --write` when `vp staged` runs. Commit a project-owned `.vite-hooks/pre-commit` containing `vp staged`, then run `vp config --no-agent` to install or refresh Vite+'s generated dispatcher.
+
+## Contributing
+
+Repository maintenance, verification, rule policy, and release guidance live in the [contributor guide](https://github.com/emmanuelchucks/kasoa/blob/main/CONTRIBUTING.md).
 
 ## License
 
