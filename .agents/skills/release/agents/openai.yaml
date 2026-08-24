@@ -1,4 +1,4 @@
 interface:
-  display_name: "Local Release"
-  short_description: "Local Changesets release workflow"
-  default_prompt: "Use $release to prepare and run a local Changesets release for the Kasoa monorepo."
+  display_name: "Release"
+  short_description: "Prepare, ship, or recover a Kasoa release"
+  default_prompt: "Use $release. Do not ship without explicit user authority."

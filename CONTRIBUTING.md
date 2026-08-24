@@ -50,12 +50,8 @@ Do not version or publish packages as part of an ordinary feature or maintenance
 
 ## Releases
 
-Releases are separate, reviewed maintainer actions:
+The Release workflow maintains one rolling `chore: version packages` pull request. Ordinary package changes only update that pull request. Publishing starts only after a maintainer explicitly authorizes and merges the generated pull request.
 
-1. Confirm release-worthy changes and their Changesets are already committed.
-2. Run `pnpm verify` from a clean worktree.
-3. Run `pnpm exec changeset version` and review the generated versions, changelogs, and release commit.
-4. Run `pnpm exec vp run release` with the required npm credentials.
-5. Push the release commit and tags, then verify the published versions with `npm view`.
+Before merging it, review the generated versions and changelogs, then require a successful dispatched `Verify` run whose head SHA equals the pull request's current head SHA. Follow `.agents/skills/release/SKILL.md` for release prerequisites, monitoring, and recovery.
 
-Never publish, merge, or deploy merely to validate a proposed change.
+Never merge or publish merely to validate a proposed change.

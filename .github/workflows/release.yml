@@ -1,0 +1,155 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+  queue: max
+
+permissions:
+  contents: read
+
+env:
+  VP_GIT_HOOKS: 0
+
+jobs:
+  prepare:
+    name: Prepare release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      mode: ${{ steps.changesets.outputs.mode }}
+      pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Install dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Select release mode
+        id: changesets
+        uses: changesets/action/select-mode@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+
+      - name: Verify repository
+        if: steps.changesets.outputs.mode == 'publish'
+        run: pnpm verify
+
+      - name: Pack packages
+        id: pack
+        if: steps.changesets.outputs.mode == 'publish'
+        uses: changesets/action/pack@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+        with:
+          publish-plan-artifact-id: ${{ steps.changesets.outputs.publish-plan-artifact-id }}
+
+  version:
+    name: Update version pull request
+    if: needs.prepare.outputs.mode == 'version'
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      actions: write # dispatch Verify for the GITHUB_TOKEN-created PR branch
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Install dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Create or update version pull request
+        uses: changesets/action/version@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+        with:
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages"
+
+      - name: Dispatch Verify for generated version branch
+        run: gh workflow run verify.yml --ref changeset-release/main
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  publish:
+    name: Publish packages
+    if: needs.prepare.outputs.mode == 'publish'
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: npm
+    permissions:
+      contents: write # create package tags
+      id-token: write # npm trusted publishing
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Install dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Publish packages
+        id: changesets
+        uses: changesets/action/publish@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+        with:
+          pack-dir-artifact-id: ${{ needs.prepare.outputs.pack-dir-artifact-id }}
+          create-github-releases: false
+          push-git-tags: false
+
+      - name: Create package tags
+        if: ${{ always() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.published-packages || '[]' }}
+        run: |
+          printf '%s' "$PUBLISHED_PACKAGES" \
+            | jq -r '.[] | "\(.name)@\(.version)"' \
+            | while IFS= read -r tag; do
+                if object=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$tag" --jq '.object | [.type, .sha] | @tsv' 2>/dev/null); then
+                  IFS=$'\t' read -r type sha <<< "$object"
+                  while [ "$type" = tag ]; do
+                    object=$(gh api "repos/$GITHUB_REPOSITORY/git/tags/$sha" --jq '.object | [.type, .sha] | @tsv')
+                    IFS=$'\t' read -r type sha <<< "$object"
+                  done
+                  if [ "$type" != commit ] || [ "$sha" != "$GITHUB_SHA" ]; then
+                    echo "Tag $tag does not resolve to release commit $GITHUB_SHA" >&2
+                    exit 1
+                  fi
+                else
+                  gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" \
+                    -f ref="refs/tags/$tag" \
+                    -f sha="$GITHUB_SHA"
+                fi
+              done

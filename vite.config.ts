@@ -12,11 +12,6 @@ export default composeConfig(baseToolingConfig, workspaceRunConfig, {
         command: "pnpm -r --if-present run verify:package",
         dependsOn: ["build"],
       },
-      release: {
-        cache: false,
-        command: "pnpm exec changeset publish",
-        dependsOn: ["check", "test", "verify-packages"],
-      },
     },
   },
 });
