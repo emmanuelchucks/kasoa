@@ -1,36 +1,37 @@
 ---
 name: release
-description: Local release workflow for the Kasoa monorepo using Changesets and pnpm. Use when preparing, versioning, publishing, or verifying npm package releases from the local machine.
+description: Prepare, ship, or recover a Kasoa Changesets release.
 ---
 
 # Release
 
-Use the local Changesets workflow only.
+## Prepare
+
+1. Confirm every consumer-visible package change has the correct `.changeset/*.md` file.
+2. Run `pnpm exec changeset status` and review the affected packages and bump levels.
+3. Run `pnpm verify`.
+4. Send the source change and Changeset through normal review. The Release workflow maintains the rolling `chore: version packages` pull request.
+
+## Ship
+
+Do not merge or publish unless the user explicitly says to ship.
+
+1. Review the generated versions, changelogs, and commit in the rolling version pull request.
+2. Read its current head SHA. Require a successful `workflow_dispatch` run of `Verify` with the same head SHA. A successful run for an older SHA does not qualify.
+3. Merge only the generated version pull request.
+4. Monitor the resulting Release run through publish and tag reconciliation.
+5. For every expected version, run `npm view <package>@<version> version` and confirm the expected package tag resolves to the release commit.
+
+## Recovery
+
+1. Keep the generated version commit on `main`. Inspect every expected package version in npm and every expected package tag before retrying.
+2. For versions absent from npm, rerun the failed Release workflow for the same commit. A partial retry skips versions already accepted by npm.
+3. If npm accepted a version but its tag is missing, use that version's npm provenance to prove the exact release commit. Confirm the package manifest at that commit has the same name and version and that the expected `<package>@<version>` tag is absent. Create only that ref at the proven commit.
+4. If provenance does not prove the commit, stop. Do not guess, create another bump, republish, or publish locally.
 
 ## Preconditions
 
-- Confirm `npm whoami` succeeds.
-- Confirm release-worthy code changes are already committed.
-- Confirm a changeset exists for each package that should publish.
-- Confirm the root Vite+ task graph still defines the release validation flow.
-- Run the canonical `pnpm verify` gate and fix failures before versioning or publishing.
-- Confirm the worktree is clean before versioning unless the user explicitly wants to review pending changes first.
-
-## Workflow
-
-1. Review pending changesets and the packages they affect.
-2. Add or fix `.changeset/*.md` files if needed.
-3. Run the canonical repository gate with `pnpm verify`.
-4. Run `pnpm exec changeset version`.
-5. Review the generated version, changelog updates, and release commit. Because `commit: true` is configured, `changeset version` creates this commit.
-6. Run `pnpm exec vp run release`.
-7. Push the release commit and tags.
-8. Verify the published package versions with `npm view`.
-
-## Rules
-
-- Prefer `patch` for pre-1.0 packages unless the user explicitly asks for a different bump.
-- Keep the release flow local. Do not instruct the user to wait for CI, merge a version PR, or use a GitHub release bot.
-- Do not assume root `package.json` scripts exist when the repo models workflow through Vite+ tasks. Check the root `vite.config.ts` task graph first.
-- If publish fails because of auth, OTP, or npm state, fix that first and rerun `pnpm exec vp run release`.
-- If push is rejected, rebase on `main` and push again with tags.
+- GitHub Actions can create pull requests with `GITHUB_TOKEN`.
+- The GitHub `npm` environment allows deployments only from `main`.
+- Each npm package trusts this repository, `.github/workflows/release.yml`, and the `npm` environment.
+- The Release workflow's `GITHUB_TOKEN` can create the expected `refs/tags/<package>@<version>` refs.
