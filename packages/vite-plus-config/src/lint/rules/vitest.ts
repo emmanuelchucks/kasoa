@@ -29,6 +29,13 @@ export const vitestRules: LintRules = {
   "vitest/no-interpolation-in-snapshots": "error",
   "vitest/no-large-snapshots": "error",
   "vitest/no-mocks-import": "error",
+  "vitest/no-restricted-vi-methods": [
+    "error",
+    {
+      doMock: "Use a maintained implementation, spy, or injected owned dependency.",
+      mock: "Use a maintained implementation, spy, or injected owned dependency.",
+    },
+  ],
   "vitest/no-test-prefixes": "error",
   "vitest/no-test-return-statement": "error",
   "vitest/no-unneeded-async-expect-function": "error",

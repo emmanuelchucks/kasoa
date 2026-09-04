@@ -6,8 +6,11 @@ import {
   CONFIG_FILES,
   DEFAULT_IGNORE_PATTERNS,
   REACT_NATIVE_IGNORE_PATTERNS,
+  REACT_NATIVE_JEST_SETUP_FILES,
+  REACT_NATIVE_JEST_TEST_FILES,
   RUNTIME_OVERRIDE_EXCLUDE_FILES,
   TEST_FILES,
+  VITEST_SETUP_FILES,
 } from "../constants.ts";
 import {
   BASE_LINT_PLUGINS,
@@ -21,6 +24,7 @@ import {
   nodeEnvironment,
   nodeLint,
   nodeTestLint,
+  reactNativeJestTestLint,
   reactNativeRuntimeLint,
 } from "./profiles.ts";
 import { browserRules } from "./rules/browser.ts";
@@ -142,6 +146,43 @@ export const cloudflareWorkerTestLintConfig: LintConfig = {
     {
       files: [...TEST_FILES],
       ...cloudflareWorkerTestLint,
+    },
+  ],
+};
+
+export const reactNativeTestLintConfig: LintConfig = {
+  overrides: [
+    {
+      files: [...TEST_FILES],
+      excludeFiles: [
+        ...VITEST_SETUP_FILES,
+        ...REACT_NATIVE_JEST_TEST_FILES,
+        ...REACT_NATIVE_JEST_SETUP_FILES,
+      ],
+      ...nodeTestLint,
+    },
+    {
+      files: [...VITEST_SETUP_FILES],
+      excludeFiles: [...REACT_NATIVE_JEST_TEST_FILES, ...REACT_NATIVE_JEST_SETUP_FILES],
+      ...nodeTestLint,
+      rules: {
+        ...nodeTestLint.rules,
+        "vitest/no-restricted-vi-methods": "off",
+      },
+    },
+    {
+      files: [...REACT_NATIVE_JEST_TEST_FILES],
+      excludeFiles: [...VITEST_SETUP_FILES, ...REACT_NATIVE_JEST_SETUP_FILES],
+      ...reactNativeJestTestLint,
+    },
+    {
+      files: [...REACT_NATIVE_JEST_SETUP_FILES],
+      excludeFiles: [...VITEST_SETUP_FILES, ...REACT_NATIVE_JEST_TEST_FILES],
+      ...reactNativeJestTestLint,
+      rules: {
+        ...reactNativeJestTestLint.rules,
+        "jest/no-restricted-jest-methods": "off",
+      },
     },
   ],
 };

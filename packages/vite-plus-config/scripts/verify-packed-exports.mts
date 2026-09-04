@@ -68,8 +68,11 @@ try {
   CODE_FILES,
   COMMONJS_FILES,
   CONFIG_FILES,
+  REACT_NATIVE_JEST_SETUP_FILES,
+  REACT_NATIVE_JEST_TEST_FILES,
   RUNTIME_OVERRIDE_EXCLUDE_FILES,
   TEST_FILES,
+  VITEST_SETUP_FILES,
   baseToolingConfig,
   browserLint,
   browserRuntimeConfig,
@@ -92,16 +95,18 @@ try {
   reactDomConfig,
   reactDomLint,
   reactNativeGeneratedConfig,
+  reactNativeJestTestLint,
   reactNativeLint,
   reactNativeRuntimeConfig,
   reactNativeRuntimeLint,
+  reactNativeTestLintConfig,
   reactWebLint,
   workspaceRunConfig,
 } from "@kasoa/vite-plus-config";
 
-const fragments = [baseToolingConfig, browserRuntimeConfig, browserTestLintConfig, cloudflareWorkerGeneratedConfig, cloudflareWorkerRuntimeConfig, cloudflareWorkerTestLintConfig, libraryPackConfig, nodeRuntimeConfig, nodeTestLintConfig, reactCoreConfig, reactDomConfig, reactNativeGeneratedConfig, reactNativeRuntimeConfig, workspaceRunConfig];
-const profiles = [browserLint, browserTestLint, cloudflareWorkerLint, cloudflareWorkerTestLint, nodeLint, nodeTestLint, reactCoreLint, reactDomLint, reactNativeLint, reactNativeRuntimeLint, reactWebLint];
-const patterns = [CODE_FILES, COMMONJS_FILES, CONFIG_FILES, RUNTIME_OVERRIDE_EXCLUDE_FILES, TEST_FILES];
+const fragments = [baseToolingConfig, browserRuntimeConfig, browserTestLintConfig, cloudflareWorkerGeneratedConfig, cloudflareWorkerRuntimeConfig, cloudflareWorkerTestLintConfig, libraryPackConfig, nodeRuntimeConfig, nodeTestLintConfig, reactCoreConfig, reactDomConfig, reactNativeGeneratedConfig, reactNativeRuntimeConfig, reactNativeTestLintConfig, workspaceRunConfig];
+const profiles = [browserLint, browserTestLint, cloudflareWorkerLint, cloudflareWorkerTestLint, nodeLint, nodeTestLint, reactCoreLint, reactDomLint, reactNativeJestTestLint, reactNativeLint, reactNativeRuntimeLint, reactWebLint];
+const patterns = [CODE_FILES, COMMONJS_FILES, CONFIG_FILES, REACT_NATIVE_JEST_SETUP_FILES, REACT_NATIVE_JEST_TEST_FILES, RUNTIME_OVERRIDE_EXCLUDE_FILES, TEST_FILES, VITEST_SETUP_FILES];
 const config = composeConfig(baseToolingConfig, nodeRuntimeConfig, nodeTestLintConfig);
 if (config.lint?.env?.node !== true) throw new Error("Node fragment did not compose");
 if (fragments.some((fragment) => typeof fragment !== "object")) throw new Error("Invalid config fragment");
@@ -119,7 +124,12 @@ import {
   composeConfig,
   libraryPackConfig,
   nodeRuntimeConfig,
+  nodeTestLint,
   nodeTestLintConfig,
+  REACT_NATIVE_JEST_SETUP_FILES,
+  REACT_NATIVE_JEST_TEST_FILES,
+  reactNativeJestTestLint,
+  VITEST_SETUP_FILES,
 } from "@kasoa/vite-plus-config";
 
 const plugin = { name: "consumer-plugin" } satisfies Plugin;
@@ -130,7 +140,18 @@ const override = {
   plugins: [plugin, asynchronousPlugin, asynchronousPluginGroup, recursivelyNestedPlugins, false],
   resolve: { alias: { "#": new URL("./src", import.meta.url).pathname } },
 } satisfies ConfigFragment;
-export default composeConfig(baseToolingConfig, nodeRuntimeConfig, nodeTestLintConfig, libraryPackConfig, override);
+const nativeTestCustomization = {
+  lint: {
+    overrides: [
+      { files: [...VITEST_SETUP_FILES], ...nodeTestLint },
+      {
+        files: [...REACT_NATIVE_JEST_TEST_FILES, ...REACT_NATIVE_JEST_SETUP_FILES],
+        ...reactNativeJestTestLint,
+      },
+    ],
+  },
+} satisfies ConfigFragment;
+export default composeConfig(baseToolingConfig, nodeRuntimeConfig, nodeTestLintConfig, libraryPackConfig, nativeTestCustomization, override);
 `,
   );
   await writeFile(

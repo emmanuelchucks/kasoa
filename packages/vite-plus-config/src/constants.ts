@@ -7,6 +7,15 @@ export const TEST_FILES = [
   "**/__tests__/**",
   "**/*.{test,spec}.{js,jsx,ts,tsx,mjs,cjs,mts,cts}",
 ] as const;
+export const VITEST_SETUP_FILES = [
+  "**/{vitest.setup,setup.vitest}.{js,jsx,ts,tsx,mjs,cjs,mts,cts}",
+] as const;
+export const REACT_NATIVE_JEST_TEST_FILES = [
+  "**/*.native.{test,spec}.{js,jsx,ts,tsx,mjs,cjs,mts,cts}",
+] as const;
+export const REACT_NATIVE_JEST_SETUP_FILES = [
+  "**/{jest.setup,setup.jest}.{js,jsx,ts,tsx,mjs,cjs,mts,cts}",
+] as const;
 export const RUNTIME_OVERRIDE_EXCLUDE_FILES: readonly string[] = [
   ...COMMONJS_FILES,
   ...CONFIG_FILES,

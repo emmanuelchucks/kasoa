@@ -62,6 +62,17 @@ export const universalRules: LintRules = {
   "no-promise-executor-return": "error",
   "no-prototype-builtins": "error",
   "no-redeclare": "error",
+  "no-restricted-properties": [
+    "error",
+    {
+      object: "Reflect",
+      property: "get",
+    },
+    {
+      object: "Reflect",
+      property: "apply",
+    },
+  ],
   "no-return-assign": "error",
   "no-script-url": "error",
   "no-self-compare": "error",
@@ -130,6 +141,7 @@ export const universalRules: LintRules = {
   "typescript/no-unsafe-function-type": "error",
   "typescript/no-unsafe-member-access": "error",
   "typescript/no-unsafe-return": "error",
+  "typescript/no-unsafe-type-assertion": "error",
   "typescript/no-wrapper-object-types": "error",
   "typescript/only-throw-error": "error",
   "typescript/parameter-properties": "error",
@@ -225,7 +237,6 @@ export const universalRules: LintRules = {
   "unicorn/prefer-object-from-entries": "error",
   "unicorn/prefer-optional-catch-binding": "error",
   "unicorn/prefer-prototype-methods": "error",
-  "unicorn/prefer-reflect-apply": "error",
   "unicorn/prefer-regexp-test": "error",
   "unicorn/prefer-response-static-json": "error",
   "unicorn/prefer-set-has": "error",
