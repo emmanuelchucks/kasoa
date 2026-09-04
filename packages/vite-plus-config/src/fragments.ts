@@ -25,6 +25,7 @@ import {
   reactDomLintConfig,
   reactNativeGeneratedLintConfig,
   reactNativeRuntimeLintConfig,
+  reactNativeTestLintConfig as reactNativeTestLintSettings,
 } from "./lint/configs.ts";
 
 type PackConfig = Exclude<UserConfig["pack"], readonly unknown[] | undefined>;
@@ -83,6 +84,10 @@ export const browserTestLintConfig: ConfigFragment = {
 
 export const cloudflareWorkerTestLintConfig: ConfigFragment = {
   lint: cloudflareWorkerTestLintSettings,
+};
+
+export const reactNativeTestLintConfig: ConfigFragment = {
+  lint: reactNativeTestLintSettings,
 };
 
 export const libraryPackDefaults: PackConfig = {

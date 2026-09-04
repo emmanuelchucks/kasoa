@@ -1,5 +1,6 @@
 import type { LintConfig, LintProfile } from "./types.ts";
 import { browserRules } from "./rules/browser.ts";
+import { jestRules } from "./rules/jest.ts";
 import { nodeRules } from "./rules/node.ts";
 import { reactCoreRules } from "./rules/react-core.ts";
 import { reactDomRules } from "./rules/react-dom.ts";
@@ -27,6 +28,11 @@ export const browserEnvironment: NonNullable<LintConfig["env"]> = {
 
 export const reactNativeEnvironment: NonNullable<LintConfig["env"]> = {
   ...neutralEnvironment,
+} as const;
+
+const reactNativeJestEnvironment: NonNullable<LintConfig["env"]> = {
+  ...reactNativeEnvironment,
+  jest: true,
 } as const;
 
 export const cloudflareWorkerEnvironment: NonNullable<LintConfig["env"]> = {
@@ -163,6 +169,17 @@ export const reactNativeLint: LintProfile = {
   rules: {
     ...reactCoreRules,
     ...reactNativeRules,
+  },
+};
+
+export const reactNativeJestTestLint: LintProfile = {
+  env: reactNativeJestEnvironment,
+  globals: reactNativeGlobals,
+  plugins: [...BASE_LINT_PLUGINS, "react", "jest"],
+  rules: {
+    ...reactCoreRules,
+    ...reactNativeRules,
+    ...jestRules,
   },
 };
 

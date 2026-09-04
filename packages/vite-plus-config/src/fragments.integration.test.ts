@@ -46,6 +46,17 @@ async function useFragments(
   );
 }
 
+async function useTypeAwareFragments(names: readonly string[]): Promise<void> {
+  await writeFixtureFile(
+    "vite.config.ts",
+    [
+      `import { ${["composeConfig", ...names].join(", ")} } from ${JSON.stringify(packageEntry)};`,
+      `export default composeConfig(${names.join(", ")});`,
+      "",
+    ].join("\n"),
+  );
+}
+
 function runVp(...args: readonly string[]): LintResult {
   const result = spawnSync(vpPath, args, {
     cwd: fixturePath,
@@ -81,7 +92,11 @@ describe("composable configuration fragments", () => {
 
     await mkdir(temporaryRoot, { recursive: true });
     fixturePath = await mkdtemp(resolve(temporaryRoot, "kasoa-fragments-"));
-    await mkdir(resolve(fixturePath, ".expo"));
+    await Promise.all([
+      mkdir(resolve(fixturePath, ".expo")),
+      mkdir(resolve(fixturePath, "test")),
+      mkdir(resolve(fixturePath, "testing/react-native"), { recursive: true }),
+    ]);
     await symlink(resolve(workspaceRoot, "node_modules"), resolve(fixturePath, "node_modules"));
     await Promise.all([
       writeFixtureFile("package.json", '{"private":true,"type":"module"}\n'),
@@ -210,6 +225,38 @@ describe("composable configuration fragments", () => {
         "nested.test.ts",
         "export const nested = [1].map((first) =>\n  [first].map((second) => [second].map((third) => [third].map((fourth) => fourth))),\n);\n",
       ),
+      writeFixtureFile(
+        "unsafe-assertion.ts",
+        "export function narrow(value: number | string): number {\n  return value as number;\n}\n",
+      ),
+      writeFixtureFile(
+        "safe-type-guard.ts",
+        'export function narrow(value: number | string): number | undefined {\n  return typeof value === "number" ? value : undefined;\n}\n',
+      ),
+      writeFixtureFile(
+        "reflect.ts",
+        'Reflect.get({}, "value");\nReflect.apply(() => undefined, undefined, []);\n',
+      ),
+      writeFixtureFile(
+        "module-replacement.test.ts",
+        'import { vi } from "vite-plus/test";\n\nvi.mock(import("./dependency.ts"));\n',
+      ),
+      writeFixtureFile(
+        "module-replacement.native.test.ts",
+        'import { jest } from "@jest/globals";\n\njest.mock("./dependency.ts");\n',
+      ),
+      writeFixtureFile(
+        "vitest.setup.ts",
+        'import { vi } from "vite-plus/test";\n\nvi.mock(import("./dependency.ts"));\n',
+      ),
+      writeFixtureFile(
+        "testing/react-native/jest.setup.ts",
+        'import { jest } from "@jest/globals";\n\njest.mock("maintained-native-package");\nbeforeEach(() => undefined);\n',
+      ),
+      writeFixtureFile(
+        "test/setup.ts",
+        'import { vi } from "vite-plus/test";\n\nvi.mock(import("../dependency.ts"));\n',
+      ),
     ]);
   });
 
@@ -255,13 +302,67 @@ describe("composable configuration fragments", () => {
       "baseToolingConfig",
       "reactCoreConfig",
       "reactNativeRuntimeConfig",
-      "nodeTestLintConfig",
+      "reactNativeTestLintConfig",
     ]);
 
     expect(lint("native.tsx", "tool.cjs")).toStrictEqual({ output: "", status: 0 });
     expectUndefinedGlobal(lint("dom.ts"), "document");
     expectUndefinedGlobal(lint("worker.ts"), "caches");
     expectUndefinedGlobal(lint("cloudflare.ts"), "WebSocketPair");
+  });
+
+  it("assigns portable and native React Native tests to disjoint runners", async () => {
+    await useFragments([
+      "baseToolingConfig",
+      "reactCoreConfig",
+      "reactNativeRuntimeConfig",
+      "reactNativeTestLintConfig",
+    ]);
+
+    const portableResult = lint("module-replacement.test.ts");
+
+    expect(portableResult.status).toBe(1);
+    expect(
+      portableResult.output.match(/\[Error\/vitest\(no-restricted-vi-methods\)\]/gu),
+    ).toHaveLength(1);
+    expect(portableResult.output).not.toContain("[Error/jest(");
+
+    const nativeResult = lint("module-replacement.native.test.ts");
+
+    expect(nativeResult.status).toBe(1);
+    expect(
+      nativeResult.output.match(/\[Error\/jest\(no-restricted-jest-methods\)\]/gu),
+    ).toHaveLength(1);
+    expect(nativeResult.output).not.toContain("[Error/vitest(");
+    expect(nativeResult.output).not.toContain("prefer-importing-jest-globals");
+    expect(lint("vitest.setup.ts")).toStrictEqual({ output: "", status: 0 });
+
+    const nativeSetupResult = lint("testing/react-native/jest.setup.ts");
+
+    expect(nativeSetupResult.status).toBe(1);
+    expect(nativeSetupResult.output).toContain("[Error/jest(prefer-importing-jest-globals)]");
+    expect(nativeSetupResult.output).not.toContain("no-restricted-jest-methods");
+    expect(nativeSetupResult.output).not.toContain("[Error/vitest(");
+
+    const genericSetupResult = lint("test/setup.ts");
+
+    expect(genericSetupResult.status).toBe(1);
+    expect(genericSetupResult.output).toContain("[Error/vitest(no-restricted-vi-methods)]");
+    expect(genericSetupResult.output).not.toContain("[Error/jest(");
+  });
+
+  it("supports the exported native Jest profile in workspace overrides", async () => {
+    await useFragments(
+      ["baseToolingConfig"],
+      "{ lint: { overrides: [{ files: [...REACT_NATIVE_JEST_TEST_FILES], ...reactNativeJestTestLint }] } }",
+      ["REACT_NATIVE_JEST_TEST_FILES", "reactNativeJestTestLint"],
+    );
+
+    const result = lint("module-replacement.native.test.ts");
+
+    expect(result.status).toBe(1);
+    expect(result.output).toContain("[Error/jest(no-restricted-jest-methods)]");
+    expect(result.output).not.toContain("[Error/vitest(");
   });
 
   it("provides complete React profiles for workspace overrides", async () => {
@@ -355,10 +456,27 @@ describe("composable configuration fragments", () => {
     expect(lintIgnored(".expo/generated.ts").status).toBe(0);
   }, 15_000);
 
+  it("enforces type-aware assertion safety", async () => {
+    await useTypeAwareFragments(["baseToolingConfig"]);
+
+    expect(lint("safe-type-guard.ts")).toStrictEqual({ output: "", status: 0 });
+
+    const assertionResult = lint("unsafe-assertion.ts");
+
+    expect(assertionResult.status).toBe(1);
+    expect(assertionResult.output).toContain("[Error/typescript(no-unsafe-type-assertion)]");
+  });
+
   it("composes universal, Node, and test policy without conflicting scopes", async () => {
     await useFragments(["baseToolingConfig"]);
 
     expect(lint("commented-empty.ts", "protocol.ts")).toStrictEqual({ output: "", status: 0 });
+
+    const reflectResult = lint("reflect.ts");
+
+    expect(reflectResult.status).toBe(1);
+    expect(reflectResult.output).toContain("'Reflect.get' is restricted from being used.");
+    expect(reflectResult.output).toContain("'Reflect.apply' is restricted from being used.");
 
     const emptyResult = lint("accidental-empty.ts");
 

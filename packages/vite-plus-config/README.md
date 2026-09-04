@@ -54,10 +54,10 @@ The source runtime and test runtime are independent. The example uses Vitest's d
 import {
   baseToolingConfig,
   composeConfig,
-  nodeTestLintConfig,
   reactCoreConfig,
   reactNativeGeneratedConfig,
   reactNativeRuntimeConfig,
+  reactNativeTestLintConfig,
 } from "@kasoa/vite-plus-config";
 
 export default composeConfig(
@@ -65,11 +65,11 @@ export default composeConfig(
   reactCoreConfig,
   reactNativeRuntimeConfig,
   reactNativeGeneratedConfig,
-  nodeTestLintConfig,
+  reactNativeTestLintConfig,
 );
 ```
 
-The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output.
+The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest.
 
 ## Libraries and workspaces
 
