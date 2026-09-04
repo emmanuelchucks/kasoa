@@ -1,6 +1,6 @@
 # @kasoa/vite-plus-config
 
-Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 0.2.9 or newer, and TypeScript 7.
+Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 0.3.0 or newer, and TypeScript 7.
 
 The preset is intentionally strict. Fix violations by default. When a runtime, protocol, generated file, framework, or external signature requires an exception, keep it narrow and explain why it is necessary.
 
