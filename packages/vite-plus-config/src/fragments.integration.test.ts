@@ -134,6 +134,10 @@ describe("composable configuration fragments", () => {
         "export function Screen(): JSX.Element {\n  return <div>{document.title}</div>;\n}\n",
       ),
       writeFixtureFile(
+        "react-compiler-violation.tsx",
+        "export function CompilerViolation(): JSX.Element {\n  return <div>{Date.now()}</div>;\n}\n",
+      ),
+      writeFixtureFile(
         "native.tsx",
         'import { View } from "./view.ts";\n\nexport const signal = AbortSignal.abort();\nexport const url = new URL("https://example.com");\nexport const request = new Request(url);\nexport const timer = setTimeout(() => console.info(crypto.randomUUID()), 100);\n\nexport function Screen(): JSX.Element {\n  return <View role="button">{__DEV__ ? process.env.NODE_ENV : "ready"}</View>;\n}\n',
       ),
@@ -232,6 +236,11 @@ describe("composable configuration fragments", () => {
     ]);
 
     expect(lint("web.tsx", "node-tool.config.ts")).toStrictEqual({ output: "", status: 0 });
+
+    const compilerResult = lint("react-compiler-violation.tsx");
+
+    expect(compilerResult.status).toBe(1);
+    expect(compilerResult.output).toContain("[Error/react(purity)]");
     expectUndefinedGlobal(lint("tool.config.ts"), "document");
     expectUndefinedGlobal(lint("dom-default.test.ts"), "document");
 
