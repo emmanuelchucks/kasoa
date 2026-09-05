@@ -1,5 +1,12 @@
 # @kasoa/vite-plus-config
 
+## 0.4.0
+
+### Minor Changes
+
+- af1cc38: Require Vite+ 0.3 and align React Compiler lint diagnostics with Oxlint's native recommended rules.
+- 0c40371: Strengthen universal linting against unsafe assertions and reflective access, restrict module replacement in test policy, and add disjoint Vitest and Jest scopes for React Native tests and setup files.
+
 ## 0.3.2
 
 ### Patch Changes
