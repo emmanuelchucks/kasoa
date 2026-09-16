@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.4.1
+
+### Patch Changes
+
+- 0aa571f: Align the React Native lint profile with the bundled Hermes runtime by allowing safe copied-array sorting, retaining `toReversed`, and rejecting unsupported `toSorted` and `Intl.RelativeTimeFormat` calls.
+
 ## 0.4.0
 
 ### Minor Changes
