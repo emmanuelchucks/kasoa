@@ -1,5 +1,16 @@
 import type { LintRules } from "../types.ts";
 
+export const universalRestrictedProperties = [
+  {
+    object: "Reflect",
+    property: "get",
+  },
+  {
+    object: "Reflect",
+    property: "apply",
+  },
+] as const;
+
 export const universalRules: LintRules = {
   "accessor-pairs": "error",
   "array-callback-return": "error",
@@ -62,17 +73,7 @@ export const universalRules: LintRules = {
   "no-promise-executor-return": "error",
   "no-prototype-builtins": "error",
   "no-redeclare": "error",
-  "no-restricted-properties": [
-    "error",
-    {
-      object: "Reflect",
-      property: "get",
-    },
-    {
-      object: "Reflect",
-      property: "apply",
-    },
-  ],
+  "no-restricted-properties": ["error", ...universalRestrictedProperties],
   "no-return-assign": "error",
   "no-script-url": "error",
   "no-self-compare": "error",

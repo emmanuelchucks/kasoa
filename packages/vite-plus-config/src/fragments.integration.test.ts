@@ -157,6 +157,18 @@ describe("composable configuration fragments", () => {
         'import { View } from "./view.ts";\n\nexport const signal = AbortSignal.abort();\nexport const url = new URL("https://example.com");\nexport const request = new Request(url);\nexport const timer = setTimeout(() => console.info(crypto.randomUUID()), 100);\n\nexport function Screen(): JSX.Element {\n  return <View role="button">{__DEV__ ? process.env.NODE_ENV : "ready"}</View>;\n}\n',
       ),
       writeFixtureFile(
+        "native-supported-arrays.ts",
+        "const values = [3, 1, 2];\n\nexport const reversed = values.toReversed();\nexport const sorted = [...values].sort((left, right) => left - right);\n",
+      ),
+      writeFixtureFile(
+        "native-unsupported-runtime.ts",
+        'const values = [3, 1, 2];\n\nexport const sorted = values.toSorted((left, right) => left - right);\nexport const relativeTime = new Intl.RelativeTimeFormat("en");\n',
+      ),
+      writeFixtureFile(
+        "native-mutating-sort.ts",
+        "const values = [3, 1, 2];\n\nexport const sorted = values.sort((left, right) => left - right);\n",
+      ),
+      writeFixtureFile(
         "web-profile.tsx",
         "function useThing(): void {}\n\nexport function WebProfile(ready: boolean): string {\n  if (ready) useThing();\n  return document.title;\n}\n",
       ),
@@ -305,7 +317,32 @@ describe("composable configuration fragments", () => {
       "reactNativeTestLintConfig",
     ]);
 
-    expect(lint("native.tsx", "tool.cjs")).toStrictEqual({ output: "", status: 0 });
+    expect(lint("native.tsx", "native-supported-arrays.ts", "tool.cjs")).toStrictEqual({
+      output: "",
+      status: 0,
+    });
+
+    const unsupportedRuntimeResult = lint("native-unsupported-runtime.ts");
+
+    expect(unsupportedRuntimeResult.status).toBe(1);
+    expect(unsupportedRuntimeResult.output).toContain("'toSorted' is restricted from being used.");
+    expect(unsupportedRuntimeResult.output).toContain(
+      "'Intl.RelativeTimeFormat' is restricted from being used.",
+    );
+    expect(
+      unsupportedRuntimeResult.output.match(/\[Error\/eslint\(no-restricted-properties\)\]/gu),
+    ).toHaveLength(2);
+
+    const mutatingSortResult = lint("native-mutating-sort.ts");
+
+    expect(mutatingSortResult.status).toBe(1);
+    expect(mutatingSortResult.output).toContain("[Error/unicorn(no-array-sort)]");
+
+    const reflectResult = lint("reflect.ts");
+
+    expect(reflectResult.status).toBe(1);
+    expect(reflectResult.output).toContain("'Reflect.get' is restricted from being used.");
+    expect(reflectResult.output).toContain("'Reflect.apply' is restricted from being used.");
     expectUndefinedGlobal(lint("dom.ts"), "document");
     expectUndefinedGlobal(lint("worker.ts"), "caches");
     expectUndefinedGlobal(lint("cloudflare.ts"), "WebSocketPair");
