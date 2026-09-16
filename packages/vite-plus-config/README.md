@@ -69,7 +69,7 @@ export default composeConfig(
 );
 ```
 
-The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest.
+The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while `toSorted()` and `Intl.RelativeTimeFormat` are rejected and copied arrays may use `sort()`. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest.
 
 ## Libraries and workspaces
 
