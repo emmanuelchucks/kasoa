@@ -51,11 +51,11 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cloudflare/vitest-plugin": "1.0.0",
+    "@cloudflare/vitest-plugin": "1.1.9",
     "@types/node": "24.13.3",
     "typescript": "^7.0.2",
     "vite-plus": "^0.3.0",
-    "wrangler": "^4.125.0"
+    "wrangler": "^4.131.2"
   },
   "peerDependencies": {
     "@cloudflare/vitest-plugin": "^1.0.0",
