@@ -69,7 +69,7 @@ export default composeConfig(
 );
 ```
 
-The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while `toSorted()` and `Intl.RelativeTimeFormat` are rejected and copied arrays may use `sort()`. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest.
+The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while APIs that Hermes lacks are rejected: `toSorted()`, `Array.fromAsync`, `RegExp.escape`, `Temporal`, and `Intl.RelativeTimeFormat`, `PluralRules`, `ListFormat`, `Segmenter` and `DisplayNames`. Copied arrays may use `sort()`. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest.
 
 ## Libraries and workspaces
 
@@ -186,6 +186,8 @@ Install the optional peer:
 ```bash
 pnpm add -D @cloudflare/vitest-plugin@^1
 ```
+
+`@cloudflare/vitest-plugin` 1.x supports Vitest 4 only, so Workers tests need Vite+ 0.3 until Cloudflare adds Vitest 5 support. The rest of this package also works with Vite+ 1.x.
 
 ```ts
 import {
