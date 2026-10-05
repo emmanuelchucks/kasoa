@@ -181,10 +181,10 @@ Configuration and CommonJS files receive the Node profile from `baseToolingConfi
 
 ## Cloudflare Workers tests
 
-Install the optional peers:
+Install the optional peer:
 
 ```bash
-pnpm add -D @cloudflare/vitest-plugin@^1 wrangler@^4
+pnpm add -D @cloudflare/vitest-plugin@^1
 ```
 
 ```ts
@@ -219,7 +219,9 @@ export default composeConfig(
 );
 ```
 
-Wrangler owns Worker development, builds, type generation, and deployment. Vite+ owns checks and workerd tests.
+`createCloudflareTestConfig` reads `cloudflare.config.ts` when the project has one (the `cf` CLI format) and `wrangler.jsonc` otherwise; pass `wrangler.configPath` to choose a file explicitly. The `cf` CLI or Wrangler owns Worker development, builds, type generation, and deployment. Vite+ owns checks and workerd tests. Generated `.cloudflare/` and `.wrangler/` output is ignored.
+
+With `cloudflare.config.ts`, `@cloudflare/vitest-plugin` renames the Worker under test, so a Durable Object binding that points back at the same Worker fails to start. Bind the local class directly in the test options: `createCloudflareTestConfig({ miniflare: { durableObjects: { MY_OBJECT: "MyObject" } } })`.
 
 ## Overrides
 
