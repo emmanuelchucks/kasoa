@@ -10,7 +10,8 @@
     "verify": "pnpm run audit && pnpm run check && pnpm run test && pnpm exec vp run verify-packages",
     "prepare": "vp config --no-agent",
     "clean": "git clean -xdf",
-    "update:deps": "pnpm dlx taze latest -wrli"
+    "update:deps": "pnpm dlx taze latest -wrli",
+    "version-packages": "changeset version && vp fmt --write"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
