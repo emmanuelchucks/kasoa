@@ -162,7 +162,7 @@ describe("composable configuration fragments", () => {
       ),
       writeFixtureFile(
         "native-unsupported-runtime.ts",
-        'const values = [3, 1, 2];\n\nexport const sorted = values.toSorted((left, right) => left - right);\nexport const relativeTime = new Intl.RelativeTimeFormat("en");\n',
+        'const values = [3, 1, 2];\n\nexport const sorted = values.toSorted((left, right) => left - right);\nexport const relativeTime = new Intl.RelativeTimeFormat("en");\nexport const plurals = new Intl.PluralRules("en");\nexport const lists = new Intl.ListFormat("en");\nexport const today = Temporal.Now.plainDateISO();\n',
       ),
       writeFixtureFile(
         "native-mutating-sort.ts",
@@ -329,9 +329,16 @@ describe("composable configuration fragments", () => {
     expect(unsupportedRuntimeResult.output).toContain(
       "'Intl.RelativeTimeFormat' is restricted from being used.",
     );
+    expect(unsupportedRuntimeResult.output).toContain(
+      "'Intl.PluralRules' is restricted from being used.",
+    );
+    expect(unsupportedRuntimeResult.output).toContain(
+      "'Intl.ListFormat' is restricted from being used.",
+    );
+    expect(unsupportedRuntimeResult.output).toContain("Hermes lacks Temporal; use Date.");
     expect(
       unsupportedRuntimeResult.output.match(/\[Error\/eslint\(no-restricted-properties\)\]/gu),
-    ).toHaveLength(2);
+    ).toHaveLength(4);
 
     const mutatingSortResult = lint("native-mutating-sort.ts");
 

@@ -59,7 +59,7 @@
   "peerDependencies": {
     "@cloudflare/vitest-plugin": "^1.0.0",
     "typescript": ">=7 <8",
-    "vite-plus": ">=0.3.0 <1"
+    "vite-plus": ">=0.3.0 <2"
   },
   "peerDependenciesMeta": {
     "@cloudflare/vitest-plugin": {
