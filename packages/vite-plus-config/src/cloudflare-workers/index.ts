@@ -1,7 +1,8 @@
 import { cloudflareTest } from "@cloudflare/vitest-plugin";
+import { existsSync } from "node:fs";
 import { lazyPlugins } from "vite-plus";
 import type { ConfigFragment } from "../compose.ts";
-import { DEFAULT_WRANGLER_CONFIG_PATH } from "../constants.ts";
+import { CLOUDFLARE_CONFIG_PATH, DEFAULT_WRANGLER_CONFIG_PATH } from "../constants.ts";
 
 type LazyPluginInput = object | readonly object[] | false | null | undefined;
 
@@ -28,13 +29,16 @@ export function createCloudflareTestConfig(
 
   return {
     plugins: createLazyPluginInputs(() => [
-      cloudflareTest({
-        ...pluginOptions,
-        wrangler: {
-          configPath: DEFAULT_WRANGLER_CONFIG_PATH,
-          ...wrangler,
-        },
-      }),
+      // Projects managed by the cf CLI keep their Worker in cloudflare.config.ts.
+      wrangler === undefined && existsSync(CLOUDFLARE_CONFIG_PATH)
+        ? cloudflareTest({
+            ...pluginOptions,
+            experimental: { newConfig: { configPath: CLOUDFLARE_CONFIG_PATH } },
+          })
+        : cloudflareTest({
+            ...pluginOptions,
+            wrangler: { configPath: DEFAULT_WRANGLER_CONFIG_PATH, ...wrangler },
+          }),
     ]),
   };
 }

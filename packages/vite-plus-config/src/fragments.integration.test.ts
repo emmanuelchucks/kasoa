@@ -460,6 +460,25 @@ describe("composable configuration fragments", () => {
     expect(runVp("test", "workerd.test.ts", "--run").status).toBe(0);
   });
 
+  it("reads cloudflare.config.ts when the project uses the cf CLI", async () => {
+    await useCloudflareTestFragments();
+    await writeFixtureFile(
+      "cloudflare.config.ts",
+      'export default { worker: { name: "kasoa-cf-test", compatibilityDate: "2026-08-08", entrypoint: "./worker-entry.ts", env: { CONFIG_SOURCE: { type: "text", value: "cloudflare.config.ts" } } } };\n',
+    );
+    await writeFixtureFile(
+      "cf-config.test.ts",
+      'import { env } from "cloudflare:workers";\nimport { expect, test } from "vite-plus/test";\n\ntest("uses cloudflare.config.ts", () => {\n  expect(Reflect.get(env, "CONFIG_SOURCE")).toBe("cloudflare.config.ts");\n});\n',
+    );
+
+    try {
+      expect(runVp("test", "cf-config.test.ts", "--run").status).toBe(0);
+    } finally {
+      await rm(resolve(fixturePath, "cloudflare.config.ts"));
+      await rm(resolve(fixturePath, "cf-config.test.ts"));
+    }
+  });
+
   it("keeps generated Worker and Expo files outside checks", async () => {
     await useFragments(["baseToolingConfig"]);
 

@@ -27,6 +27,7 @@ export const DEFAULT_IGNORE_PATTERNS = [
   "dist/**",
   "dist-ssr/**",
   "**/.wrangler/**",
+  "**/.cloudflare/**",
   "**/migrations/**",
   "**/drizzle/migrations.js",
   "**/drizzle/meta/*.json",
@@ -39,3 +40,4 @@ export const DEFAULT_STAGED_CHECK_COMMAND = "vp check --fix";
 export const DEFAULT_STAGED_FORMAT_GLOB = "*.{css,html,json,jsonc,less,md,mdx,scss,yaml,yml}";
 export const DEFAULT_STAGED_FORMAT_COMMAND = "vp fmt --write --no-error-on-unmatched-pattern";
 export const DEFAULT_WRANGLER_CONFIG_PATH = "./wrangler.jsonc";
+export const CLOUDFLARE_CONFIG_PATH = "./cloudflare.config.ts";
