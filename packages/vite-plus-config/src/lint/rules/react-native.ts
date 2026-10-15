@@ -10,6 +10,10 @@ export const reactNativeRules: LintRules = {
       message: "Hermes lacks toSorted; copy the array before sorting.",
     },
     {
+      property: "matchAll",
+      message: "Hermes leaves named groups out of matchAll results; use exec or split.",
+    },
+    {
       object: "Intl",
       property: "RelativeTimeFormat",
       message: "Hermes lacks Intl.RelativeTimeFormat; use a supported formatter.",
