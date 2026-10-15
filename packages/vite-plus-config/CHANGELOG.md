@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.5.1
+
+### Patch Changes
+
+- b31f347: Reject `matchAll` in React Native code: Hermes leaves named groups out of its results, so `match.groups` is `undefined` on the phone while tests in Node pass.
+
 ## 0.5.0
 
 ### Minor Changes
