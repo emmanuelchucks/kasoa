@@ -199,12 +199,14 @@ export const nodeTestLint: LintProfile = {
 };
 
 // Node can't load React Native or Expo's native modules, so Vitest tests of React Native code
-// stand them in with module mocks.
+// stand them in with module mocks. Those stand-ins rarely match the native module's types, which
+// `vi.mock(import(...))` would require.
 export const reactNativeTestLint: LintProfile = {
   ...nodeTestLint,
   rules: {
     ...nodeTestLint.rules,
     "vitest/no-restricted-vi-methods": "off",
+    "vitest/prefer-import-in-mock": "off",
   },
 };
 

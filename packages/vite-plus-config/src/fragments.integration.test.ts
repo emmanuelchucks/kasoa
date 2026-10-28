@@ -283,7 +283,7 @@ describe("composable configuration fragments", { timeout: 20_000 }, () => {
       writeFixtureFile("dynamic-import.ts", 'export const lazy = import("./dependency.ts");\n'),
       writeFixtureFile(
         "apps/mobile/mock.test.ts",
-        'import { vi } from "vite-plus/test";\n\nvi.mock(import("../../dependency.ts"));\n',
+        'import { vi } from "vite-plus/test";\n\nvi.mock("react-native", () => ({ View: "View" }));\n',
       ),
       writeFixtureFile(
         "apps/server/mock.test.ts",
