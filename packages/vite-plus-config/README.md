@@ -1,16 +1,12 @@
 # @kasoa/vite-plus-config
 
-Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 1.4 or newer, and TypeScript 7.
-
-The preset is intentionally strict. Fix violations by default. When a runtime, protocol, generated file, framework, or external signature requires an exception, keep it narrow and explain why it is necessary.
-
-## Installation
+Strict, composable Vite+ configuration fragments. Requires Node.js 24.11+, Vite+ 1.4+ and TypeScript 7.
 
 ```bash
 pnpm add -D @kasoa/vite-plus-config vite-plus typescript@^7
 ```
 
-The `*Config` exports are plain Vite+ configuration fragments; lint profiles, file patterns, and pack defaults are plain data. `composeConfig()` applies Vite's `mergeConfig()` from left to right and calls `defineConfig()` once. Arrays therefore retain Vite's normal concatenation behavior. Use it once at the final config boundary rather than nesting composed results. The separate Cloudflare export contains the only other function because its test plugin requires consumer options.
+Each `*Config` export is a plain Vite+ config fragment, and each `*Lint` export is a plain Oxlint profile for `lint.overrides`. `composeConfig()` merges fragments left to right with Vite's `mergeConfig()` (arrays concatenate); call it once, in the final config.
 
 ## Node
 
@@ -46,9 +42,9 @@ export default composeConfig(
 );
 ```
 
-`reactCoreConfig` requires `useEffect`, `useLayoutEffect` and `useInsertionEffect` to be called in a custom hook (a function named `use…`) rather than in a component, so each effect is owned by a hook named for the system it syncs with.
+Tests run in Node here. For DOM-emulated tests, compose `browserTestLintConfig` instead and set the matching Vitest environment.
 
-The source runtime and test runtime are independent. The example uses Vitest's default Node runtime. For DOM-emulated tests, compose `browserTestLintConfig` instead and configure the matching Vitest environment explicitly. Test discovery uses Vite+/Vitest defaults; set `test.include` in a final fragment when a project needs a narrower scope.
+The React fragments report React Compiler violations; they don't install or enable the compiler.
 
 ## React Native and Expo
 
@@ -71,41 +67,18 @@ export default composeConfig(
 );
 ```
 
-The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while APIs that Hermes lacks are rejected: `toSorted()`, `Array.fromAsync`, `RegExp.escape`, `Temporal`, and `Intl.RelativeTimeFormat`, `PluralRules`, `ListFormat`, `Segmenter` and `DisplayNames`. Copied arrays may use `sort()`. Lists of data use Legend List: React Native's `FlatList`, `SectionList` and `VirtualizedList`, including Reanimated's and Gesture Handler's, are rejected, and so is mapping data to elements inside a `ScrollView` or `KeyboardAwareScrollView`. Mapping a constant declared at module level is allowed; to allow constants imported from modules, name them in the rule's `constantModules` option, for example `"kasoa/no-mapped-scrollview": ["error", { constantModules: ["/contracts$"] }]`. Dynamic `import()` is rejected because Metro's native builds bundle every module. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest. Its Vitest tests may use `vi.mock`, because Node cannot load React Native or Expo native modules; Node, browser and Worker tests still reject module mocks.
+- `*.native.test.*` and `*.native.spec.*` files are Jest tests; other test files are Vitest tests, which may use `vi.mock` because Node can't load native modules.
+- The runtime rules follow Hermes, so APIs it lacks (`toSorted()`, `Temporal`, some `Intl` formatters) are errors.
+- Mapping data inside a `ScrollView` is an error unless the data is a module-level constant. To allow constants imported from your own modules, name them: `"kasoa/no-mapped-scrollview": ["error", { constantModules: ["/contracts$"] }]`.
 
-## Libraries and workspaces
+## Workspaces
 
-Packaging and workspace behavior are independent fragments:
-
-```ts
-import {
-  baseToolingConfig,
-  composeConfig,
-  libraryPackConfig,
-  nodeRuntimeConfig,
-  nodeTestLintConfig,
-} from "@kasoa/vite-plus-config";
-
-export default composeConfig(
-  baseToolingConfig,
-  nodeRuntimeConfig,
-  nodeTestLintConfig,
-  libraryPackConfig,
-  {
-    pack: {
-      entry: {
-        "src/index": "./src/index.ts",
-      },
-    },
-  },
-);
-```
-
-Use `workspaceRunConfig` at a workspace root. Vite+ applies the root lint configuration to workspace-wide checks, so model package runtimes with the exported lint profiles in root `lint.overrides`:
+Vite+ applies the root lint config to the whole workspace, so give each package its runtime with a profile in a root override:
 
 ```ts
 import {
   RUNTIME_OVERRIDE_EXCLUDE_FILES,
+  TEST_FILES,
   baseToolingConfig,
   cloudflareWorkerGeneratedConfig,
   cloudflareWorkerLint,
@@ -113,7 +86,7 @@ import {
   nodeTestLintConfig,
   reactNativeGeneratedConfig,
   reactNativeLint,
-  reactWebLint,
+  reactNativeTestLint,
   workspaceRunConfig,
 } from "@kasoa/vite-plus-config";
 
@@ -132,64 +105,53 @@ export default composeConfig(
           ...reactNativeLint,
         },
         {
+          files: TEST_FILES.map((pattern) => `apps/mobile/${pattern}`),
+          ...reactNativeTestLint,
+        },
+        {
           files: ["apps/server/**"],
           excludeFiles: [...RUNTIME_OVERRIDE_EXCLUDE_FILES],
           ...cloudflareWorkerLint,
         },
-        {
-          files: ["packages/web/**"],
-          excludeFiles: [...RUNTIME_OVERRIDE_EXCLUDE_FILES],
-          ...reactWebLint,
-        },
       ],
     },
   },
 );
 ```
 
-`reactWebLint` and `reactNativeLint` are complete, plain Oxlint profiles for the common single-override case. Their lower-level runtime and React profiles remain available when a workspace needs separate scopes. Package configs still own local test, build, and pack wiring. For multiple pack operations, spread `libraryPackDefaults` into each entry instead of composing `libraryPackConfig` with a pack array.
+- `RUNTIME_OVERRIDE_EXCLUDE_FILES` keeps tests and config files out of a runtime override, so they keep their own rules. Config and CommonJS files always get the Node profile.
+- `reactNativeLint` and `reactWebLint` cover a whole app; the narrower `reactCoreLint`, `reactDomLint` and `reactNativeRuntimeLint` are there when one part of a package needs only some of it.
+- The same override pattern works in a single package with mixed runtimes, for example `{ files: ["scripts/**"], ...nodeLint }` in a Worker.
 
-## Mixed runtimes
-
-The exported lint profiles are ordinary Oxlint override objects:
+## Libraries
 
 ```ts
 import {
   baseToolingConfig,
-  cloudflareWorkerGeneratedConfig,
-  cloudflareWorkerRuntimeConfig,
   composeConfig,
-  nodeLint,
+  libraryPackConfig,
+  nodeRuntimeConfig,
+  nodeTestLintConfig,
 } from "@kasoa/vite-plus-config";
 
 export default composeConfig(
   baseToolingConfig,
-  cloudflareWorkerRuntimeConfig,
-  cloudflareWorkerGeneratedConfig,
+  nodeRuntimeConfig,
+  nodeTestLintConfig,
+  libraryPackConfig,
   {
-    lint: {
-      overrides: [
-        {
-          files: ["scripts/**", "evals/**"],
-          ...nodeLint,
-        },
-      ],
-    },
+    pack: { entry: { "src/index": "./src/index.ts" } },
   },
 );
 ```
 
-Configuration and CommonJS files receive the Node profile from `baseToolingConfig` automatically. A broad workspace override should use `RUNTIME_OVERRIDE_EXCLUDE_FILES` so those files and tests remain under their narrower execution boundaries.
+For several pack entries, spread `libraryPackDefaults` into each one instead of composing `libraryPackConfig`.
 
 ## Cloudflare Workers tests
 
-Install the optional peer:
-
 ```bash
-pnpm add -D @cloudflare/vitest-plugin@^1
+pnpm add -D @cloudflare/vitest-plugin@^1.4
 ```
-
-`@cloudflare/vitest-plugin` 1.x supports Vitest 4 only, so Workers tests need Vite+ 0.3 until Cloudflare adds Vitest 5 support. The rest of this package also works with Vite+ 1.x.
 
 ```ts
 import {
@@ -206,55 +168,37 @@ export default composeConfig(
   cloudflareWorkerRuntimeConfig,
   cloudflareWorkerGeneratedConfig,
   cloudflareWorkerTestLintConfig,
-  createCloudflareTestConfig({
-    miniflare: {
-      bindings: {
-        CORS_ALLOWED_ORIGINS: "",
-      },
-    },
-  }),
-  {
-    test: {
-      provide: {
-        d1Migrations: [],
-      },
-    },
-  },
+  createCloudflareTestConfig(),
 );
 ```
 
-`createCloudflareTestConfig` reads `cloudflare.config.ts` when the project has one (the `cf` CLI format) and `wrangler.jsonc` otherwise; pass `wrangler.configPath` to choose a file explicitly. The `cf` CLI or Wrangler owns Worker development, builds, type generation, and deployment. Vite+ owns checks and workerd tests. Generated `.cloudflare/` and `.wrangler/` output is ignored.
-
-With `cloudflare.config.ts`, `@cloudflare/vitest-plugin` renames the Worker under test, so a Durable Object binding that points back at the same Worker fails to start. Bind the local class directly in the test options: `createCloudflareTestConfig({ miniflare: { durableObjects: { MY_OBJECT: "MyObject" } } })`.
+- `createCloudflareTestConfig()` takes the plugin's options. It reads `cloudflare.config.ts` when there is one (the `cf` CLI) and `wrangler.jsonc` otherwise; set `wrangler.configPath` to choose.
+- With `cloudflare.config.ts`, the plugin renames the Worker under test, so a Durable Object binding that points back at the same Worker fails to start. Bind the class directly: `createCloudflareTestConfig({ miniflare: { durableObjects: { MY_OBJECT: "MyObject" } } })`.
 
 ## Kasoa rules
 
-`baseToolingConfig` loads Kasoa's own Oxlint plugin under the `kasoa/` prefix. Every project gets two of its rules:
+`baseToolingConfig` loads Kasoa's own Oxlint plugin. Its rules, configured like any other rule:
 
-- `kasoa/disable-reason`: every `oxlint-disable` or `eslint-disable` directive gives its reason after `--`, and a block `disable` is closed by a matching `enable`.
-- `kasoa/no-shadowed-globals`: no binding takes the name of a JavaScript global such as `Symbol`, `Map` or `Promise`, which code in its scope, and the React Compiler's output, would read instead.
+| Rule                         | Where                       | What it requires                                                                                                    |
+| ---------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `kasoa/disable-reason`       | everywhere                  | every `oxlint-disable` or `eslint-disable` gives a reason after `--`, and a block `disable` has a matching `enable` |
+| `kasoa/no-shadowed-globals`  | everywhere                  | no binding named after a language global such as `Symbol` or `Map`; browser and Node globals like `name` stay free  |
+| `kasoa/effects-in-hooks`     | React                       | `useEffect`, `useLayoutEffect` and `useInsertionEffect` only inside functions named `use…`                          |
+| `kasoa/legend-list-only`     | React Native                | lists of data use Legend List, not `FlatList`, `SectionList` or `VirtualizedList`                                   |
+| `kasoa/no-mapped-scrollview` | React Native                | no mapping data to elements inside a `ScrollView`                                                                   |
+| `kasoa/no-dynamic-import`    | React Native, outside tests | static imports only                                                                                                 |
 
-The React, React Native and Worker fragments and profiles add the rules described in their sections. Vitest test files allow dynamic `import()` in React Native code, because Vitest names mocked modules with `import()`. Configure or turn off a `kasoa/` rule like any other rule.
+## Changing a rule
 
-## Overrides
-
-Preset rules are inherited through Oxlint, so an ordinary final rule replaces a preset tuple atomically. Prefer improving owned code. Tune a shared limit only when the project has a deliberate, reviewable reason:
+A rule in a later fragment replaces the preset's setting for that rule:
 
 ```ts
-import { baseToolingConfig, composeConfig, nodeRuntimeConfig } from "@kasoa/vite-plus-config";
-
 export default composeConfig(baseToolingConfig, nodeRuntimeConfig, {
-  lint: {
-    rules: {
-      "max-params": ["error", { max: 4 }],
-    },
-  },
+  lint: { rules: { "max-params": ["error", { max: 4 }] } },
 });
 ```
 
-Keep exceptions as narrow as the constraint. For example, an externally fixed callback signature should use a local directive with a concrete reason rather than weakening `max-params` throughout a project. Dependent sequential work may suppress `no-await-in-loop` at the relevant `await` with a concrete explanation.
-
-To change a scoped test rule, construct that test fragment directly instead of composing the default one:
+To change a rule only in tests, build the test override yourself instead of composing the test fragment:
 
 ```ts
 import type { ConfigFragment } from "@kasoa/vite-plus-config";
@@ -266,33 +210,16 @@ const testLintConfig = {
       {
         files: [...TEST_FILES],
         ...nodeTestLint,
-        rules: {
-          ...nodeTestLint.rules,
-          "vitest/padding-around-test-blocks": "off",
-        },
+        rules: { ...nodeTestLint.rules, "vitest/padding-around-test-blocks": "off" },
       },
     ],
   },
 } satisfies ConfigFragment;
 ```
 
-React fragments report React Compiler violations but do not install or enable compiler transforms.
+## Commit hooks
 
-## Project commands and hooks
-
-Run these commands in the consuming project:
-
-```bash
-vp check
-vp check --fix
-vp test
-```
-
-Import Vitest APIs from `vite-plus/test`. The base fragment routes code through `vp check --fix` and supported non-code files through `vp fmt --write` when `vp staged` runs. Commit a project-owned `.vite-hooks/pre-commit` containing `vp staged`, then run `vp config --no-agent` to install or refresh Vite+'s generated dispatcher.
-
-## Contributing
-
-Repository maintenance, verification, rule policy, and release guidance live in the [contributor guide](https://github.com/emmanuelchucks/kasoa/blob/main/CONTRIBUTING.md).
+`baseToolingConfig` sets up `vp staged` to run `vp check --fix` on code and `vp fmt --write` on other files. Commit a `.vite-hooks/pre-commit` containing `vp staged`, then run `vp config --no-agent` to install the hook. Import Vitest APIs from `vite-plus/test`.
 
 ## License
 

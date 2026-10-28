@@ -1,12 +1,8 @@
 # Contributing to Kasoa
 
-Kasoa publishes strict shared TypeScript tooling. This guide documents how the repository is maintained. Package READMEs document how consumers use the published packages.
+## Documentation
 
-## Documentation audiences
-
-Keep npm package READMEs focused on supported versions, installation, exported behavior, configuration recipes, customization, and troubleshooting. Put repository workflow, design rationale, rule-selection policy, verification, and release procedures here.
-
-A package README may explain a strict consumer-facing contract. It should not require consumers to understand Kasoa's internal review process.
+A package README is for people using the package: versions, installation, config recipes, options and gotchas. It doesn't restate what the code, its types or a rule's error message already say. Repository workflow, rule policy and releases live here.
 
 ## Tooling policy
 
@@ -17,6 +13,7 @@ Human review is the main constraint. Strict checks give both hand-written and ge
 - Do not preserve unchanged behavior behind `reduce`, recursion, promise chains, wrappers, or helpers merely to evade a lint rule.
 - Add or strengthen rules only when repository or representative consumer evidence shows that they prevent useful classes of defects.
 - Avoid speculative rules, false positives, duplicate enforcement, and compatibility work for unsupported tool versions.
+- Prefer a native Oxlint rule. A `kasoa/` JavaScript rule is for what no native rule covers: any JavaScript rule at all makes lint hand each file to JavaScript, roughly doubling Oxlint's own time (type-aware checks cost more than both).
 - Preserve clear runtime boundaries between Node, browsers, React Native, Cloudflare Workers, and their test environments.
 
 For example, parallelize independent asynchronous work. Keep dependent work as a clear sequential loop and document a local `no-await-in-loop` exception at the relevant `await` when ordering is required.
@@ -30,13 +27,13 @@ corepack enable
 pnpm install --frozen-lockfile
 ```
 
-Run the canonical repository gate before requesting review:
+Run the repository gate before requesting review; GitHub Actions runs the same command on pull requests and `main`:
 
 ```bash
 pnpm verify
 ```
 
-This audits dependencies, checks repository formatting and every package, runs tests, builds packages, applies Publint and Are The Types Wrong checks, and exercises packed consumers. GitHub Actions runs the same command. Commit hooks provide earlier staged-file feedback but are not the authoritative gate.
+It audits dependencies, checks formatting, lint and types, runs the tests, builds the packages, runs Publint and Are The Types Wrong, and lints a project that installs the packed package. Commit hooks give earlier feedback but aren't the gate.
 
 ## Package changes
 
