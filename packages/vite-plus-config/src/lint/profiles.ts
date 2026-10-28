@@ -198,6 +198,16 @@ export const nodeTestLint: LintProfile = {
   },
 };
 
+// Node can't load React Native or Expo's native modules, so Vitest tests of React Native code
+// stand them in with module mocks.
+export const reactNativeTestLint: LintProfile = {
+  ...nodeTestLint,
+  rules: {
+    ...nodeTestLint.rules,
+    "vitest/no-restricted-vi-methods": "off",
+  },
+};
+
 export const browserTestLint: LintProfile = {
   ...browserLint,
   plugins: [...BASE_LINT_PLUGINS, "vitest"],
