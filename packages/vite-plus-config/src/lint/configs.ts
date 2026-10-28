@@ -29,7 +29,6 @@ import {
   reactNativeRuntimeLint,
 } from "./profiles.ts";
 import { browserRules } from "./rules/browser.ts";
-import { cloudflareWorkerRules } from "./rules/cloudflare-worker.ts";
 import { nodeRules } from "./rules/node.ts";
 import { reactCoreRules } from "./rules/react-core.ts";
 import { reactDomRules } from "./rules/react-dom.ts";
@@ -116,7 +115,6 @@ export const reactNativeRuntimeLintConfig: LintConfig = {
 export const cloudflareWorkerRuntimeLintConfig: LintConfig = {
   env: cloudflareWorkerEnvironment,
   globals: cloudflareWorkerLint.globals,
-  extends: [{ rules: cloudflareWorkerRules }],
 };
 
 export const reactNativeGeneratedLintConfig: LintConfig = {

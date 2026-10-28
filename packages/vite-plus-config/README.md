@@ -234,7 +234,7 @@ With `cloudflare.config.ts`, `@cloudflare/vitest-plugin` renames the Worker unde
 - `kasoa/disable-reason`: every `oxlint-disable` or `eslint-disable` directive gives its reason after `--`, and a block `disable` is closed by a matching `enable`.
 - `kasoa/no-shadowed-globals`: no binding takes the name of a JavaScript global such as `Symbol`, `Map` or `Promise`, which code in its scope, and the React Compiler's output, would read instead.
 
-The React, React Native and Worker fragments and profiles add the rules described in their sections. The Worker runtime rejects dynamic `import()` as React Native does, since Wrangler bundles every module; Vitest test files allow it, because Vitest names mocked modules with `import()`. Configure or turn off a `kasoa/` rule like any other rule.
+The React, React Native and Worker fragments and profiles add the rules described in their sections. Vitest test files allow dynamic `import()` in React Native code, because Vitest names mocked modules with `import()`. Configure or turn off a `kasoa/` rule like any other rule.
 
 ## Overrides
 
