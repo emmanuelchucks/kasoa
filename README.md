@@ -5,7 +5,6 @@ Shared TypeScript tooling for Emmanuel Chucks' projects. Requires Node.js 24.11 
 ## Packages
 
 - [`@kasoa/vite-plus-config`](./packages/vite-plus-config) — strict, composable Vite+ configuration fragments.
-- [`@kasoa/env`](./packages/env) — Standard Schema environment validation.
 
 ## Repository verification
 
