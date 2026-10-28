@@ -1,6 +1,5 @@
 import type { LintConfig, LintProfile } from "./types.ts";
 import { browserRules } from "./rules/browser.ts";
-import { cloudflareWorkerRules } from "./rules/cloudflare-worker.ts";
 import { jestRules } from "./rules/jest.ts";
 import { nodeRules } from "./rules/node.ts";
 import { reactCoreRules } from "./rules/react-core.ts";
@@ -188,7 +187,6 @@ export const cloudflareWorkerLint: LintProfile = {
   env: cloudflareWorkerEnvironment,
   globals: cloudflareWorkerGlobals,
   plugins: [...BASE_LINT_PLUGINS],
-  rules: cloudflareWorkerRules,
 };
 
 export const nodeTestLint: LintProfile = {

@@ -467,14 +467,14 @@ describe("composable configuration fragments", { timeout: 20_000 }, () => {
 
     await useFragments(["baseToolingConfig", "cloudflareWorkerRuntimeConfig"]);
 
-    expect(lint("dynamic-import.ts").output).toContain("[Error/kasoa(no-dynamic-import)]");
+    expect(lint("dynamic-import.ts").output).not.toContain("[Error/kasoa(no-dynamic-import)]");
   });
 
   it("applies Kasoa's own rules through profiles in workspace overrides", async () => {
     await useFragments(
       ["baseToolingConfig"],
-      '{ lint: { overrides: [{ files: ["native-list.tsx", "effect-component.tsx"], ...reactNativeLint }, { files: ["dynamic-import.ts"], ...cloudflareWorkerLint }] } }',
-      ["cloudflareWorkerLint", "reactNativeLint"],
+      '{ lint: { overrides: [{ files: ["native-list.tsx", "effect-component.tsx", "dynamic-import.ts"], ...reactNativeLint }] } }',
+      ["reactNativeLint"],
     );
 
     expect(lint("native-list.tsx").output).toContain("[Error/kasoa(legend-list-only)]");
