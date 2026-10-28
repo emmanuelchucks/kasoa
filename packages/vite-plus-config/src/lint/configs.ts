@@ -153,16 +153,9 @@ export const cloudflareWorkerTestLintConfig: LintConfig = {
 export const reactNativeTestLintConfig: LintConfig = {
   overrides: [
     {
-      files: [...TEST_FILES],
-      excludeFiles: [
-        ...VITEST_SETUP_FILES,
-        ...REACT_NATIVE_JEST_TEST_FILES,
-        ...REACT_NATIVE_JEST_SETUP_FILES,
-      ],
-      ...nodeTestLint,
-    },
-    {
-      files: [...VITEST_SETUP_FILES],
+      // Node can't load React Native or Expo's native modules, so Vitest tests of React Native code
+      // stand them in with module mocks.
+      files: [...TEST_FILES, ...VITEST_SETUP_FILES],
       excludeFiles: [...REACT_NATIVE_JEST_TEST_FILES, ...REACT_NATIVE_JEST_SETUP_FILES],
       ...nodeTestLint,
       rules: {
