@@ -2,6 +2,9 @@ import type { LintRules } from "../types.ts";
 import { universalRestrictedProperties } from "./universal.ts";
 
 export const reactNativeRules: LintRules = {
+  "kasoa/legend-list-only": "error",
+  "kasoa/no-dynamic-import": "error",
+  "kasoa/no-mapped-scrollview": "error",
   "no-restricted-properties": [
     "error",
     ...universalRestrictedProperties,

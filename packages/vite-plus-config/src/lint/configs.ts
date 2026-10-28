@@ -12,6 +12,7 @@ import {
   TEST_FILES,
   VITEST_SETUP_FILES,
 } from "../constants.ts";
+import { kasoaPluginFile } from "./plugin-file.ts";
 import {
   BASE_LINT_PLUGINS,
   browserEnvironment,
@@ -28,6 +29,7 @@ import {
   reactNativeRuntimeLint,
 } from "./profiles.ts";
 import { browserRules } from "./rules/browser.ts";
+import { cloudflareWorkerRules } from "./rules/cloudflare-worker.ts";
 import { nodeRules } from "./rules/node.ts";
 import { reactCoreRules } from "./rules/react-core.ts";
 import { reactDomRules } from "./rules/react-dom.ts";
@@ -36,6 +38,7 @@ import { universalRules } from "./rules/universal.ts";
 
 export const baseLintConfig: LintConfig = {
   plugins: [...BASE_LINT_PLUGINS],
+  jsPlugins: [{ name: "kasoa", specifier: kasoaPluginFile }],
   ignorePatterns: [...DEFAULT_IGNORE_PATTERNS],
   env: neutralEnvironment,
   globals: neutralLint.globals,
@@ -113,6 +116,7 @@ export const reactNativeRuntimeLintConfig: LintConfig = {
 export const cloudflareWorkerRuntimeLintConfig: LintConfig = {
   env: cloudflareWorkerEnvironment,
   globals: cloudflareWorkerLint.globals,
+  extends: [{ rules: cloudflareWorkerRules }],
 };
 
 export const reactNativeGeneratedLintConfig: LintConfig = {

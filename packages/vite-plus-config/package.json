@@ -36,6 +36,10 @@
     "./cloudflare-workers": {
       "types": "./dist/src/cloudflare-workers/index.d.mts",
       "import": "./dist/src/cloudflare-workers/index.mjs"
+    },
+    "./oxlint-plugin": {
+      "types": "./dist/src/lint/plugin/index.d.mts",
+      "import": "./dist/src/lint/plugin/index.mjs"
     }
   },
   "publishConfig": {
@@ -59,7 +63,7 @@
   "peerDependencies": {
     "@cloudflare/vitest-plugin": "^1.0.0",
     "typescript": ">=7 <8",
-    "vite-plus": ">=0.3.0 <2"
+    "vite-plus": ">=1.4.0 <2"
   },
   "peerDependenciesMeta": {
     "@cloudflare/vitest-plugin": {

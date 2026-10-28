@@ -12,6 +12,8 @@ export const universalRestrictedProperties = [
 ] as const;
 
 export const universalRules: LintRules = {
+  "kasoa/disable-reason": "error",
+  "kasoa/no-shadowed-globals": "error",
   "accessor-pairs": "error",
   "array-callback-return": "error",
   "arrow-body-style": "error",

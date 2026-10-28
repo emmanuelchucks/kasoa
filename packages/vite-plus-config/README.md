@@ -1,6 +1,6 @@
 # @kasoa/vite-plus-config
 
-Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 0.3.0 or newer, and TypeScript 7.
+Strict, composable Vite+ configuration fragments. Requires Node.js 24.11 or newer, Vite+ 1.4 or newer, and TypeScript 7.
 
 The preset is intentionally strict. Fix violations by default. When a runtime, protocol, generated file, framework, or external signature requires an exception, keep it narrow and explain why it is necessary.
 
@@ -46,6 +46,8 @@ export default composeConfig(
 );
 ```
 
+`reactCoreConfig` requires `useEffect`, `useLayoutEffect` and `useInsertionEffect` to be called in a custom hook (a function named `use…`) rather than in a component, so each effect is owned by a hook named for the system it syncs with.
+
 The source runtime and test runtime are independent. The example uses Vitest's default Node runtime. For DOM-emulated tests, compose `browserTestLintConfig` instead and configure the matching Vitest environment explicitly. Test discovery uses Vite+/Vitest defaults; set `test.include` in a final fragment when a project needs a narrower scope.
 
 ## React Native and Expo
@@ -69,7 +71,7 @@ export default composeConfig(
 );
 ```
 
-The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while APIs that Hermes lacks are rejected: `toSorted()`, `Array.fromAsync`, `RegExp.escape`, `Temporal`, and `Intl.RelativeTimeFormat`, `PluralRules`, `ListFormat`, `Segmenter` and `DisplayNames`. Copied arrays may use `sort()`. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest. Its Vitest tests may use `vi.mock`, because Node cannot load React Native or Expo native modules; Node, browser and Worker tests still reject module mocks.
+The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while APIs that Hermes lacks are rejected: `toSorted()`, `Array.fromAsync`, `RegExp.escape`, `Temporal`, and `Intl.RelativeTimeFormat`, `PluralRules`, `ListFormat`, `Segmenter` and `DisplayNames`. Copied arrays may use `sort()`. Lists of data use Legend List: React Native's `FlatList`, `SectionList` and `VirtualizedList`, including Reanimated's and Gesture Handler's, are rejected, and so is mapping data to elements inside a `ScrollView` or `KeyboardAwareScrollView`. Mapping a constant declared at module level is allowed; to allow constants imported from modules, name them in the rule's `constantModules` option, for example `"kasoa/no-mapped-scrollview": ["error", { constantModules: ["/contracts$"] }]`. Dynamic `import()` is rejected because Metro's native builds bundle every module. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest. Its Vitest tests may use `vi.mock`, because Node cannot load React Native or Expo native modules; Node, browser and Worker tests still reject module mocks.
 
 ## Libraries and workspaces
 
@@ -224,6 +226,15 @@ export default composeConfig(
 `createCloudflareTestConfig` reads `cloudflare.config.ts` when the project has one (the `cf` CLI format) and `wrangler.jsonc` otherwise; pass `wrangler.configPath` to choose a file explicitly. The `cf` CLI or Wrangler owns Worker development, builds, type generation, and deployment. Vite+ owns checks and workerd tests. Generated `.cloudflare/` and `.wrangler/` output is ignored.
 
 With `cloudflare.config.ts`, `@cloudflare/vitest-plugin` renames the Worker under test, so a Durable Object binding that points back at the same Worker fails to start. Bind the local class directly in the test options: `createCloudflareTestConfig({ miniflare: { durableObjects: { MY_OBJECT: "MyObject" } } })`.
+
+## Kasoa rules
+
+`baseToolingConfig` loads Kasoa's own Oxlint plugin under the `kasoa/` prefix. Every project gets two of its rules:
+
+- `kasoa/disable-reason`: every `oxlint-disable` or `eslint-disable` directive gives its reason after `--`, and a block `disable` is closed by a matching `enable`.
+- `kasoa/no-shadowed-globals`: no binding takes the name of a JavaScript global such as `Symbol`, `Map` or `Promise`, which code in its scope, and the React Compiler's output, would read instead.
+
+The React, React Native and Worker fragments and profiles add the rules described in their sections. The Worker runtime rejects dynamic `import()` as React Native does, since Wrangler bundles every module; Vitest test files allow it, because Vitest names mocked modules with `import()`. Configure or turn off a `kasoa/` rule like any other rule.
 
 ## Overrides
 

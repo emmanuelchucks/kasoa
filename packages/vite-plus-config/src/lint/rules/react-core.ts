@@ -1,6 +1,7 @@
 import type { LintRules } from "../types.ts";
 
 export const reactCoreRules: LintRules = {
+  "kasoa/effects-in-hooks": "error",
   "react/display-name": "error",
   "react/function-component-definition": [
     "error",
