@@ -2,7 +2,7 @@ import { runInNewContext } from "node:vm";
 import { defineRule } from "vite-plus/lint/plugins";
 
 // The language's own globals, as a fresh context holds them: no browser, Node or Hermes names, so
-// a local `event` or `name` stays free.
+// a local `event` or `name` stays free. Oxlint's `no-shadow` with `builtinGlobals` flags those too.
 const languageGlobals = new Set(Object.getOwnPropertyNames(runInNewContext("globalThis")));
 
 // The React Compiler's output calls `Symbol.for` in every compiled component, so a binding named

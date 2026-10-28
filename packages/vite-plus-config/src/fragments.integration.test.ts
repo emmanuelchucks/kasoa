@@ -97,6 +97,8 @@ describe("composable configuration fragments", { timeout: 20_000 }, () => {
       mkdir(resolve(fixturePath, ".expo")),
       mkdir(resolve(fixturePath, "test")),
       mkdir(resolve(fixturePath, "testing/react-native"), { recursive: true }),
+      mkdir(resolve(fixturePath, "apps/mobile"), { recursive: true }),
+      mkdir(resolve(fixturePath, "apps/server"), { recursive: true }),
     ]);
     await symlink(resolve(workspaceRoot, "node_modules"), resolve(fixturePath, "node_modules"));
     await Promise.all([
@@ -280,6 +282,14 @@ describe("composable configuration fragments", { timeout: 20_000 }, () => {
       ),
       writeFixtureFile("dynamic-import.ts", 'export const lazy = import("./dependency.ts");\n'),
       writeFixtureFile(
+        "apps/mobile/mock.test.ts",
+        'import { vi } from "vite-plus/test";\n\nvi.mock(import("../../dependency.ts"));\n',
+      ),
+      writeFixtureFile(
+        "apps/server/mock.test.ts",
+        'import { vi } from "vite-plus/test";\n\nvi.mock(import("../../dependency.ts"));\n',
+      ),
+      writeFixtureFile(
         "test/setup.ts",
         'import { vi } from "vite-plus/test";\n\nvi.mock(import("../dependency.ts"));\n',
       ),
@@ -407,6 +417,31 @@ describe("composable configuration fragments", { timeout: 20_000 }, () => {
     expect(nativeSetupResult.output).not.toContain("[Error/vitest(");
 
     expect(lint("test/setup.ts")).toStrictEqual({ output: "", status: 0 });
+  });
+
+  it("scopes React Native Vitest tests to their app in a workspace", async () => {
+    await useFragments(
+      ["baseToolingConfig", "nodeTestLintConfig"],
+      `{ lint: { overrides: [
+        { files: ["apps/mobile/**"], excludeFiles: [...RUNTIME_OVERRIDE_EXCLUDE_FILES], ...reactNativeLint },
+        { files: TEST_FILES.map((pattern) => \`apps/mobile/\${pattern}\`), ...reactNativeTestLint },
+        { files: ["apps/server/**"], excludeFiles: [...RUNTIME_OVERRIDE_EXCLUDE_FILES], ...cloudflareWorkerLint },
+      ] } }`,
+      [
+        "RUNTIME_OVERRIDE_EXCLUDE_FILES",
+        "TEST_FILES",
+        "cloudflareWorkerLint",
+        "reactNativeLint",
+        "reactNativeTestLint",
+      ],
+    );
+
+    expect(lint("apps/mobile/mock.test.ts")).toStrictEqual({ output: "", status: 0 });
+
+    const serverResult = lint("apps/server/mock.test.ts");
+
+    expect(serverResult.status).toBe(1);
+    expect(serverResult.output).toContain("[Error/vitest(no-restricted-vi-methods)]");
   });
 
   it("supports the exported native Jest profile in workspace overrides", async () => {

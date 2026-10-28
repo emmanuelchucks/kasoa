@@ -99,13 +99,14 @@ try {
   reactNativeLint,
   reactNativeRuntimeConfig,
   reactNativeRuntimeLint,
+  reactNativeTestLint,
   reactNativeTestLintConfig,
   reactWebLint,
   workspaceRunConfig,
 } from "@kasoa/vite-plus-config";
 
 const fragments = [baseToolingConfig, browserRuntimeConfig, browserTestLintConfig, cloudflareWorkerGeneratedConfig, cloudflareWorkerRuntimeConfig, cloudflareWorkerTestLintConfig, libraryPackConfig, nodeRuntimeConfig, nodeTestLintConfig, reactCoreConfig, reactDomConfig, reactNativeGeneratedConfig, reactNativeRuntimeConfig, reactNativeTestLintConfig, workspaceRunConfig];
-const profiles = [browserLint, browserTestLint, cloudflareWorkerLint, cloudflareWorkerTestLint, nodeLint, nodeTestLint, reactCoreLint, reactDomLint, reactNativeJestTestLint, reactNativeLint, reactNativeRuntimeLint, reactWebLint];
+const profiles = [browserLint, browserTestLint, cloudflareWorkerLint, cloudflareWorkerTestLint, nodeLint, nodeTestLint, reactCoreLint, reactDomLint, reactNativeJestTestLint, reactNativeLint, reactNativeRuntimeLint, reactNativeTestLint, reactWebLint];
 const patterns = [CODE_FILES, COMMONJS_FILES, CONFIG_FILES, REACT_NATIVE_JEST_SETUP_FILES, REACT_NATIVE_JEST_TEST_FILES, RUNTIME_OVERRIDE_EXCLUDE_FILES, TEST_FILES, VITEST_SETUP_FILES];
 const config = composeConfig(baseToolingConfig, nodeRuntimeConfig, nodeTestLintConfig);
 if (config.lint?.env?.node !== true) throw new Error("Node fragment did not compose");

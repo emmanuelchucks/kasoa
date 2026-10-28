@@ -40,5 +40,6 @@ export {
   reactNativeJestTestLint,
   reactNativeLint,
   reactNativeRuntimeLint,
+  reactNativeTestLint,
   reactWebLint,
 } from "./lint/profiles.ts";
