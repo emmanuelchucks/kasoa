@@ -69,7 +69,7 @@ export default composeConfig(
 );
 ```
 
-The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while APIs that Hermes lacks are rejected: `toSorted()`, `Array.fromAsync`, `RegExp.escape`, `Temporal`, and `Intl.RelativeTimeFormat`, `PluralRules`, `ListFormat`, `Segmenter` and `DisplayNames`. Copied arrays may use `sort()`. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest.
+The native fragment permits React Native's `__DEV__` and Expo's statically replaced `process.env`, rejects DOM and Worker globals, excludes DOM accessibility rules, and ignores `.expo` output. It also follows the bundled Hermes runtime: `toReversed()` remains preferred, while APIs that Hermes lacks are rejected: `toSorted()`, `Array.fromAsync`, `RegExp.escape`, `Temporal`, and `Intl.RelativeTimeFormat`, `PluralRules`, `ListFormat`, `Segmenter` and `DisplayNames`. Copied arrays may use `sort()`. `reactNativeTestLintConfig` assigns portable test files to Vitest and `*.native.test.*` or `*.native.spec.*` files to Jest. Its Vitest tests may use `vi.mock`, because Node cannot load React Native or Expo native modules; Node, browser and Worker tests still reject module mocks.
 
 ## Libraries and workspaces
 

@@ -356,7 +356,16 @@ describe("composable configuration fragments", () => {
     expectUndefinedGlobal(lint("cloudflare.ts"), "WebSocketPair");
   });
 
-  it("assigns portable and native React Native tests to disjoint runners", async () => {
+  it("keeps module mocks out of Node tests", async () => {
+    await useFragments(["baseToolingConfig", "nodeRuntimeConfig", "nodeTestLintConfig"]);
+
+    const result = lint("module-replacement.test.ts");
+
+    expect(result.status).toBe(1);
+    expect(result.output).toContain("[Error/vitest(no-restricted-vi-methods)]");
+  });
+
+  it("lets React Native Vitest tests mock modules and keeps Jest tests apart", async () => {
     await useFragments([
       "baseToolingConfig",
       "reactCoreConfig",
@@ -364,13 +373,7 @@ describe("composable configuration fragments", () => {
       "reactNativeTestLintConfig",
     ]);
 
-    const portableResult = lint("module-replacement.test.ts");
-
-    expect(portableResult.status).toBe(1);
-    expect(
-      portableResult.output.match(/\[Error\/vitest\(no-restricted-vi-methods\)\]/gu),
-    ).toHaveLength(1);
-    expect(portableResult.output).not.toContain("[Error/jest(");
+    expect(lint("module-replacement.test.ts")).toStrictEqual({ output: "", status: 0 });
 
     const nativeResult = lint("module-replacement.native.test.ts");
 
@@ -389,11 +392,7 @@ describe("composable configuration fragments", () => {
     expect(nativeSetupResult.output).not.toContain("no-restricted-jest-methods");
     expect(nativeSetupResult.output).not.toContain("[Error/vitest(");
 
-    const genericSetupResult = lint("test/setup.ts");
-
-    expect(genericSetupResult.status).toBe(1);
-    expect(genericSetupResult.output).toContain("[Error/vitest(no-restricted-vi-methods)]");
-    expect(genericSetupResult.output).not.toContain("[Error/jest(");
+    expect(lint("test/setup.ts")).toStrictEqual({ output: "", status: 0 });
   });
 
   it("supports the exported native Jest profile in workspace overrides", async () => {
