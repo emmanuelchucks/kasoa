@@ -3,7 +3,3 @@ packages:
 allowBuilds:
   esbuild: true
   workerd: true
-overrides:
-  # @cloudflare/vitest-plugin 1.3.6 pins a miniflare that pins sharp 0.35.4, which has a high
-  # advisory (GHSA-wq5f-xc86-pv6w). Plugin 1.4.3 moves to 0.35.5; drop this when it's taken.
-  "miniflare>sharp": 0.35.5

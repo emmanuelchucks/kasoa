@@ -15,13 +15,13 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
-    "@changesets/cli": "^3.0.1",
+    "@changesets/cli": "^3.0.3",
     "@kasoa/vite-plus-config": "workspace:*",
-    "@types/node": "24.13.3",
-    "publint": "^0.3.24",
+    "@types/node": "24.19.2",
+    "publint": "^0.3.25",
     "typescript": "^7.0.2",
-    "vite": "^8.2.2",
-    "vite-plus": "^0.3.0"
+    "vite": "^8.3.5",
+    "vite-plus": "^1.4.0"
   },
   "engines": {
     "node": ">=24.11.0"
