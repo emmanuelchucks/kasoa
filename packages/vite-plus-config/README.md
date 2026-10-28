@@ -67,7 +67,7 @@ export default composeConfig(
 );
 ```
 
-- `*.native.test.*` and `*.native.spec.*` files are Jest tests; other test files are Vitest tests, which may use `vi.mock` because Node can't load native modules.
+- `*.native.test.*` and `*.native.spec.*` files are Jest tests; other test files are Vitest tests, which may mock modules with `vi.mock`, by name or by `import()`, because Node can't load native modules.
 - The runtime rules follow Hermes, so APIs it lacks (`toSorted()`, `Temporal`, some `Intl` formatters) are errors.
 - Mapping data inside a `ScrollView` is an error unless the data is a module-level constant. To allow constants imported from your own modules, name them: `"kasoa/no-mapped-scrollview": ["error", { constantModules: ["/contracts$"] }]`.
 
