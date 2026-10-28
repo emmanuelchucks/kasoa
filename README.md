@@ -1,22 +1,10 @@
 # Kasoa
 
-Shared TypeScript tooling for Emmanuel Chucks' projects. Requires Node.js 24.11 or newer.
+Shared TypeScript tooling for Emmanuel Chucks' projects.
 
-## Packages
+- [`@kasoa/vite-plus-config`](./packages/vite-plus-config): strict, composable Vite+ configuration fragments.
 
-- [`@kasoa/vite-plus-config`](./packages/vite-plus-config) — strict, composable Vite+ configuration fragments.
-
-## Repository verification
-
-```bash
-pnpm verify
-```
-
-The canonical gate audits dependencies, checks formatting across the complete repository, checks every package, runs tests, builds the ESM packages, applies strict Publint and ESM-only ATTW validation, and exercises the packed consumer fixtures. Pull requests and pushes to `main` run the same command in GitHub Actions.
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for documentation boundaries, tooling policy, verification, Changesets, and release procedures.
+Working on the repo: [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
