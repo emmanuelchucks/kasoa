@@ -86,7 +86,8 @@ function expectUndefinedGlobal(result: LintResult, name: string): void {
   expect(result.output).toContain(`'${name}' is not defined. [Error/eslint(no-undef)]`);
 }
 
-describe("composable configuration fragments", () => {
+// Each lint starts Oxlint and its JS plugin host, and several tests lint many times.
+describe("composable configuration fragments", { timeout: 20_000 }, () => {
   beforeAll(async () => {
     const temporaryRoot = resolve(homedir(), "tmp");
 
@@ -266,6 +267,19 @@ describe("composable configuration fragments", () => {
         'import { jest } from "@jest/globals";\n\njest.mock("maintained-native-package");\nbeforeEach(() => undefined);\n',
       ),
       writeFixtureFile(
+        "kasoa-universal.ts",
+        "// eslint-disable-next-line no-console\nexport const Symbol = 1;\n",
+      ),
+      writeFixtureFile(
+        "effect-component.tsx",
+        'import { useEffect } from "react";\n\nexport function Card(): JSX.Element {\n  useEffect(() => undefined, []);\n  return <div />;\n}\n',
+      ),
+      writeFixtureFile(
+        "native-list.tsx",
+        'import { FlatList } from "react-native";\n\nexport const List = FlatList;\n',
+      ),
+      writeFixtureFile("dynamic-import.ts", 'export const lazy = import("./dependency.ts");\n'),
+      writeFixtureFile(
         "test/setup.ts",
         'import { vi } from "vite-plus/test";\n\nvi.mock(import("../dependency.ts"));\n',
       ),
@@ -434,6 +448,38 @@ describe("composable configuration fragments", () => {
     expect(nativeResult.output).not.toContain("'setImmediate' is not defined");
     expect(nativeResult.output).not.toContain("'XMLHttpRequest' is not defined");
     expect(nativeResult.output).not.toContain("'__DEV__' is not defined");
+  });
+
+  it("applies Kasoa's own rules where each profile calls for them", async () => {
+    await useFragments(["baseToolingConfig", "reactCoreConfig"]);
+
+    const universalResult = lint("kasoa-universal.ts");
+
+    expect(universalResult.output).toContain("[Error/kasoa(disable-reason)]");
+    expect(universalResult.output).toContain("[Error/kasoa(no-shadowed-globals)]");
+    expect(lint("effect-component.tsx").output).toContain("[Error/kasoa(effects-in-hooks)]");
+    expect(lint("native-list.tsx", "dynamic-import.ts").output).not.toContain("[Error/kasoa(");
+
+    await useFragments(["baseToolingConfig", "reactCoreConfig", "reactNativeRuntimeConfig"]);
+
+    expect(lint("native-list.tsx").output).toContain("[Error/kasoa(legend-list-only)]");
+    expect(lint("dynamic-import.ts").output).toContain("[Error/kasoa(no-dynamic-import)]");
+
+    await useFragments(["baseToolingConfig", "cloudflareWorkerRuntimeConfig"]);
+
+    expect(lint("dynamic-import.ts").output).toContain("[Error/kasoa(no-dynamic-import)]");
+  });
+
+  it("applies Kasoa's own rules through profiles in workspace overrides", async () => {
+    await useFragments(
+      ["baseToolingConfig"],
+      '{ lint: { overrides: [{ files: ["native-list.tsx", "effect-component.tsx"], ...reactNativeLint }, { files: ["dynamic-import.ts"], ...cloudflareWorkerLint }] } }',
+      ["cloudflareWorkerLint", "reactNativeLint"],
+    );
+
+    expect(lint("native-list.tsx").output).toContain("[Error/kasoa(legend-list-only)]");
+    expect(lint("effect-component.tsx").output).toContain("[Error/kasoa(effects-in-hooks)]");
+    expect(lint("dynamic-import.ts").output).toContain("[Error/kasoa(no-dynamic-import)]");
   });
 
   it("keeps Worker source separate from Node and the DOM", async () => {

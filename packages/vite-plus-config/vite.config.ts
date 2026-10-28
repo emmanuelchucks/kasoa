@@ -19,6 +19,7 @@ export default composeConfig(
       entry: {
         "src/index": "./src/index.ts",
         "src/cloudflare-workers/index": "./src/cloudflare-workers/index.ts",
+        "src/lint/plugin/index": "./src/lint/plugin/index.ts",
       },
     },
   },

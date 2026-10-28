@@ -1,4 +1,4 @@
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { mkdir, mkdtemp, readdir, rm, symlink, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { dirname, resolve as resolvePath } from "node:path";
@@ -198,6 +198,26 @@ export default composeConfig(baseToolingConfig, cloudflareWorkerRuntimeConfig, c
   );
   await run(process.execPath, [resolvePath(fixturePath, "cloudflare-consumer.mjs")], fixturePath);
   await typeCheck(fixturePath);
+
+  // Oxlint loads Kasoa's own rules from the file the published package resolves.
+  await writeFile(
+    resolvePath(fixturePath, "vite.config.mjs"),
+    `import { baseToolingConfig, composeConfig } from "@kasoa/vite-plus-config";
+
+export default composeConfig(baseToolingConfig, { lint: { options: { typeAware: false, typeCheck: false } } });
+`,
+  );
+  await writeFile(resolvePath(fixturePath, "package.json"), '{"private":true,"type":"module"}\n');
+  await writeFile(resolvePath(fixturePath, "shadowed.mjs"), "export const Symbol = 1;\n");
+  const lint = spawnSync(
+    resolvePath(packageNodeModules, ".bin/vp"),
+    ["lint", "--format", "unix", "shadowed.mjs"],
+    { cwd: fixturePath, encoding: "utf8" },
+  );
+
+  if (!`${lint.stdout}${lint.stderr}`.includes("[Error/kasoa(no-shadowed-globals)]")) {
+    throw new Error(`The packed lint plugin did not run:\n${lint.stdout}${lint.stderr}`);
+  }
 } finally {
   await rm(fixturePath, { force: true, recursive: true });
 }

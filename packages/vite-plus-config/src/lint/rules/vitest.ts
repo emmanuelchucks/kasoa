@@ -1,6 +1,8 @@
 import type { LintRules } from "../types.ts";
 
 export const vitestRules: LintRules = {
+  // Vitest names a mocked module with `import()`, and tests load modules after mocking them.
+  "kasoa/no-dynamic-import": "off",
   "max-nested-callbacks": [
     "error",
     {
