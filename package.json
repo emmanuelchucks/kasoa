@@ -23,8 +23,12 @@
     "vite": "^8.3.5",
     "vite-plus": "^1.4.0"
   },
-  "engines": {
-    "node": ">=24.11.0"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.x",
+      "onFail": "download"
+    }
   },
-  "packageManager": "pnpm@12.9.1"
+  "packageManager": "pnpm@12.16.1"
 }
