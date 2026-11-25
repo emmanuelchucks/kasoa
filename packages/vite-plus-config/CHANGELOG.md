@@ -1,5 +1,11 @@
 # @kasoa/vite-plus-config
 
+## 0.6.2
+
+### Patch Changes
+
+- b070d6a: Pass `config: true` to `@cloudflare/vitest-plugin` when `cloudflare.config.ts` is present instead of the removed `experimental.newConfig` option, and require `@cloudflare/vitest-plugin` 1.5 or newer.
+
 ## 0.6.1
 
 ### Patch Changes
