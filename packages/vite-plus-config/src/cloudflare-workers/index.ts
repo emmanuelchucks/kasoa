@@ -25,20 +25,23 @@ function createLazyPluginInputs(
 export function createCloudflareTestConfig(
   options: CloudflareTestConfigOptions = {},
 ): ConfigFragment {
-  const { wrangler, ...pluginOptions } = options;
+  const { config, wrangler, ...pluginOptions } = options;
 
   return {
-    plugins: createLazyPluginInputs(() => [
+    plugins: createLazyPluginInputs(() => {
       // Projects managed by the cf CLI keep their Worker in cloudflare.config.ts.
-      wrangler === undefined && existsSync(CLOUDFLARE_CONFIG_PATH)
-        ? cloudflareTest({
-            ...pluginOptions,
-            experimental: { newConfig: { configPath: CLOUDFLARE_CONFIG_PATH } },
-          })
-        : cloudflareTest({
-            ...pluginOptions,
-            wrangler: { configPath: DEFAULT_WRANGLER_CONFIG_PATH, ...wrangler },
-          }),
-    ]),
+      if (config !== undefined && config !== false) {
+        return [cloudflareTest({ ...pluginOptions, config })];
+      }
+      if (config !== false && wrangler === undefined && existsSync(CLOUDFLARE_CONFIG_PATH)) {
+        return [cloudflareTest({ ...pluginOptions, config: true })];
+      }
+      return [
+        cloudflareTest({
+          ...pluginOptions,
+          wrangler: { configPath: DEFAULT_WRANGLER_CONFIG_PATH, ...wrangler },
+        }),
+      ];
+    }),
   };
 }

@@ -150,7 +150,7 @@ For several pack entries, spread `libraryPackDefaults` into each one instead of 
 ## Cloudflare Workers tests
 
 ```bash
-pnpm add -D @cloudflare/vitest-plugin@^1.4
+pnpm add -D @cloudflare/vitest-plugin@^1.5
 ```
 
 ```ts

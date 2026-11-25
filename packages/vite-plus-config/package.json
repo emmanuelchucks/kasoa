@@ -55,13 +55,13 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cloudflare/vitest-plugin": "1.4.9",
+    "@cloudflare/vitest-plugin": "1.9.2",
     "@types/node": "24.19.2",
     "typescript": "^7.0.2",
     "vite-plus": "^1.4.0"
   },
   "peerDependencies": {
-    "@cloudflare/vitest-plugin": "^1.4.0",
+    "@cloudflare/vitest-plugin": "^1.5.0",
     "typescript": ">=7 <8",
     "vite-plus": ">=1.4.0 <2"
   },
